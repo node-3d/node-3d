@@ -1,8 +1,21 @@
-# Javascript Code-Style
+# Code-Style Guidelines
 
 
 DISCLAIMER: These rules may or may not be linted, but are sure code-reviewed.
 At least, linters are configured not to oppose the rules below.
+
+
+## File System
+
+1. Only lowercase in names.
+
+1. Words are separated with dashes.
+
+1. Do not publish unnecessary files to NPM, use **.npmignore** file.
+
+1. If there is an empty directory to be kept, place an empty **.keep** file inside.
+
+1. Use [SemVer](https://semver.org) versioning pattern.
 
 
 ## Spaces
@@ -41,6 +54,8 @@ At least, linters are configured not to oppose the rules below.
 	x = 4;
 	//    ^^^^^ - NOTHING
 	```
+
+1. End all files with a newline.
 
 1. Operators have spaces around them.
 	
@@ -198,7 +213,7 @@ const x = value;
 // FIXME: sometimes divided by 0
 const y = 1 / Date.now() % 0xFFFFFF;
 
-const z = getValue();
+let z = getValue();
 // HACK: I wouldn't do that, but now it works
 z = (z << 1) - (z >> 1); // z*2 - z/2
 ```
@@ -216,12 +231,19 @@ z = (z << 1) - (z >> 1); // z*2 - z/2
 
 ## JS
 
+1. `'use strict';`
+
+1. Place requires in the following order:
+	* Built in Node Modules (such as `path`)
+	* External Gsom Modules (such as `gsom`, `remote`)
+	* Local Modules (using relative paths)
+
 1. Object literals can be one-line, if there are at most 5 props and the whole
 literal is below 60 symbols in length.
 	
 	```
-	const obj1 = {x: 1, y: 2, z: 3, w: 4}; // ok
-	const obj2 = {someProperty1: 'my string', someProperty3: 'other string', counter: 1}; // NOT ok
+	const obj1 = { x: 1, y: 2, z: 3, w: 4 }; // ok
+	const obj2 = { someProperty1: 'my string', someProperty3: 'other string', counter: 1 }; // NOT ok
 	```
 
 1. Declaring a group of variables, do it multi-line, using keyword on every line.
@@ -272,4 +294,6 @@ literal is below 60 symbols in length.
 	}
 	```
 
-1. Promise resolving functions should be named **res**/**rej** or **resolve**/**reject**.
+1. Promise resolving functions should be named `res`/`rej` or `resolve`/`reject`.
+
+1. Use `const`/`let` as appropriate.
