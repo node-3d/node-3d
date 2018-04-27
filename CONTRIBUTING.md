@@ -28,16 +28,16 @@ your bug is related to, create an issue on that repository.
 
 Explain the problem and include additional details to help maintainers reproduce the problem:
 
-* **Use a clear and descriptive title** for the issue to identify the problem.
-* **Describe the exact steps which reproduce the problem** in as many details as possible.
-* **Provide specific examples to demonstrate the steps**.
+* Use a clear and descriptive title for the issue to identify the problem.
+* Describe the exact steps which reproduce the problem in as many details as possible.
+* Provide specific examples to demonstrate the steps.
 Include links to files or GitHub projects, or copy/pastable snippets,
 which you use in those examples. If you're providing snippets in the issue,
 use [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
-* **Describe the behavior you observed after following the steps**
+* Describe the behavior you observed after following the steps
 and point out what exactly is the problem with that behavior.
-* **Explain which behavior you expected to see instead and why.**
-* **If the problem wasn't triggered by a specific action**, describe what you
+* Explain which behavior you expected to see instead and why.
+* If the problem wasn't triggered by a specific action, describe what you
 were doing before the problem happened.
 
 
@@ -49,15 +49,15 @@ After you've determined [which repository](#node3d-packages)
 your enhancement suggestion is related to, create an issue on that
 repository and provide the following information:
 
-* **Use a clear and descriptive title** for the issue to identify the suggestion.
-* **Provide a step-by-step description of the suggested enhancement**
+* Use a clear and descriptive title for the issue to identify the suggestion.
+* Provide a step-by-step description of the suggested enhancement
 in as many details as possible.
-* **Provide specific examples to demonstrate the steps**.
+* Provide specific examples to demonstrate the steps.
 Include copy/pastable snippets which you use in those examples,
 as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
-* **Describe the current behavior** and
-**explain which behavior you expected to see instead** and why.
-* **Explain why this enhancement would be useful** to most Node3D
+* Describe the current behavior and
+explain which behavior you expected to see instead and why.
+* Explain why this enhancement would be useful to most Node3D
 users and isn't something that can or should be implemented as a [community package](#node3d-packages).
 
 

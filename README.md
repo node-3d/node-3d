@@ -45,26 +45,32 @@ ways in which you can collaborate:
 To use this as a developer, you have to satisfy several simple prerequisites:
 
 1. Have a recent version of **Node.js** and **NPM** installed.
+
 1. On **Windows**:
 	* Install **vcredist 2013** for your architecture (**x32**/**x64**).
 	* Do `npm i -g windows-build-tools` on a **PRIVILEGED** console window, reboot.
 	* The use of **Git for Windows** and its **Git Bash** is strongly encouraged.
+	
 1. `mkdir my-project && cd my-project && npm init -y && npm i -s 3d-core-raub && touch index.js`
+
 1. Paste the code and see if it works:
-```
-'use strict';
+	
+	```
+	'use strict';
+	
+	const { Screen, Brush, loop } = require('3d-core-raub');
+	
+	
+	const screen = new Screen();
+	loop(() => screen.draw());
+	
+	const brush = new Brush({ screen, color: 0x00FF00 });
+	
+	screen.on('mousemove', e => brush.pos = [e.x, e.y]);
+	```
 
-const { Screen, Brush, loop } = require('3d-core-raub');
-
-
-const screen = new Screen();
-loop(() => screen.draw());
-
-const brush = new Brush({ screen, color: 0x00FF00 });
-
-screen.on('mousemove', e => brush.pos = [e.x, e.y]);
-```
 1. Further consult the docs of [3d-core-raub](https://github.com/raub/node-3d-core).
+
 1. See if there are some interesting plugins to play with (official list below).
 
 

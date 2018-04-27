@@ -1,8 +1,17 @@
 # Code-Style Guidelines
 
 
-DISCLAIMER: These rules may or may not be linted, but are sure code-reviewed.
+> DISCLAIMER: These rules may or may not be linted, but are sure code-reviewed.
 At least, linters are configured not to oppose the rules below.
+
+
+## Naming
+
+1. Entities (variable, function) start lowercase.
+1. Type (class) names start uppercase.
+1. Use [СamelCase](https://ru.wikipedia.org/wiki/CamelCase)
+1. CamelCase abbreviation by lowercasing all but first letters: *my**Xml**To**Html**Converter*.
+1. Constants and macros are in UPPER\_CASE, where '\_' separates the words.
 
 
 ## Spaces
@@ -204,16 +213,6 @@ let z = getValue();
 // HACK: I wouldn't do that, but now it works
 z = (z << 1) - (z >> 1); // z*2 - z/2
 ```
-
-
-## Naming
-
-1. Entities (variable, function) start lowercase.
-1. Type (class) names start uppercase.
-1. Use [СamelCase](https://ru.wikipedia.org/wiki/CamelCase)
-1. CamelCase abbreviation by lowercasing all but first letters: *my**Xml**To**Html**Converter*.
-1. Constants and macros are in UPPER\_CASE, where '\_' separates the words.
-
 
 
 ## JS
