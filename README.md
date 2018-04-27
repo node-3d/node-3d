@@ -39,6 +39,8 @@ ways in which you can collaborate:
 1. Contribute a new feature or fix in form of a Pull Request.
 1. Donate me a cup of coffee :coffee:
 
+The contribution guidelines are available as [CONTRIBUTION.md](/CONTRIBUTION.md).
+
 
 ## Where to Start?
 
