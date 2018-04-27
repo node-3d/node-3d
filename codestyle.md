@@ -5,19 +5,6 @@ DISCLAIMER: These rules may or may not be linted, but are sure code-reviewed.
 At least, linters are configured not to oppose the rules below.
 
 
-## File System
-
-1. Only lowercase in names.
-
-1. Words are separated with dashes.
-
-1. Do not publish unnecessary files to NPM, use **.npmignore** file.
-
-1. If there is an empty directory to be kept, place an empty **.keep** file inside.
-
-1. Use [SemVer](https://semver.org) versioning pattern.
-
-
 ## Spaces
 
 1. Indent with tabs.

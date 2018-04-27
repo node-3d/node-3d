@@ -1,34 +1,20 @@
 # Contributing to Node3D
 
 
-The following is a set of guidelines for contributing to Node3D and its packages,
-which are hosted in the [Node3D Organization](https://github.com/node-node3d) on GitHub.
+The following is a set of guidelines for contributing to **Node3D** and its modules,
+which are hosted in the [Node3D Organization](https://github.com/node-3d) on GitHub.
 
 
 #### Table Of Contents
 
 [How Can I Contribute?](#how-can-i-contribute)
-  * [Reporting Bugs](#reporting-bugs)
-  * [Suggesting Enhancements](#suggesting-enhancements)
+  * [Submitting A Bug Report](#submitting-a-bug-report)
+  * [Submitting An Enhancement Suggestion](#submitting-an-enhancement-suggestion)
   * [Pull Requests](#pull-requests)
 
 [Styleguides](#styleguides)
   * [Git Commit Messages](#git-commit-messages)
   * [Node3D Styleguide](#node3d-styleguide)
-
-
-## Node3D Packages
-
-Node3D is a large open source project &mdash; it's made up of over
-[20 repositories](https://github.com/node-node3d). Node3D is intentionally very modular.
-
-All modules are divided into 3 categories: deps, addons, aggregators:
-
-* Packages that carry one or more binary libraries are published as `deps-[package-name]`.
-* Addon packages are Node.js addons, which provide certain native functions, and
-require compilation with **node-gyp** upon installation. They have arbitrary names.
-* Pure script packages aggregate functionality from several submodules
-and provide high-level abstractions. The naming is `3d-[package-name]`.
 
 
 ## How Can I Contribute?
@@ -55,7 +41,7 @@ and point out what exactly is the problem with that behavior.
 were doing before the problem happened.
 
 
-#### Submitting An Enhancement Suggestion
+### Submitting An Enhancement Suggestion
 
 Enhancement suggestions are tracked as
 [GitHub issues](https://guides.github.com/features/issues/).
@@ -81,33 +67,48 @@ users and isn't something that can or should be implemented as a [community pack
 * Follow the [Node3D Styleguide](#node3d-styleguide).
 
 
-## Styleguides
+## Node3D Styleguide
+
+
+The code must adhere to [Node3D Codestyle](/CODESTYLE.md).
+
+
+## File System
+
+1. Only lowercase in file/directory names.
+
+1. Words are separated with dashes.
+
+1. Do not publish unnecessary files to NPM, use **.npmignore** file.
+
+1. If there is an empty directory to be kept, place an empty **.keep** file inside.
+
+1. Use [SemVer](https://semver.org) versioning pattern.
 
 
 ### Git Commit Messages
 
-* Use the present tense ("Add feature" not "Added feature")
-* Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
-* Limit the first line to 72 characters or less
-* Reference issues and pull requests liberally after the first line
-* Consider starting the commit message with an applicable emoji:
-    * :art: `:art:` when improving the format/structure of the code
-    * :racehorse: `:racehorse:` when improving performance
-    * :non-potable_water: `:non-potable_water:` when plugging memory leaks
-    * :memo: `:memo:` when writing docs
-    * :penguin: `:penguin:` when fixing something on Linux
-    * :apple: `:apple:` when fixing something on macOS
-    * :checkered_flag: `:checkered_flag:` when fixing something on Windows
-    * :bug: `:bug:` when fixing a bug
-    * :fire: `:fire:` when removing code or files
-    * :green_heart: `:green_heart:` when fixing the CI build
-    * :white_check_mark: `:white_check_mark:` when adding tests
-    * :lock: `:lock:` when dealing with security
-    * :arrow_up: `:arrow_up:` when upgrading dependencies
-    * :arrow_down: `:arrow_down:` when downgrading dependencies
-    * :shirt: `:shirt:` when removing linter warnings
+1. Use the present tense ("Add feature" not "Added feature").
 
+1. Use the imperative mood ("Move cursor to..." not "Moves cursor to...").
 
-### Node3D Styleguide
+1. Limit the first line to 72 characters or less.
 
-All JavaScript must adhere to [JavaScript Standard Style](https://standardjs.com/).
+1. Reference issues and pull requests liberally after the first line.
+
+1. Consider starting the commit message with an applicable emoji:
+	* :art: `:art:` when improving the format/structure of the code;
+	* :racehorse: `:racehorse:` when improving performance;
+	* :non-potable_water: `:non-potable_water:` when plugging memory leaks;
+	* :memo: `:memo:` when writing docs;
+	* :penguin: `:penguin:` when fixing something on Linux;
+	* :apple: `:apple:` when fixing something on macOS;
+	* :checkered_flag: `:checkered_flag:` when fixing something on Windows;
+	* :bug: `:bug:` when fixing a bug;
+	* :fire: `:fire:` when removing code or files;
+	* :green_heart: `:green_heart:` when fixing the CI build;
+	* :white_check_mark: `:white_check_mark:` when adding tests;
+	* :lock: `:lock:` when dealing with security;
+	* :arrow_up: `:arrow_up:` when upgrading dependencies;
+	* :arrow_down: `:arrow_down:` when downgrading dependencies;
+	* :shirt: `:shirt:` when removing linter warnings;
