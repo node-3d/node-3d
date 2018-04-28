@@ -1,5 +1,9 @@
 # Node3D
 
+The goal of this project is to provide a fully functional opensource environment for
+programming multimedia 3D apps with **Node.js**. Also, you can help **Node3D** by
+contributing to its development.
+
 
 ## Intro
 
