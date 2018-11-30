@@ -1,5 +1,7 @@
 language: cpp
 
+compiler: clang++
+
 matrix:
   include:
   - name: "Linux"
