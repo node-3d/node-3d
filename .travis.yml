@@ -9,6 +9,7 @@ matrix:
       - ./_linux.sh
   - name: "MacOS"
     os: osx
+    osx_image: xcode8
     script:
       - chmod +x ./_macos.sh
       - ./_macos.sh

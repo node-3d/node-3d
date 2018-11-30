@@ -11,7 +11,7 @@ echo EXPORTED
 g++ -v
 echo VERED1
 
-brew install gcc >/dev/null
+brew install gcc@4.9
 
 echo INSTALLED
 g++ -v
