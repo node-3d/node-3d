@@ -11,6 +11,6 @@ export INC = "$INC INCLUDE_I386='-isysroot /Library/Developer/CommandLineTools/S
 export INC = "$INC INCLUDE_X86_64='-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk'"
 echo INC
 
-make -f Makefile.osx CPP_X86_64='g++' INCLUDE_X86_64='-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk' libfreeimage-3.17.0.dylib
+make -f Makefile.osx CPP_PPC='g++' INCLUDE_PPC='-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk' libfreeimage-3.17.0.dylib
 
 ls
