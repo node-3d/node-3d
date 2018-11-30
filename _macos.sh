@@ -4,7 +4,13 @@ cd freeimage
 unzip -qq FreeImage3170.zip -d .
 cd FreeImage
 
-find / -name stdlib.h
+# find / -name stdlib.h
 
-make -f Makefile.osx CPP_X86_64='g++' CPP_PPC='g++' CPP_I386='g++' libfreeimage-3.17.0.dylib
+export INC = "INCLUDE_PPC='-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk'"
+export INC = "$INC INCLUDE_I386='-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk'"
+export INC = "$INC INCLUDE_X86_64='-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk'"
+echo INC
+
+make -f Makefile.osx CPP_X86_64='g++' INCLUDE_X86_64='-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk' libfreeimage-3.17.0.dylib
+
 ls
