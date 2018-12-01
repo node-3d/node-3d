@@ -6,6 +6,6 @@ cd FreeImage
 
 find / -name stdlib.h
 
-make -f Makefile.osx CPP_PPC='g++' INCLUDE_PPC='-isysroot /Applications/Xcode-9.4.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk' libfreeimage-3.17.0.dylib
+make -f Makefile.osx CPP_X86_64='g++' INCLUDE_X86_64='-isysroot /Applications/Xcode-9.4.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk' libfreeimage-3.17.0.dylib-x86_64
 
 ls
