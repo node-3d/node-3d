@@ -10,6 +10,8 @@ make
 ls
 ls CMake
 
+find . -name "libglfw.dylib"
+
 cd ../..
 # mv glfw/glfw-3.2.1/libfreeimage-3.17.0.dylib-x86_64 freeimage.dylib
 cd ..
