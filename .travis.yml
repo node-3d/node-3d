@@ -1,7 +1,5 @@
 language: cpp
 
-compiler: clang++
-
 if: commit_message =~ /^:hammer:/
 
 matrix:
@@ -11,21 +9,19 @@ matrix:
   #   dist: xenial
   #   sudo: false
   #   script:
-  #     - chmod +x ./_linux.sh
-  #     - ./_linux.sh
+  #     - chmod +x linux/index.sh && linux/index.sh
   - name: "MacOS"
     os: osx
+    compiler: clang++
     script:
-      - chmod +x ./_macos.sh
-      - ./_macos.sh
+      # FREEIMAGE
+      - chmod +x osx/freeimage.sh && osx/freeimage.sh
 
 deploy:
-  - provider: script
-    script:
-      - ls
-  - provider: releases
-    api_key: $GITHUB_TOKEN
-    skip_cleanup: true
-    draft: true
-    file:
-      - "freeimage/FreeImage/freeimage.dylib"
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  skip_cleanup: true
+  draft: true
+  file:
+    # FREEIMAGE
+    - "osx/freeimage.dylib"
