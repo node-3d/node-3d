@@ -2,6 +2,8 @@ language: cpp
 
 compiler: clang++
 
+if: commit_message =~ /^:hammer:/
+
 matrix:
   include:
   # - name: "Linux"
@@ -26,4 +28,4 @@ deploy:
     skip_cleanup: true
     draft: true
     file:
-      - "freeimage.dylib"
+      - "freeimage/FreeImage/freeimage.dylib"
