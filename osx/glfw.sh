@@ -8,8 +8,9 @@ cmake -DBUILD_SHARED_LIBS=ON -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -D
 make
 
 ls CMakeFiles
+ls src/CMakeFiles/glfw.dir
 
-cat CMakeFiles/Makefile2
+cat src/CMakeFiles/glfw.dir/build.make
 
 cd ../..
 mv glfw/glfw-3.2.1/src/libglfw.dylib glfw.dylib
