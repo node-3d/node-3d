@@ -8,12 +8,11 @@ cmake -DBUILD_SHARED_LIBS=ON -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -D
 make
 
 ls
-ls CMake
 
-find . -name "libglfw.dylib"
+cat Makefile
 
 cd ../..
-# mv glfw/glfw-3.2.1/libfreeimage-3.17.0.dylib-x86_64 freeimage.dylib
+mv glfw/glfw-3.2.1/src/libglfw.dylib glfw.dylib
 cd ..
 
 echo 'GLFW Build Finished'
