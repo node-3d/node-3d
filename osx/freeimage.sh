@@ -4,6 +4,7 @@ cd osx/freeimage
 unzip -qq FreeImage3170.zip -d .
 cd FreeImage
 
+export DYLIB_INSTALL_NAME_BASE=@rpath
 make -f Makefile.osx \
 	CPP_X86_64='g++ -w' \
 	CC_X86_64='gcc -w' \

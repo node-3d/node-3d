@@ -17,13 +17,11 @@ matrix:
       # FREEIMAGE
       - chmod +x osx/freeimage.sh && osx/freeimage.sh
 
-before_deploy:
-  - export BODY=$commit_message
 
 deploy:
   provider: releases
   name: "Binaries"
-  body: $BODY
+  body: $TRAVIS_COMMIT_MESSAGE
   api_key: $GITHUB_TOKEN
   skip_cleanup: true
   draft: true
