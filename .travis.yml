@@ -4,15 +4,23 @@ compiler: clang++
 
 matrix:
   include:
-  - name: "Linux"
-    os: linux
-    dist: xenial
-    sudo: false
-    script:
-      - chmod +x ./_linux.sh
-      - ./_linux.sh
+  # - name: "Linux"
+  #   os: linux
+  #   dist: xenial
+  #   sudo: false
+  #   script:
+  #     - chmod +x ./_linux.sh
+  #     - ./_linux.sh
   - name: "MacOS"
     os: osx
     script:
       - chmod +x ./_macos.sh
       - ./_macos.sh
+
+deploy:
+  provider: releases
+  api_key: GITHUB_TOKEN
+  file:
+    - "freeimage.dylib"
+  skip_cleanup: true
+  draft: true
