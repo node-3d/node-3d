@@ -6,8 +6,12 @@ cd glew-2.1.0
 
 make LDFLAGS.EXTRA='-install_name "@rpath/glew.dylib" -arch x86_64' glew.lib.shared
 
+ls -la
+echo ----------------
+ls -la
+
 cd ../..
-mv glfw/glew-2.1.0/lib/libGLEW.2.1.0.dylib glew.dylib
+mv glfw/glew-2.1.0/libGLEW.2.1.0.dylib glew.dylib
 cd ..
 
 echo 'GLEW Build Finished'
