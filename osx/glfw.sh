@@ -14,6 +14,7 @@ cmake \
 	-DGLFW_USE_MENUBAR=OFF \
 	-DGLFW_USE_RETINA=ON \
 	-DMACOSX_RPATH=ON \
+	-DCMAKE_SHARED_LINKER_FLAGS='-install_name "@rpath/glfw.dylib"' \
 	.
 
 
