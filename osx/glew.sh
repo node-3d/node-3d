@@ -12,8 +12,8 @@ ls -la lib
 
 cd ../..
 echo ----------------
-ls -la glfw/glew-2.1.0/lib
-mv glfw/glew-2.1.0/lib/libGLEW.2.1.0.dylib glew.dylib
+ls -la glew/glew-2.1.0/lib
+mv glew/glew-2.1.0/lib/libGLEW.2.1.0.dylib glew.dylib
 cd ..
 
 echo 'GLEW Build Finished'
