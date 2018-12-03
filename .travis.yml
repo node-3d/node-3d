@@ -23,7 +23,7 @@ matrix:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: ls osx
+    script: ls -la osx
   - provider: releases
     name: "Binaries"
     body: $TRAVIS_COMMIT_MESSAGE

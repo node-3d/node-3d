@@ -17,22 +17,18 @@ cmake \
 	.
 
 
-echo '======= CMakeFiles/Makefile2 ========'
-cat CMakeFiles/Makefile2
+echo '======= CMakeFiles/glfw.dir/link.txt ========'
+cat CMakeFiles/glfw.dir/link.txt
 
 echo '======= src/CMakeFiles/glfw.dir/build.make ========'
 cat src/CMakeFiles/glfw.dir/build.make
-
-echo '======= src/CMakeFiles/glfw.dir/depend.make ========'
-cat src/CMakeFiles/glfw.dir/depend.make
 
 echo '=======  ========'
 
 make
 
-ls
 echo --------------
-ls src
+ls -la src
 echo --------------
 
 cd ../..
