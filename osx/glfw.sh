@@ -15,7 +15,6 @@ cmake \
 	-DGLFW_USE_RETINA=ON \
 	.
 
-# make
 
 echo '======= CMakeFiles/Makefile2 ========'
 cat CMakeFiles/Makefile2
@@ -27,6 +26,8 @@ echo '======= src/CMakeFiles/glfw.dir/depend.make ========'
 cat src/CMakeFiles/glfw.dir/depend.make
 
 echo '=======  ========'
+
+make
 
 cd ../..
 mv glfw/glfw-3.2.1/src/libglfw.dylib glfw.dylib
