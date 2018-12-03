@@ -21,14 +21,18 @@ matrix:
 
 
 deploy:
-  provider: releases
-  name: "Binaries"
-  body: $TRAVIS_COMMIT_MESSAGE
-  api_key: $GITHUB_TOKEN
-  skip_cleanup: true
-  draft: true
-  file:
-    # FREEIMAGE
-    # - "osx/freeimage.dylib"
-    # GLFW
-    - "osx/glfw.dylib"
+  - provider: script
+    skip_cleanup: true
+    script: ls osx
+  - provider: releases
+    name: "Binaries"
+    body: $TRAVIS_COMMIT_MESSAGE
+    api_key: $GITHUB_TOKEN
+    skip_cleanup: true
+    overwrite: true
+    draft: true
+    file:
+      # FREEIMAGE
+      # - "osx/freeimage.dylib"
+      # GLFW
+      - "osx/glfw.dylib"
