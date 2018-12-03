@@ -18,7 +18,7 @@ cmake \
 
 
 echo '======= CMakeFiles/glfw.dir/link.txt ========'
-cat CMakeFiles/glfw.dir/link.txt
+cat src/CMakeFiles/glfw.dir/link.txt
 
 echo '======= src/CMakeFiles/glfw.dir/build.make ========'
 cat src/CMakeFiles/glfw.dir/build.make
@@ -27,14 +27,8 @@ echo '=======  ========'
 
 make
 
-echo --------------
-ls -la src
-echo --------------
-
 cd ../..
-mv glfw/glfw-3.2.1/src/libglfw.dylib glfw.dylib
-ls 
-echo --------------
+mv glfw/glfw-3.2.1/src/libglfw.3.2.dylib glfw.dylib
 cd ..
 
 echo 'GLFW Build Finished'
