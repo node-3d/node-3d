@@ -30,7 +30,7 @@ echo '======= src/CMakeFiles/glfw.dir/build.make ========'
 cat src/CMakeFiles/glfw.dir/build.make
 echo '======= src/CMakeFiles/glfw.dir/depend.make ========'
 cat src/CMakeFiles/glfw.dir/depend.make
-echo '======= ========'
+echo '=======  ========'
 
 cd ../..
 mv glfw/glfw-3.2.1/src/libglfw.dylib glfw.dylib
