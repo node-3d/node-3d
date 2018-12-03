@@ -17,7 +17,9 @@ matrix:
       # FREEIMAGE
       # - chmod +x osx/freeimage.sh && osx/freeimage.sh
       # GLFW
-      - chmod +x osx/glfw.sh && osx/glfw.sh
+      # - chmod +x osx/glfw.sh && osx/glfw.sh
+      # GLEW
+      - chmod +x osx/glew.sh && osx/glew.sh
 
 
 deploy:
@@ -35,4 +37,6 @@ deploy:
       # FREEIMAGE
       # - "osx/freeimage.dylib"
       # GLFW
-      - "osx/glfw.dylib"
+      # - "osx/glfw.dylib"
+      # GLEW
+      - "osx/glew.dylib"
