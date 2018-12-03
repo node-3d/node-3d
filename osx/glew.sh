@@ -4,7 +4,7 @@ cd osx/glew
 unzip -qq glew-2.1.0.zip -d .
 cd glew-2.1.0
 
-make LDFLAGS.EXTRA='-install_name "@rpath/glew.dylib" -arch x86_64' glew.lib.shared
+make LDFLAGS.EXTRA='-install_name "@rpath/glew.dylib" -arch x86_64' glew.lib
 
 ls -la
 echo ----------------
