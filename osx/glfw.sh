@@ -30,8 +30,15 @@ echo '=======  ========'
 
 make
 
+ls
+echo --------------
+ls src
+echo --------------
+
 cd ../..
 mv glfw/glfw-3.2.1/src/libglfw.dylib glfw.dylib
+ls 
+echo --------------
 cd ..
 
 echo 'GLFW Build Finished'
