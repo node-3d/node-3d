@@ -303,7 +303,7 @@ Controller.prototype.FinishedPageCallback = function() {
 EOF
 
 chmod u+x $1
-
+echo Start Install
 if [ -n "$DISABLE_PROGRESS_REPORT" ]
 then
 	QT_QPA_PLATFORM=minimal $INSTALLER $ARGS --script $SCRIPT

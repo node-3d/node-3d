@@ -27,7 +27,7 @@ if [ "$(uname)" = "Darwin" ]; then
   INSTALLER_NAME=${INSTALLER%.*}
   APPFILE=/Volumes/${INSTALLER_NAME}/${INSTALLER_NAME}.app/Contents/MacOS/${INSTALLER_NAME}
   hdiutil attach ${PWD}/${INSTALLER}
-  ./extract-qt-installer.sh $APPFILE ${QT_TARGET_CATALOG}/Qt
+  ./extract-qt-installer.sh $APPFILE ${QT_TARGET_CATALOG}/Qt -v
   hdiutil detach /Volumes/${INSTALLER_NAME}
 elif [ "$(uname)" = "Linux" ]; then
   ./extract-qt-installer.sh ${PWD}/${INSTALLER} ${QT_TARGET_CATALOG}/Qt
