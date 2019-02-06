@@ -20,7 +20,7 @@ INSTALLER=$(basename $DOWNLOAD_URL)
 ENVFILE=${QT_TARGET_CATALOG}/qt-${QT_VERSION}.env
 
 echo Downloading Qt
-${QT_CI_DOWNLOADER} ${DOWNLOAD_URL} || exit 1
+${QT_CI_DOWNLOADER} ${DOWNLOAD_URL} > /dev/null 2>&1 || exit 1
 
 echo Installing Qt
 if [ "$(uname)" = "Darwin" ]; then
