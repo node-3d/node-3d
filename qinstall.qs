@@ -31,20 +31,9 @@ Controller.prototype.TargetDirectoryPageCallback = function()
 Controller.prototype.ComponentSelectionPageCallback = function() {
 	var widget = gui.currentPageWidget();
 	
-	function list_packages() {
-		var components = installer.components();
-		log("Available components: " + components.length);
-		var packages = ["Packages: "];
-		for (var i = 0 ; i < components.length ;i++) {
-			packages.push(components[i].name);
-		}
-		log(packages.join(" "));
-	}
-	list_packages();
-	
-	// widget.deselectAll();
-	// widget.selectComponent("qt.55.gcc_64");
-	// widget.selectComponent("qt.55.qtquickcontrols");
+	widget.deselectAll();
+	widget.selectComponent("qt5.5111.gcc_64");
+	widget.selectComponent("qt5.5111.qtquickcontrols");
 	
 	// widget.deselectComponent("qt.tools.qtcreator");
 	// widget.deselectComponent("qt.55.qt3d");
