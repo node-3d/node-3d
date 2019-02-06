@@ -13,7 +13,6 @@ matrix:
       - export QT_CI_PACKAGES=qt,qt.qt5,qt.qt5.5111,qt.qt5.5111.gcc_64
       - export VERBOSE=true
       - ./install-qt.sh 5.11.1 ~/qt
-  include:
   - name: "Linux"
     os: linux
     dist: xenial
