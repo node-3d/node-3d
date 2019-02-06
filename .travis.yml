@@ -9,3 +9,15 @@ matrix:
     compiler: clang++
     script:
       - echo OK.
+  include:
+  - name: "Linux"
+    os: linux
+    dist: xenial
+    sudo: false
+    script:
+      - wget "https://download.qt.io/archive/qt/5.11/5.11.1/qt-opensource-linux-x64-5.11.1.run"
+      - chmod +x qt-opensource-linux-x64-5.11.1.run
+      - qt-opensource-linux-x64-5.11.1.run --script qinstall.qs --silent --verbose
+
+
+ 
