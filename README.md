@@ -49,7 +49,6 @@ The contribution guidelines are available as [CONTRIBUTING.md](/CONTRIBUTING.md)
 	
 	const { Screen, Brush, loop } = require('3d-core-raub');
 	
-	
 	const screen = new Screen();
 	loop(() => screen.draw());
 	
@@ -70,14 +69,23 @@ The contribution guidelines are available as [CONTRIBUTING.md](/CONTRIBUTING.md)
 There are at least 4 distinct categories of modules you come across at **Node3D**.
 
 1. **Dependency** - carries one or more precompiled binary.
-	* deps-bullet-raub - Bullet Physics binaries and headers.
-	* deps-freeimage-raub - FreeImage binaries and headers.
-	* deps-labsound-raub - LabSound binaries and headers.
-	* deps-opengl-raub - OpenGL, GLFW, GLEW binaries and headers.
-	* deps-qmlui-raub - QmlUi binaries and headers.
-	* deps-qt-core-raub - Qt binaries for console apps.
-	* deps-qt-gui-raub - Qt binaries for GUI apps.
-	* deps-qt-qml-raub - Qt binaries for QML apps.
+	* [deps-bullet-raub](https://github.com/node-3d/deps-bullet-raub) -
+	[Bullet Physics](https://pybullet.org/wordpress/) binaries and headers.
+	* [deps-freeimage-raub](https://github.com/node-3d/deps-freeimage-raub) -
+	[FreeImage](http://freeimage.sourceforge.net/) binaries and headers.
+	* [deps-labsound-raub](https://github.com/node-3d/deps-labsound-raub) -
+	[LabSound](https://github.com/LabSound/LabSound) binaries and headers.
+	* [deps-opengl-raub](https://github.com/node-3d/deps-opengl-raub) -
+	[OpenGL](https://www.opengl.org/), [GLFW](https://www.glfw.org/),
+	[GLEW](http://glew.sourceforge.net/) binaries and headers.
+	* [deps-qmlui-raub](https://github.com/node-3d/deps-qmlui-raub) -
+	QmlUi binaries and headers.
+	* [deps-qt-core-raub](https://github.com/node-3d/deps-qt-core-raub) -
+	Qt binaries for console apps.
+	* [deps-qt-gui-raub](https://github.com/node-3d/deps-qt-gui-raub) -
+	Qt binaries for GUI apps.
+	* [deps-qt-qml-raub](https://github.com/node-3d/deps-qt-qml-raub) -
+	Qt binaries for QML apps.
 
 1. **Addon** - provides certain native functions, and requires compilation
 with **node-gyp** upon installation.
@@ -91,16 +99,16 @@ with **node-gyp** upon installation.
 1. **Plugin** - a high-level **Node3D** module, exporting a single function. Having
 passed the Core to that function results in Core being extended with new features.
 For example:
-```
-const core3d = require('3d-core-raub');
-const bullet3d = require('3d-bullet-raub');
-
-bullet3d(core3d);
-
-
-const { bullet, Screen, three, loop } = core3d;
-const { Scene, Body } = bullet;
-```
+	
+	```
+	const core3d = require('3d-core-raub');
+	const bullet3d = require('3d-bullet-raub');
+	
+	bullet3d(core3d);
+	
+	const { bullet, Screen, three, loop } = core3d;
+	const { Scene, Body } = bullet;
+	```
 	
 	* 3d-bullet-raub - extends 3D Core with Bullet Physics.
 	* 3d-qml-raub - extends 3D Core with QML graphics.
@@ -125,6 +133,6 @@ and are licensed under **FIPL** terms.
 
 All such cases are explained in `README.md` per project in question.
 
-To summarize,
+To summarize:
 > **Node3D** can be used commercially. You don't have to pay for **Node3D** or
 any of its third-party libraries.
