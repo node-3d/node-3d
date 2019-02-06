@@ -4,39 +4,8 @@ if: commit_message =~ /^:hammer:/
 
 matrix:
   include:
-  # - name: "Linux"
-  #   os: linux
-  #   dist: xenial
-  #   sudo: false
-  #   script:
-  #     - chmod +x linux/index.sh && linux/index.sh
   - name: "MacOS"
     os: osx
     compiler: clang++
     script:
-      # FREEIMAGE
-      # - chmod +x osx/freeimage.sh && osx/freeimage.sh
-      # GLFW
-      # - chmod +x osx/glfw.sh && osx/glfw.sh
-      # GLEW
-      - chmod +x osx/glew.sh && osx/glew.sh
-
-
-deploy:
-  - provider: script
-    skip_cleanup: true
-    script: ls -la osx
-  - provider: releases
-    name: "Binaries"
-    body: $TRAVIS_COMMIT_MESSAGE
-    api_key: $GITHUB_TOKEN
-    skip_cleanup: true
-    overwrite: true
-    draft: true
-    file:
-      # FREEIMAGE
-      # - "osx/freeimage.dylib"
-      # GLFW
-      # - "osx/glfw.dylib"
-      # GLEW
-      - "osx/glew.dylib"
+      - echo OK.

@@ -89,12 +89,21 @@ There are at least 4 distinct categories of modules you come across at **Node3D*
 
 1. **Addon** - provides certain native functions, and requires compilation
 with **node-gyp** upon installation.
-	* bullet-raub - rigid-body subset of Bullet Physics.
-	* glfw-raub - native window control, can mimic web Document/Window/Canvas.
-	* image-raub - image loading, can mimic web Image.
-	* qml-raub - Node3D-QML interoperation.
-	* webaudio-raub - a WebAudio implementation.
-	* webgl-raub - a WebGL implementation.
+	* [bullet-raub](https://github.com/node-3d/bullet-raub) -
+	rigid-body subset of Bullet Physics.
+	* [glfw-raub](https://github.com/node-3d/glfw-raub) -
+	native window control, can mimic web Document/Window/Canvas.
+	* [image-raub](https://github.com/node-3d/image-raub) -
+	image loading, can mimic web
+	[Image](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image).
+	* [qml-raub](https://github.com/node-3d/qml-raub) -
+	Node3D-QML interoperation.
+	* [webaudio-raub](https://github.com/node-3d/webaudio-raub) -
+	a [WebAudio](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+	implementation.
+	* [webgl-raub](https://github.com/node-3d/webgl-raub) -
+	a [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
+	implementation.
 
 1. **Plugin** - a high-level **Node3D** module, exporting a single function. Having
 passed the Core to that function results in Core being extended with new features.
@@ -110,15 +119,22 @@ For example:
 	const { Scene, Body } = bullet;
 	```
 	
-	* 3d-bullet-raub - extends 3D Core with Bullet Physics.
-	* 3d-qml-raub - extends 3D Core with QML graphics.
-	* 3d-webaudio-raub - extends 3D Core with an audio interface.
+	* [3d-bullet-raub](https://github.com/node-3d/3d-bullet-raub) -
+	extends 3D Core with Bullet Physics.
+	* [3d-qml-raub](https://github.com/node-3d/3d-qml-raub) -
+	extends 3D Core with QML graphics.
+	* [3d-webaudio-raub](https://github.com/node-3d/3d-webaudio-raub) -
+	extends 3D Core with an audio interface.
 
 1. Other:
-	* 3d-core-raub - 3D Core, this is just enough for Node3D to work.
-	* addon-scaffold-raub - scaffolding tool for compiled addons.
-	* addon-tools-raub - helpers for Node.js addons.
-	* threejs-raub - a fork of Three.js with some additional features.
+	* [3d-core-raub](https://github.com/node-3d/3d-core-raub) -
+	3D Core, this is just enough for Node3D to work.
+	* [addon-scaffold-raub](https://github.com/node-3d/addon-scaffold-raub) -
+	scaffolding tool for compiled addons.
+	* [addon-tools-raub](https://github.com/node-3d/addon-tools-raub) -
+	helpers for Node.js addons.
+	* [threejs-raub](https://github.com/node-3d/threejs-raub) -
+	a fork of [Three.js](https://threejs.org/) with some additional features.
 
 
 ## License
