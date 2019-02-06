@@ -7,12 +7,15 @@ matrix:
   - name: "MacOS"
     os: osx
     compiler: clang++
+    # cache:
+    #   directories:
+    #    - /home/travis/qt
     script:
       - chmod +x ./install-qt.sh
       - chmod +x ./extract-qt-installer.sh
       - export QT_CI_PACKAGES=qt,qt.qt5,qt.qt5.5111,qt.qt5.5111.gcc_64
-      - export VERBOSE=true
-      - ./install-qt.sh 5.11.1 ~/qt
+      - ./install-qt.sh 5.11.1 /home/travis/qt
+      - ls ~/qt
   - name: "Linux"
     os: linux
     dist: xenial
