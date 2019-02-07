@@ -305,13 +305,12 @@ EOF
 chmod u+x $1
 
 
-while true; do
-	echo --bump--
-	sleep 60
-done &
+# while true; do
+# 	echo --bump--
+# 	sleep 60
+# done &
 
 echo Start Install
-echo "$DISABLE_PROGRESS_REPORT"
 
 
 if [ -n "$DISABLE_PROGRESS_REPORT" ]

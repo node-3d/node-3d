@@ -14,8 +14,8 @@ matrix:
       - chmod +x ./install-qt.sh
       - chmod +x ./extract-qt-installer.sh
       - export QT_CI_PACKAGES=qt,qt.qt5.5111,qt.qt5.5111.clang_64
-      - ./install-qt.sh 5.11.1 /home/travis/qt
-      - ls -la /home/travis
+      - ./install-qt.sh 5.11.1 /Users/travis/qt
+      - ls -la /Users/travis/qt
   - name: "Linux"
     os: linux
     dist: xenial
