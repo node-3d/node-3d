@@ -11,7 +11,7 @@ matrix:
     compiler: clang++
     cache:
       directories:
-       - /Users/ukit/qt-osx/Qt
+       - /Users/travis/qt-osx/Qt
     script:
       - if [[ ! -d /Users/travis/qt-osx/Qt ]]; then
           chmod +x ./install-qt.sh;
@@ -20,7 +20,7 @@ matrix:
           ./install-qt.sh 5.11.1 /Users/travis/qt-osx;
         fi;
       - ls -la /Users/travis/qt-osx/Qt;
-      - ls -la "/Users/ukit/qt-osx/Qt/Qt Creator.app/Contents/Frameworks";
+      - ls -la "/Users/travis/qt-osx/Qt/Qt Creator.app/Contents/Frameworks";
       - chmod +x ./pack-qt-osx.sh
       - ./pack-qt-osx.sh
   - name: "Linux"
