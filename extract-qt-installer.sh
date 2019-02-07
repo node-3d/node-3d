@@ -305,11 +305,6 @@ EOF
 chmod u+x $1
 
 
-# while true; do
-# 	echo --bump--
-# 	sleep 60
-# done &
-
 echo Start Install
 
 
