@@ -14,13 +14,13 @@ matrix:
        - /Users/ukit/qt-osx/Qt
     script:
       - if [[ ! -d /Users/travis/qt-osx/Qt ]]; then
-          chmod +x ./install-qt.sh
-          chmod +x ./extract-qt-installer.sh
-          export QT_CI_PACKAGES=qt.qt5.5111.clang_64
-          ./install-qt.sh 5.11.1 /Users/travis/qt-osx
-          ls -la /Users/travis/qt-osx/Qt
-          ls -la "/Users/ukit/qt-osx/Qt/Qt Creator.app/Contents/Frameworks"
+          chmod +x ./install-qt.sh;
+          chmod +x ./extract-qt-installer.sh;
+          export QT_CI_PACKAGES=qt.qt5.5111.clang_64;
+          ./install-qt.sh 5.11.1 /Users/travis/qt-osx;
         fi;
+      - ls -la /Users/travis/qt-osx/Qt;
+      - ls -la "/Users/ukit/qt-osx/Qt/Qt Creator.app/Contents/Frameworks";
       - chmod +x ./pack-qt-osx.sh
       - ./pack-qt-osx.sh
   - name: "Linux"
