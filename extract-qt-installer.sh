@@ -305,7 +305,7 @@ EOF
 chmod u+x $1
 
 echo Start Install
-while /bin/true; do
+while true; do
 	echo --bump--
 	sleep 60
 done &
