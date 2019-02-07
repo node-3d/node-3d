@@ -11,7 +11,7 @@ matrix:
     compiler: clang++
     cache:
       directories:
-       - /Users/travis/qt-osx/Qt
+       - /Users/travis/qt-osx
     script:
       - if [[ ! -d /Users/travis/qt-osx/Qt ]]; then
           chmod +x ./install-qt.sh;
