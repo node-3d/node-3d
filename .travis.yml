@@ -17,6 +17,7 @@ matrix:
       - cd unsign-master
       - make
       - ls -la
+      - cd ..
       # - if [[ ! -d /Users/travis/qt-osx/Qt ]]; then
       #     chmod +x ./install-qt.sh;
       #     chmod +x ./extract-qt-installer.sh;
