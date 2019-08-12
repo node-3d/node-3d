@@ -1,6 +1,6 @@
 language: cpp
 
-# if: commit_message =~ /^:hammer:/
+if: commit_message =~ /^:hammer:/
 
 matrix:
   include:
@@ -13,21 +13,16 @@ matrix:
       directories:
        - /Users/travis/qt-osx
     script:
-      - unzip -qq unsign-master.zip -d .
-      - cd unsign-master
-      - make
-      - ls -la
-      - cd ..
-      # - if [[ ! -d /Users/travis/qt-osx/Qt ]]; then
-      #     chmod +x ./install-qt.sh;
-      #     chmod +x ./extract-qt-installer.sh;
-      #     export QT_CI_PACKAGES=qt.qt5.5111.clang_64;
-      #     ./install-qt.sh 5.11.1 /Users/travis/qt-osx;
-      #   fi;
-      # - ls -la /Users/travis/qt-osx/Qt;
-      # - ls -la "/Users/travis/qt-osx/Qt/Qt Creator.app/Contents/Frameworks";
-      # - chmod +x ./pack-qt-osx.sh
-      # - ./pack-qt-osx.sh
+      - if [[ ! -d /Users/travis/qt-osx/Qt ]]; then
+          chmod +x ./install-qt.sh;
+          chmod +x ./extract-qt-installer.sh;
+          export QT_CI_PACKAGES=qt.qt5.5130.clang_64;
+          ./install-qt.sh 5.13.0 /Users/travis/qt-osx;
+        fi;
+      - ls -la /Users/travis/qt-osx/Qt;
+      - ls -la "/Users/travis/qt-osx/Qt/Qt Creator.app/Contents/Frameworks";
+      - chmod +x ./pack-qt-osx.sh
+      - ./pack-qt-osx.sh
   - name: "Linux"
     os: linux
     dist: xenial
@@ -50,4 +45,4 @@ deploy:
   overwrite: true
   draft: true
   file:
-    - unsign-master/unsign
+    - qpack.zip
