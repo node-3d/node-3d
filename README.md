@@ -11,35 +11,8 @@
 * Crossplatform: Linux >=Xenial, OSX, Windows.
 
 
-## Some thoughts behind this
+## Quick start
 
-* I'm sane enough to assume people do more JS+GL stuff in a browser.
-* So, I try to create a familiar and (probably) portable environment.
-* A browser can't do files/dlls, I can -- CUDA, OpenCL yaay!
-* Users may need some extra functions or forks, so I try to be modular.
-
-
-## How to colaborate
-
-1. Start/participate in issues-discussions, including feature requests,
-use cases, bug reports, etc.
-1. Review and comment on the current codebase.
-1. Contribute a new feature, fix or module-test in form of a Pull Request.
-1. Donate, well I didn't really establish how yet.
-1. Ask me a question, give advice via skype messaging: rauber666.
-
-The contribution guidelines are available as [CONTRIBUTING.md](/CONTRIBUTING.md).
-
-
-## Where to Start?
-
-1. Have a recent version of **Node.js** and **NPM** installed.
-
-1. On **Windows**:
-	* Install **vcredist 2013** for your architecture (**x32**/**x64**).
-	* Do `npm i -g windows-build-tools` on a **PRIVILEGED** console window.
-	* Open a new console window and enjoy.
-	
 1. `mkdir my-project && cd my-project && npm init -y && npm i -s 3d-core-raub && touch index.js`
 
 1. Paste the code and see if it works:
@@ -62,6 +35,26 @@ The contribution guidelines are available as [CONTRIBUTING.md](/CONTRIBUTING.md)
 1. Take a look at Three.js [examples](https://threejs.org/examples/).
 
 1. Look through Node3D plugins for additional features, like 2D GUI or 3D physics.
+
+
+## Some thoughts behind this
+
+* I'm sane enough to assume people do more JS+GL stuff in a browser.
+* So, I try to create a familiar and (probably) portable environment.
+* A browser can't do files/dlls, I can -- CUDA, OpenCL yaay!
+* Users may need some extra functions or forks, so I try to be modular.
+
+
+## How to colaborate
+
+1. Start/participate in issues, including feature requests,
+questions, bug reports, etc.
+1. Review and comment on the current codebase.
+1. Contribute a feature, a fix or a test in form of a Pull Request.
+1. Donate, well I didn't really establish how, yet.
+1. Contact me via Skype messaging: rauber666.
+
+The contribution guidelines are available as [CONTRIBUTING.md](/CONTRIBUTING.md).
 
 
 ## Node3D Modules
@@ -103,8 +96,7 @@ with **node-gyp** upon installation.
 	a [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
 	implementation.
 
-1. **Plugin** - a high-level **Node3D** module, exporting a single function. Having
-passed the Core to that function results in Core being extended with new features.
+1. **Plugin** - a high-level **Node3D** module, exporting a single function.
 For example:
 	
 	```
