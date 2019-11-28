@@ -221,7 +221,7 @@ z = (z << 1) - (z >> 1); // z*2 - z/2
 
 1. Place requires in the following order:
 	* Built in Node Modules (such as `path`)
-	* External Gsom Modules (such as `gsom`, `remote`)
+	* External Modules (such as `addon-tools-raub`)
 	* Local Modules (using relative paths)
 
 1. Object literals can be one-line, if there are at most 5 props and the whole
@@ -250,7 +250,7 @@ literal is below 60 symbols in length.
 
 1. In class declaration, first properties then methods.
 
-1. Use single-quotes for strings. Use interpolated strings when needed.
+1. Use single-quotes for strings. Use interpolated strings (when needed).
 	
 	```
 	const str1 = 'The time is ' + Date.now(); // NOT GOOD

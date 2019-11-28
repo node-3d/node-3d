@@ -19,51 +19,33 @@ which are hosted in the [Node3D Organization](https://github.com/node-3d) on Git
 
 ## How Can I Contribute?
 
+Bugs and enhancements are tracked as
+[GitHub issues](https://github.com/node-3d/node-3d/issues).
+You can also create an issue on a specific repository of
+[Node3D]((https://github.com/node-3d)).
 
 ### Submitting A Bug Report
 
-Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/).
-After you've determined [which repository](#node3d-packages)
-your bug is related to, create an issue on that repository.
+Bugs are tracked as [GitHub issues](https://github.com/node-3d/node-3d/issues).
+You can also create an issue on a specific repository of
+[Node3D]((https://github.com/node-3d)).
 
-Explain the problem and include additional details to help maintainers reproduce the problem:
-
-* Use a clear and descriptive title for the issue to identify the problem.
-* Describe the exact steps which reproduce the problem in as many details as possible.
-* Provide specific examples to demonstrate the steps.
-Include links to files or GitHub projects, or copy/pastable snippets,
-which you use in those examples. If you're providing snippets in the issue,
-use [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
-* Describe the behavior you observed after following the steps
-and point out what exactly is the problem with that behavior.
+* Use a clear and descriptive title.
+* Provide examples to demonstrate the problem.
 * Explain which behavior you expected to see instead and why.
-* If the problem wasn't triggered by a specific action, describe what you
-were doing before the problem happened.
+* If the problem involves a crash, provide its trace log.
 
 
 ### Submitting An Enhancement Suggestion
 
-Enhancement suggestions are tracked as
-[GitHub issues](https://guides.github.com/features/issues/).
-After you've determined [which repository](#node3d-packages)
-your enhancement suggestion is related to, create an issue on that
-repository and provide the following information:
-
-* Use a clear and descriptive title for the issue to identify the suggestion.
-* Provide a step-by-step description of the suggested enhancement
-in as many details as possible.
-* Provide specific examples to demonstrate the steps.
-Include copy/pastable snippets which you use in those examples,
-as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
-* Describe the current behavior and
-explain which behavior you expected to see instead and why.
-* Explain why this enhancement would be useful to most Node3D
-users and isn't something that can or should be implemented as a [community package](#node3d-packages).
+* Use a clear and descriptive title.
+* Describe the desired enhancement.
+* Provide specific examples of it being used.
 
 
 ### Pull Requests
 
-* Do not include issue numbers in the PR title
+* Do not include issue numbers in the PR title.
 * Follow the [Node3D Styleguide](#node3d-styleguide).
 
 
@@ -79,7 +61,9 @@ The code must adhere to [Node3D Codestyle](/CODESTYLE.md).
 
 1. Words are separated with dashes.
 
-1. Do not publish unnecessary files to NPM, use **.npmignore** file.
+1. Do **not use .npmignore** file, use
+	["files"](https://docs.npmjs.com/files/package.json#files)
+	package field.
 
 1. If there is an empty directory to be kept, place an empty **.keep** file inside.
 
@@ -94,9 +78,7 @@ The code must adhere to [Node3D Codestyle](/CODESTYLE.md).
 
 1. Limit the first line to 72 characters or less.
 
-1. Reference issues and pull requests liberally after the first line.
-
-1. Consider starting the commit message with an applicable emoji:
+1. You can start the commit message with an applicable emoji:
 	* :art: `:art:` when improving the format/structure of the code;
 	* :racehorse: `:racehorse:` when improving performance;
 	* :non-potable_water: `:non-potable_water:` when plugging memory leaks;

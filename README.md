@@ -66,8 +66,6 @@ The contribution guidelines are available as [CONTRIBUTING.md](/CONTRIBUTING.md)
 
 ## Node3D Modules
 
-There are at least 4 distinct categories of modules you come across at **Node3D**.
-
 1. **Dependency** - carries one or more precompiled binary.
 	* [deps-bullet-raub](https://github.com/node-3d/deps-bullet-raub) -
 	[Bullet Physics](https://pybullet.org/wordpress/) binaries and headers.
@@ -110,13 +108,15 @@ passed the Core to that function results in Core being extended with new feature
 For example:
 	
 	```
-	const core3d = require('3d-core-raub');
-	const bullet3d = require('3d-bullet-raub');
+	const init3dCore = require('3d-core-raub');
 	
-	bullet3d(core3d);
+	const {
+		Image,
+		doc,
+		qml: { Material, Overlay, OverlayMaterial, Rect },
+	} = init3dCore({ plugins: ['3d-qml-raub'] });
 	
-	const { bullet, Screen, three, loop } = core3d;
-	const { Scene, Body } = bullet;
+	// ...
 	```
 	
 	* [3d-bullet-raub](https://github.com/node-3d/3d-bullet-raub) -
@@ -129,8 +129,6 @@ For example:
 1. Other:
 	* [3d-core-raub](https://github.com/node-3d/3d-core-raub) -
 	3D Core, this is just enough for Node3D to work.
-	* [addon-scaffold-raub](https://github.com/node-3d/addon-scaffold-raub) -
-	scaffolding tool for compiled addons.
 	* [addon-tools-raub](https://github.com/node-3d/addon-tools-raub) -
 	helpers for Node.js addons.
 	* [threejs-raub](https://github.com/node-3d/threejs-raub) -

@@ -31,9 +31,9 @@ matrix:
     sudo: false
     script:
       - echo OK.
-      # - wget "https://download.qt.io/archive/qt/5.11/5.11.1/qt-opensource-linux-x64-5.11.1.run"
-      # - chmod +x qt-opensource-linux-x64-5.11.1.run
-      # - qt-opensource-linux-x64-5.11.1.run --script qinstall.qs --silent
+      # - wget "https://download.qt.io/archive/qt/5.13/5.13.0/qt-opensource-linux-x64-5.13.0.run"
+      # - chmod +x qt-opensource-linux-x64-5.13.0.run
+      # - qt-opensource-linux-x64-5.13.0.run --script qinstall.qs --silent
 
 deploy:
   on:
