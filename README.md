@@ -5,7 +5,7 @@
 
 * **WebGL**-like interface. Real OpenGL though.
 * **Three.js** compatible environment.
-* Use node modules and compiled addons.
+* Use node modules and compiled addons. CUDA, OpenCL, etc.
 * Window control. Multiwindow applications.
 * Read/write files.
 * Crossplatform: Linux >=Xenial, OSX, Windows.
@@ -20,7 +20,8 @@
 	```
 	'use strict';
 	
-	const { Screen, Brush, loop } = require('3d-core-raub');
+	const init = require('3d-core-raub');
+	const { Screen, Brush, loop } = init();
 	
 	const screen = new Screen();
 	loop(() => screen.draw());
