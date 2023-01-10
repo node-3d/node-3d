@@ -5,10 +5,10 @@
 
 * **WebGL**-like interface. Real OpenGL though.
 * **Three.js** compatible environment.
-* Use node modules and compiled addons. CUDA, OpenCL, etc.
+* Use node modules and compiled addons: CUDA, OpenCL, etc.
 * Window control. Multiwindow applications.
 * Read/write files.
-* Crossplatform: Linux >=Xenial, OSX, Windows.
+* Crossplatform: Linux x64, Linux ARM, MacOS x64, Windows x64.
 
 
 ## Quick start
@@ -37,30 +37,25 @@
 
 1. Look through Node3D plugins for additional features, like 2D GUI or 3D physics.
 
+The contribution guidelines are available as [CONTRIBUTING.md](/CONTRIBUTING.md).
+
 
 ## Some thoughts behind this
 
-* I'm sane enough to assume people do more JS+GL stuff in a browser.
-* So, I try to create a familiar and (probably) portable environment.
-* A browser can't do files/dlls, I can -- CUDA, OpenCL yaay!
-* Users may need some extra functions or forks, so I try to be modular.
+Compatibility with **three.js** allows porting the existing JS code.
+The real OpenGL backend is used (not ANGLE). So it is possible to use the GL resource IDs
+to setup interoperation with CUDA or OpenCL. This is the most important feature of this
+project and why it was created in the first place.
 
-
-## How to colaborate
-
-1. Start/participate in issues, including feature requests,
-questions, bug reports, etc.
-1. Review and comment on the current codebase.
-1. Contribute a feature, a fix or a test in form of a Pull Request.
-1. Donate, well I didn't really establish how, yet.
-1. Contact me via Skype messaging: rauber666.
-
-The contribution guidelines are available as [CONTRIBUTING.md](/CONTRIBUTING.md).
+Compatibility with **three.js** allows porting the existing JS code.
+It is quite possible to create a fully-features apps and games using this framework.
+For example, see
+[Space Simulation Toolkit](https://store.steampowered.com/app/1196080/Space_Simulation_Toolkit/).
 
 
 ## Node3D Modules
 
-1. **Dependency** - carries one or more precompiled binary.
+1. **Dependency** - carries one or more precompiled binary and/or C++ headers.
 	* [deps-bullet-raub](https://github.com/node-3d/deps-bullet-raub) -
 	[Bullet Physics](https://pybullet.org/wordpress/) binaries and headers.
 	* [deps-freeimage-raub](https://github.com/node-3d/deps-freeimage-raub) -
@@ -79,8 +74,7 @@ The contribution guidelines are available as [CONTRIBUTING.md](/CONTRIBUTING.md)
 	* [deps-qt-qml-raub](https://github.com/node-3d/deps-qt-qml-raub) -
 	Qt binaries for QML apps.
 
-1. **Addon** - provides certain native functions, and requires compilation
-with **node-gyp** upon installation.
+1. **Addon** - provides native bindings.
 	* [bullet-raub](https://github.com/node-3d/bullet-raub) -
 	rigid-body subset of Bullet Physics.
 	* [glfw-raub](https://github.com/node-3d/glfw-raub) -
@@ -97,7 +91,7 @@ with **node-gyp** upon installation.
 	a [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
 	implementation.
 
-1. **Plugin** - a high-level **Node3D** module, exporting a single function.
+1. **Plugin** - a high-level **Node3D** module for extending the 3d-core features.
 For example:
 	
 	```
@@ -133,10 +127,9 @@ For example:
 All of **Node3D** modules have their own code licensed under **MIT** terms. Which in
 short means "I've just put it here, do what you want, have fun". However, some
 modules have **separately licensed third-party software** in them. For instance,
-`deps-freeimage-raub` has some **Node3D** machinery, which makes it work for
-the project: `package.json`, `binding.gyp`, etc. But it also carries **FreeImage**
+`deps-freeimage-raub` carries the **FreeImage**
 binaries and headers, and those are the property of their respective owners,
-and are licensed under **FIPL** terms.
+and are licensed under **FIPL** terms (but free to use anyway).
 
 All such cases are explained in `README.md` per project in question.
 
