@@ -1,5 +1,7 @@
 # Node3D
 
+![Node3D](/logo/social/logo.png)
+
 
 ## Desktop 3D applications with **Node.js** and **OpenGL**.
 
@@ -9,6 +11,22 @@
 * Window control. Multiwindow applications.
 * Read/write files.
 * Crossplatform: Linux x64, Linux ARM, MacOS x64, Windows x64.
+
+Compatibility with **three.js** allows porting the existing JS code.
+The real OpenGL backend is used (not ANGLE). So it is possible to use the GL resource IDs
+to setup interoperation with CUDA or OpenCL. This is the most important feature of this
+project and why it was created in the first place.
+
+Compatibility with **three.js** allows porting the existing JS code.
+It is quite possible to create a fully-features apps and games using this framework.
+For example, see
+[Space Simulation Toolkit](https://store.steampowered.com/app/1196080/Space_Simulation_Toolkit/).
+
+![Node3D](/screenshots/triangle.jpg)
+![Node3D](/screenshots/cube.jpg)
+
+![Node3D](/screenshots/post.png)
+![Node3D](/screenshots/sst.png)
 
 
 ## Quick start
@@ -40,17 +58,33 @@
 The contribution guidelines are available as [CONTRIBUTING.md](/CONTRIBUTING.md).
 
 
-## Some thoughts behind this
+# Contributing to Node3D
 
-Compatibility with **three.js** allows porting the existing JS code.
-The real OpenGL backend is used (not ANGLE). So it is possible to use the GL resource IDs
-to setup interoperation with CUDA or OpenCL. This is the most important feature of this
-project and why it was created in the first place.
+Bugs and enhancements are tracked as
+[GitHub issues](https://github.com/node-3d/node-3d/issues).
+You can also create an issue on a specific repository of
+[Node3D]((https://github.com/node-3d)).
 
-Compatibility with **three.js** allows porting the existing JS code.
-It is quite possible to create a fully-features apps and games using this framework.
-For example, see
-[Space Simulation Toolkit](https://store.steampowered.com/app/1196080/Space_Simulation_Toolkit/).
+
+### Issues
+
+* Use a clear and descriptive title.
+* Describe the desired enhancement / problem.
+* Provide examples to demonstrate the issue.
+* If the problem involves a crash, provide its trace log.
+
+
+### Pull Requests
+
+* Do not include issue numbers in the PR title.
+* The code must adhere to [Node3D Codestyle](/CODESTYLE.md).
+* Commits use the present tense ("Add feature" not "Added feature").
+* Commits use the imperative mood ("Move cursor to..." not "Moves cursor to...").
+* File System
+	* Only lowercase in file/directory names.
+	* Words are separated with dashes.
+	* If there is an empty directory to be kept, place an empty **.keep** file inside.
+	* Use [SemVer](https://semver.org) versioning pattern.
 
 
 ## Node3D Modules
