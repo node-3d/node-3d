@@ -1,6 +1,14 @@
 # Node3D
 
-![Node3D](/logo/social/logo.png)
+[![NPM](https://badge.fury.io/js/3d-core-raub.svg)](https://badge.fury.io/js/3d-core-raub)
+[![ESLint](https://github.com/node-3d/3d-core-raub/actions/workflows/eslint.yml/badge.svg)](https://github.com/node-3d/3d-core-raub/actions/workflows/eslint.yml)
+[![Test](https://github.com/node-3d/3d-core-raub/actions/workflows/test.yml/badge.svg)](https://github.com/node-3d/3d-core-raub/actions/workflows/test.yml)
+
+```console
+npm i -s 3d-core-raub
+```
+
+![Node3D](/logo/front/logo.png)
 
 
 ## Desktop 3D applications with **Node.js** and **OpenGL**.
@@ -12,50 +20,75 @@
 * Read/write files.
 * Crossplatform: Linux x64, Linux ARM, MacOS x64, Windows x64.
 
+![Example](https://github.com/node-3d/3d-core-raub/examples/screenshot.png)
+
 Compatibility with **three.js** allows porting the existing JS code.
 The real OpenGL backend is used (not ANGLE). So it is possible to use the GL resource IDs
 to setup interoperation with CUDA or OpenCL. This is the most important feature of this
 project and why it was created in the first place.
 
-Compatibility with **three.js** allows porting the existing JS code.
 It is quite possible to create a fully-features apps and games using this framework.
 For example, see
 [Space Simulation Toolkit](https://store.steampowered.com/app/1196080/Space_Simulation_Toolkit/).
 
-![Node3D](/screenshots/triangle.jpg)
-![Node3D](/screenshots/cube.jpg)
-
-![Node3D](/screenshots/post.png)
-![Node3D](/screenshots/sst.png)
-
 
 ## Quick start
 
-1. `mkdir my-project && cd my-project && npm init -y && npm i -s 3d-core-raub && touch index.js`
-
+1. Setup the project directory:
+	
+	```console
+	mkdir my-project
+	cd my-project
+	npm init -y
+	npm i -s 3d-core-raub
+	touch index.js
+	```
 1. Paste the code and see if it works:
 	
-	```
-	'use strict';
-	
-	const init = require('3d-core-raub');
-	const { Screen, Brush, loop } = init();
-	
-	const screen = new Screen();
-	loop(() => screen.draw());
-	
-	const brush = new Brush({ screen, color: 0x00FF00 });
-	
-	screen.on('mousemove', e => brush.pos = [e.x, e.y]);
+	```javascript
+	const three = require('three');
+	const { init, addThreeHelpers } = require('3d-core-raub');
+
+	const { doc, gl, requestAnimationFrame } = init({ isGles3: true });
+	addThreeHelpers(three, gl);
+
+	const renderer = new three.WebGLRenderer();
+	renderer.setPixelRatio( doc.devicePixelRatio );
+	renderer.setSize( doc.innerWidth, doc.innerHeight );
+
+	const camera = new three.PerspectiveCamera(70, doc.innerWidth / doc.innerHeight, 1, 1000);
+	camera.position.z = 2;
+	const scene = new three.Scene();
+
+	const texture = new three.TextureLoader().load(__dirname + '/three/textures/crate.gif');
+	texture.colorSpace = three.SRGBColorSpace;
+
+	const geometry = new three.BoxGeometry();
+	const material = new three.MeshBasicMaterial({ map: texture });
+	const mesh = new three.Mesh( geometry, material );
+	scene.add(mesh);
+
+	doc.addEventListener('resize', () => {
+		camera.aspect = doc.innerWidth / doc.innerHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize(doc.innerWidth, doc.innerHeight);
+	});
+
+	const animate = () => {
+		requestAnimationFrame(animate);
+		const time = Date.now();
+		mesh.rotation.x = time * 0.0005;
+		mesh.rotation.y = time * 0.001;
+		
+		renderer.render(scene, camera);
+	};
+
+	animate();
 	```
 
-1. Further consult the docs of [3d-core-raub](https://github.com/raub/node-3d-core).
+1. See docs and examples: [3d-core-raub](https://github.com/raub/node-3d-core).
 
 1. Take a look at Three.js [examples](https://threejs.org/examples/).
-
-1. Look through Node3D plugins for additional features, like 2D GUI or 3D physics.
-
-The contribution guidelines are available as [CONTRIBUTING.md](/CONTRIBUTING.md).
 
 
 ## Node3D Modules
@@ -123,8 +156,6 @@ For example:
 	3D Core, this is just enough for Node3D to work.
 	* [addon-tools-raub](https://github.com/node-3d/addon-tools-raub) -
 	helpers for Node.js addons.
-	* [threejs-raub](https://github.com/node-3d/threejs-raub) -
-	a fork of [Three.js](https://threejs.org/) with some additional features.
 
 
 ## Contributing to Node3D
@@ -146,7 +177,6 @@ You can also create an issue on a specific repository of
 ### Pull Requests
 
 * Do not include issue numbers in the PR title.
-* The code must adhere to [Node3D Codestyle](/CODESTYLE.md).
 * Commits use the present tense ("Add feature" not "Added feature").
 * Commits use the imperative mood ("Move cursor to..." not "Moves cursor to...").
 * File System
@@ -158,15 +188,14 @@ You can also create an issue on a specific repository of
 
 ## License
 
-All of **Node3D** modules have their own code licensed under **MIT** terms. Which in
-short means "I've just put it here, do what you want, have fun". However, some
+**Node3D can be used commercially. You don't have to pay for Node3D or
+any of its third-party libraries.**
+
+**Node3D** modules have their own code licensed under **MIT**, meaning
+"I've just put it here, do what you want, have fun". Some
 modules have **separately licensed third-party software** in them. For instance,
 `deps-freeimage-raub` carries the **FreeImage**
 binaries and headers, and those are the property of their respective owners,
 and are licensed under **FIPL** terms (but free to use anyway).
 
 All such cases are explained in `README.md` per project in question.
-
-To summarize:
-> **Node3D** can be used commercially. You don't have to pay for **Node3D** or
-any of its third-party libraries.
