@@ -20,7 +20,7 @@ npm i -s 3d-core-raub
 * Read/write files.
 * Crossplatform: Linux x64, Linux ARM, MacOS x64, Windows x64.
 
-![Example](https://github.com/node-3d/3d-core-raub/examples/screenshot.png)
+![Example](https://github.com/node-3d/3d-core-raub/raw/4.1.0/examples/screenshot.png)
 
 Compatibility with **three.js** allows porting the existing JS code.
 The real OpenGL backend is used (not ANGLE). So it is possible to use the GL resource IDs
