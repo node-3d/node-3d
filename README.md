@@ -8,7 +8,7 @@
 npm i -s 3d-core-raub
 ```
 
-![Node3D](/logo/front/logo.png)
+![Node3D](https://github.com/node-3d/node-3d/raw/master/logo/front/logo.png)
 
 
 ## Desktop 3D applications with **Node.js** and **OpenGL**.
@@ -129,16 +129,19 @@ For example, see
 1. **Plugin** - a high-level **Node3D** module for extending the 3d-core features.
 For example:
 	
-	```
-	const init3dCore = require('3d-core-raub');
-	
+	```typescript
+	import { init, addThreeHelpers } from '3d-core-raub';
+	import { init as initQml } from '3d-qml-raub';
+	const __dirname = dirname(fileURLToPath(import.meta.url));
 	const {
-		Image,
-		doc,
-		qml: { Material, Overlay, OverlayMaterial, Rect },
-	} = init3dCore({ plugins: ['3d-qml-raub'] });
-	
-	// ...
+		doc, Image: Img, gl, glfw,
+	} = init({
+		isGles3: true, isWebGL2: true, mode: 'borderless',
+	});
+	addThreeHelpers(three, gl);
+	const {
+		QmlOverlay, Property, Method, View, loop, release, textureFromId,
+	} = initQml({ doc, gl, cwd: __dirname, three });
 	```
 	
 	* [3d-bullet-raub](https://github.com/node-3d/3d-bullet-raub) -
