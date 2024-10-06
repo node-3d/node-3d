@@ -46,40 +46,53 @@ For example, see
 1. Paste the code and see if it works:
 	
 	```javascript
+	// Init Node3D environment
 	const three = require('three');
 	const { init, addThreeHelpers } = require('3d-core-raub');
-
-	const { doc, gl, requestAnimationFrame } = init({ isGles3: true });
+	const { doc, gl, requestAnimationFrame } = init({ isGles3: true, isWebGL2: true, vsync: false });
 	addThreeHelpers(three, gl);
-
+	
+	// Three.js rendering setup
 	const renderer = new three.WebGLRenderer();
-	renderer.setPixelRatio( doc.devicePixelRatio );
-	renderer.setSize( doc.innerWidth, doc.innerHeight );
-
-	const camera = new three.PerspectiveCamera(70, doc.innerWidth / doc.innerHeight, 1, 1000);
-	camera.position.z = 2;
 	const scene = new three.Scene();
-
-	const geometry = new three.BoxGeometry();
-	const material = new three.MeshBasicMaterial({ color: 0xFACE8D });
-	const mesh = new three.Mesh( geometry, material );
-	scene.add(mesh);
-
+	const camera = new three.PerspectiveCamera(70, doc.w / doc.h, 0.2, 500);
+	camera.position.z = 35;
+	scene.background = new three.Color(0x333333);
+	
+	// Add scene lights
+	scene.add(new three.AmbientLight(0xc1c1c1, 0.5));
+	const sun = new three.DirectionalLight(0xffffff, 2);
+	sun.position.set(-1, 0.5, 1);
+	scene.add(sun);
+	
+	// Original knot mesh
+	const knotGeometry = new three.TorusKnotGeometry(10, 1.85, 256, 20, 2, 7);
+	const knotMaterial = new three.MeshToonMaterial({ color: 0x6cc24a });
+	const knotMesh = new three.Mesh(knotGeometry, knotMaterial);
+	scene.add(knotMesh);
+	
+	// A slightly larger knot mesh, inside-out black - for outline
+	const outlineGeometry = new three.TorusKnotGeometry(10, 2, 256, 20, 2, 7);
+	const outlineMaterial = new three.MeshBasicMaterial({ color: 0, side: three.BackSide });;
+	const outlineMesh = new three.Mesh(outlineGeometry, outlineMaterial);
+	knotMesh.add(outlineMesh);
+	
+	// Handle window resizing
 	doc.addEventListener('resize', () => {
-		camera.aspect = doc.innerWidth / doc.innerHeight;
+		camera.aspect = doc.w / doc.h;
 		camera.updateProjectionMatrix();
-		renderer.setSize(doc.innerWidth, doc.innerHeight);
+		renderer.setSize(doc.w, doc.h);
 	});
-
+	
+	// Called repeatedly to render new frames
 	const animate = () => {
 		requestAnimationFrame(animate);
 		const time = Date.now();
-		mesh.rotation.x = time * 0.0005;
-		mesh.rotation.y = time * 0.001;
-		
+		knotMesh.rotation.x = time * 0.0005;
+		knotMesh.rotation.y = time * 0.001;
 		renderer.render(scene, camera);
 	};
-
+	
 	animate();
 	```
 
@@ -89,6 +102,22 @@ For example, see
 
 
 ## Node3D Modules
+
+1. **Core** - key components to run WebGL code on Node.js.
+	* [3d-core-raub](https://github.com/node-3d/3d-core-raub) -
+	3D Core, this is just enough for Node3D to work.
+	* [addon-tools-raub](https://github.com/node-3d/addon-tools-raub) -
+	helpers for Node.js addons.
+	* [glfw-raub](https://github.com/node-3d/glfw-raub) -
+	native window control, can mimic web Document/Window/Canvas.
+	* [image-raub](https://github.com/node-3d/image-raub) -
+	image loading, can mimic web
+	[Image](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image).
+	* [segfault-raub](https://github.com/node-3d/segfault-raub) -
+	catches and logs the C++ crash messages: segmentation fault, etc.
+	* [webgl-raub](https://github.com/node-3d/webgl-raub) -
+	a [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
+	implementation.
 
 1. **Dependency** - carries one or more precompiled binary and/or C++ headers.
 	* [deps-bullet-raub](https://github.com/node-3d/deps-bullet-raub) -
@@ -108,37 +137,45 @@ For example, see
 	Qt binaries for GUI apps.
 	* [deps-qt-qml-raub](https://github.com/node-3d/deps-qt-qml-raub) -
 	Qt binaries for QML apps.
+	* [deps-uiohook-raub](https://github.com/node-3d/deps-uiohook-raub) -
+	binaries and headers to use [libuiohook](https://github.com/kwhat/libuiohook) with NPM.
 
 1. **Addon** - provides native bindings.
 	* [bullet-raub](https://github.com/node-3d/bullet-raub) -
 	rigid-body subset of Bullet Physics.
-	* [glfw-raub](https://github.com/node-3d/glfw-raub) -
-	native window control, can mimic web Document/Window/Canvas.
-	* [image-raub](https://github.com/node-3d/image-raub) -
-	image loading, can mimic web
-	[Image](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image).
+	* [cuda-raub](https://github.com/node-3d/cuda-raub) -
+	addon for running NVidia CUDA programs on GPU.
+	* [opencl-raub](https://github.com/node-3d/opencl-raub) -
+	addon for running OpenCL programs on GPU.
 	* [qml-raub](https://github.com/node-3d/qml-raub) -
 	Node3D-QML interoperation.
 	* [webaudio-raub](https://github.com/node-3d/webaudio-raub) -
 	a [WebAudio](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 	implementation.
-	* [webgl-raub](https://github.com/node-3d/webgl-raub) -
-	a [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
-	implementation.
 
-1. **Plugin** - a high-level **Node3D** module for extending the 3d-core features.
+1. **Plugin** - a high-level **Node3D** module designed to seamlessly use the addons
+together with 3d-core. A plugin uses 3d-core context and primitives to provide additional
+features that combine **Node3D** envitonment and whatever addon(s) the plugin wraps.
+
 For example:
 	
-	```
-	const init3dCore = require('3d-core-raub');
-	
+	```typescript
+	import { dirname } from 'node:path';
+	import { fileURLToPath } from 'node:url';
+	import * as three from 'three';
+	import { init, addThreeHelpers } from '3d-core-raub';
+	import { init as initQml } from '3d-qml-raub';
+
+	const __dirname = dirname(fileURLToPath(import.meta.url));
 	const {
-		Image,
-		doc,
-		qml: { Material, Overlay, OverlayMaterial, Rect },
-	} = init3dCore({ plugins: ['3d-qml-raub'] });
+		doc, Image: Img, gl,
+	} = init({ isGles3: true, isWebGL2: true });
+	addThreeHelpers(three, gl);
+	const { QmlOverlay, loop } = initQml({ doc, gl, cwd: __dirname, three });
 	
 	// ...
+	const overlay = new QmlOverlay({ file: `${__dirname}/qml/gui.qml` });
+	scene.add(overlay.mesh);
 	```
 	
 	* [3d-bullet-raub](https://github.com/node-3d/3d-bullet-raub) -
@@ -147,12 +184,6 @@ For example:
 	extends 3D Core with QML graphics.
 	* [3d-webaudio-raub](https://github.com/node-3d/3d-webaudio-raub) -
 	extends 3D Core with an audio interface.
-
-1. Other:
-	* [3d-core-raub](https://github.com/node-3d/3d-core-raub) -
-	3D Core, this is just enough for Node3D to work.
-	* [addon-tools-raub](https://github.com/node-3d/addon-tools-raub) -
-	helpers for Node.js addons.
 
 
 ## Contributing to Node3D
@@ -180,7 +211,6 @@ You can also create an issue on a specific repository of
 	* Only lowercase in file/directory names.
 	* Words are separated with dashes.
 	* If there is an empty directory to be kept, place an empty **.keep** file inside.
-	* Use [SemVer](https://semver.org) versioning pattern.
 
 
 ## License
