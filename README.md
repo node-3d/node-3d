@@ -8,7 +8,7 @@
 npm i -s 3d-core-raub
 ```
 
-![Node3D](/logo/front/logo.png)
+![Node3D](https://github.com/node-3d/node-3d/raw/master/logo/front/logo.png)
 
 
 ## Desktop 3D applications with **Node.js** and **OpenGL**.
