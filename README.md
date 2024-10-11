@@ -35,7 +35,7 @@ For example, see
 ## Quick start
 
 1. Setup the project directory:
-	
+
 	```console
 	mkdir my-project
 	cd my-project
@@ -43,8 +43,9 @@ For example, see
 	npm i -s 3d-core-raub three
 	touch index.js
 	```
+
 1. Paste the code and see if it works:
-	
+
 	```javascript
 	// Init Node3D environment
 	const three = require('three');
@@ -157,9 +158,9 @@ For example, see
 together with 3d-core. A plugin uses 3d-core context and primitives to provide additional
 features that combine **Node3D** envitonment and whatever addon(s) the plugin wraps.
 
-For example:
-	
-	```typescript
+	For example:
+
+	```javascript
 	import { dirname } from 'node:path';
 	import { fileURLToPath } from 'node:url';
 	import * as three from 'three';
@@ -177,14 +178,13 @@ For example:
 	const overlay = new QmlOverlay({ file: `${__dirname}/qml/gui.qml` });
 	scene.add(overlay.mesh);
 	```
-	
+
 	* [3d-bullet-raub](https://github.com/node-3d/3d-bullet-raub) -
 	extends 3D Core with Bullet Physics.
 	* [3d-qml-raub](https://github.com/node-3d/3d-qml-raub) -
 	extends 3D Core with QML graphics.
 	* [3d-webaudio-raub](https://github.com/node-3d/3d-webaudio-raub) -
 	extends 3D Core with an audio interface.
-	```
 
 
 ## Contributing to Node3D
