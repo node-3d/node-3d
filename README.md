@@ -184,6 +184,7 @@ For example:
 	extends 3D Core with QML graphics.
 	* [3d-webaudio-raub](https://github.com/node-3d/3d-webaudio-raub) -
 	extends 3D Core with an audio interface.
+	```
 
 
 ## Contributing to Node3D
