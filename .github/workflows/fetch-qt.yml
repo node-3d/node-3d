@@ -16,22 +16,6 @@ jobs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
 
     steps:
-
-      - name: Fetch Repository
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.16.0
-          cache: 'npm'
-
-      - name: Get Package Version
-        id: package-version
-        run: node -p "'version='+require('./package').version" >> $GITHUB_OUTPUT
-
       - name: Create Draft Release
         id: create_release
         uses: softprops/action-gh-release@v2
