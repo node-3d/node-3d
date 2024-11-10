@@ -36,17 +36,25 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Os Name
+        run: |
+          echo ${{ matrix.os }}
+
+      - name: Install AQT
+        run: pip install aqt
+
+      - name: Install Qt 2
+        if: matrix.os != 'ubuntu-22.04' && matrix.os != 'macos-14' && matrix.os != 'windows-2022'
+        run: |
+          aqt install-qt linux_arm64 desktop 6.8.0 linux_gcc_arm64
+
       - name: Install Qt
+        if: matrix.os == 'ubuntu-22.04' || matrix.os == 'macos-14' || matrix.os == 'windows-2022'
         uses: jurplel/install-qt-action@v4
         with:
           version: '6.8.0'
           cache: 'true'
           cache-key-prefix: 'install-qt-${{ matrix.os }}'
-          setup-python: matrix.os == 'ubuntu-22.04' || matrix.os == 'macos-14' || matrix.os == 'windows-2022'
-
-      - name: Os Name
-        run: |
-          echo ${{ matrix.os }}
 
       - name: List Qt Dir - Linux
         if: matrix.os == 'ubuntu-22.04'
