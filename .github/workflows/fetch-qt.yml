@@ -31,8 +31,7 @@ jobs:
     name: Fetch
     strategy:
         matrix:
-          # os: [ubuntu-22.04, windows-2022, macos-14, [self-hosted, linux, ARM64]]
-          os: [ubuntu-22.04, macos-14, windows-2022]
+          os: [ubuntu-22.04, windows-2022, macos-14, [self-hosted, linux, ARM64]]
 
     runs-on: ${{ matrix.os }}
 
@@ -49,6 +48,11 @@ jobs:
         run: |
           ls ${{ github.workspace }}/../Qt/6.8.0/gcc_64
 
+      - name: List Qt Dir - Linux ARM
+        if: matrix.os == [self-hosted, linux, ARM64]
+        run: |
+          ls ${{ github.workspace }}/../Qt/6.8.0
+
       - name: List Qt Dir - MacOS
         if: matrix.os == 'macos-14'
         run: |
@@ -57,7 +61,7 @@ jobs:
       - name: List Qt Dir - Windows
         if: matrix.os == 'windows-2022'
         run: |
-          ls ${{ github.workspace }}/../Qt/6.8.0/win64_msvc2022_64
+          ls '${{ github.workspace }}/../Qt/6.8.0/win64_msvc2022_64'
 
       # - name: Store Binaries
       #   uses: softprops/action-gh-release@v2
