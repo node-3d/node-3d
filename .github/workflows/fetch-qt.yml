@@ -47,16 +47,14 @@ jobs:
       - name: List Qt Dir - Linux
         if: matrix.os == 'ubuntu-22.04'
         run: |
-          ls .
-          ls ./Qt
-          ls ./Qt/6.8.0
-  
+          ls /home/runner/work/node-3d/Qt/6.8.0/gcc_64
+
       - name: List Qt Dir - MacOS
         if: matrix.os == 'macos-14'
         run: |
-          ls .
-          ls ./Qt
-          ls ./Qt/6.8.0
+          ls /Users/runner/work/node-3d/Qt/6.8.0
+          ls /Users/runner/work/node-3d/Qt/6.8.0/clang_64
+
       # - name: Store Binaries
       #   uses: softprops/action-gh-release@v2
       #   env:
