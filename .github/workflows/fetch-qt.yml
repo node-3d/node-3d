@@ -44,7 +44,7 @@ jobs:
         if: matrix.os != 'ubuntu-22.04' && matrix.os != 'macos-14' && matrix.os != 'windows-2022'
         run: |
           sudo yum -y update
-          sudo yum -y --nobest --allowerasing install python3
+          sudo yum -y --nobest --allowerasing install python-pip
           pip install aqt
           aqt install-qt linux_arm64 desktop 6.8.0 linux_gcc_arm64
 
