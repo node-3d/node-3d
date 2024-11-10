@@ -32,7 +32,7 @@ jobs:
     strategy:
         matrix:
           # os: [ubuntu-22.04, windows-2022, macos-14, [self-hosted, linux, ARM64]]
-          os: [ubuntu-22.04]
+          os: [ubuntu-22.04, macos-14]
 
     runs-on: ${{ matrix.os }}
 
@@ -44,10 +44,19 @@ jobs:
           cache: 'true'
           cache-key-prefix: 'install-qt-${{ matrix.os }}'
 
-      - name: List Qt Dir
+      - name: List Qt Dir - Linux
+        if: matrix.os == 'ubuntu-22.04'
         run: |
-          ls /Users/runner/work/node-3d/Qt
+          ls .
+          ls ./Qt
+          ls ./Qt/6.8.0
   
+      - name: List Qt Dir - MacOS
+        if: matrix.os == 'macos-14'
+        run: |
+          ls .
+          ls ./Qt
+          ls ./Qt/6.8.0
       # - name: Store Binaries
       #   uses: softprops/action-gh-release@v2
       #   env:
