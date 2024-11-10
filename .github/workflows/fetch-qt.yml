@@ -43,13 +43,17 @@ jobs:
           cache: 'true'
           cache-key-prefix: 'install-qt-${{ matrix.os }}'
 
+      - name: Os Name
+        run: |
+          echo ${{ matrix.os }}
+
       - name: List Qt Dir - Linux
         if: matrix.os == 'ubuntu-22.04'
         run: |
           ls ${{ github.workspace }}/../Qt/6.8.0/gcc_64
 
       - name: List Qt Dir - Linux ARM
-        if: matrix.os == [self-hosted, linux, ARM64]
+        if: matrix.os == 'self-hosted, linux, ARM64'
         run: |
           ls ${{ github.workspace }}/../Qt/6.8.0
 
