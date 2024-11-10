@@ -32,7 +32,7 @@ jobs:
     strategy:
         matrix:
           # os: [ubuntu-22.04, windows-2022, macos-14, [self-hosted, linux, ARM64]]
-          os: [ubuntu-22.04, macos-14]
+          os: [ubuntu-22.04, macos-14, windows-2022]
 
     runs-on: ${{ matrix.os }}
 
@@ -47,13 +47,19 @@ jobs:
       - name: List Qt Dir - Linux
         if: matrix.os == 'ubuntu-22.04'
         run: |
-          ls /home/runner/work/node-3d/Qt/6.8.0/gcc_64
+          ls ${{ GITHUB_WORKSPACE }}/node-3d/Qt/6.8.0/gcc_64
 
       - name: List Qt Dir - MacOS
         if: matrix.os == 'macos-14'
         run: |
-          ls /Users/runner/work/node-3d/Qt/6.8.0
-          ls /Users/runner/work/node-3d/Qt/6.8.0/clang_64
+          ls /Users/runner/work/node-3d/Qt/6.8.0/macos
+          ls ${{ GITHUB_WORKSPACE }}/node-3d//Qt/6.8.0/macos
+
+      - name: List Qt Dir - Windows
+        if: matrix.os == 'windows-2022'
+        run: |
+          ls ${{ GITHUB_WORKSPACE }}/node-3d/Qt/6.8.0
+          ls ${{ GITHUB_WORKSPACE }}/node-3d/Qt/6.8.0/win64_msvc2022_64
 
       # - name: Store Binaries
       #   uses: softprops/action-gh-release@v2
