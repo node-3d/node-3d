@@ -43,7 +43,7 @@ jobs:
       - name: Install Qt 2
         if: matrix.os != 'ubuntu-22.04' && matrix.os != 'macos-14' && matrix.os != 'windows-2022'
         run: |
-          python -m ensurepip --upgrade
+          python -m ensurepip --upgrade --default-pip
           pip install aqt
           aqt install-qt linux_arm64 desktop 6.8.0 linux_gcc_arm64
 
