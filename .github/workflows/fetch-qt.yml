@@ -1,0 +1,75 @@
+name: Fetch Qt
+defaults:
+  run:
+    shell: bash
+
+on:
+  workflow_dispatch
+
+jobs:
+  create_release:
+    name: Create Release
+    if: contains('["raub"]', github.actor)
+    runs-on: ubuntu-latest
+
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+
+    steps:
+
+      - name: Fetch Repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.0
+          cache: 'npm'
+
+      - name: Get Package Version
+        id: package-version
+        run: node -p "'version='+require('./package').version" >> $GITHUB_OUTPUT
+
+      - name: Create Draft Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          draft: true
+          tag_name: qt-bin
+          name: Qt Binaries
+          body: Qt Binaries
+
+  build:
+    name: Fetch
+    strategy:
+        matrix:
+          # os: [ubuntu-22.04, windows-2022, macos-14, [self-hosted, linux, ARM64]]
+          os: [ubuntu-22.04]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.0'
+          cache: 'true'
+          cache-key-prefix: 'install-qt-${{ matrix.os }}'
+
+      - name: List Qt Dir
+        run: |
+          ls /Users/runner/work/node-3d/Qt
+  
+      # - name: Store Binaries
+      #   uses: softprops/action-gh-release@v2
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     draft: true
+      #     tag_name: qt-bin
+      #     name: Qt Binaries
+      #     body: Qt Binaries
