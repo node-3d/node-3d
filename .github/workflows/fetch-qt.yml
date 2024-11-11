@@ -52,7 +52,8 @@ jobs:
           # python -m pip install --upgrade setuptools
           # python -m pip install pyqt5-sip
           # python -m pip install pyqt5 --config-settings --confirm-license= --verbose
-          python -m pip install "aqt >= 24"
+          python -m pip install "anki == 24.06.3"
+          python -m pip install "aqt == 24.6.3"
           aqt install-qt linux_arm64 desktop 6.8.0 linux_gcc_arm64
 
       - name: Install Qt
