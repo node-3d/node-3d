@@ -47,9 +47,9 @@ jobs:
       - name: Install Qt 2
         if: matrix.os != 'ubuntu-22.04' && matrix.os != 'macos-14' && matrix.os != 'windows-2022'
         run: |
-          sudo yum -y --nobest --allowerasing install python3-devel
-          python -m pip install --upgrade pip
-          python -m pip install --upgrade setuptools
+          sudo yum -y --nobest --allowerasing install python3-devel python3.11-devel
+          # python -m pip install --upgrade pip
+          # python -m pip install --upgrade setuptools
           python -m pip install pyqt5-sip
           python -m pip install pyqt5 --config-settings --confirm-license= --verbose
           python -m pip install aqt
