@@ -4,34 +4,38 @@ defaults:
     shell: bash
 
 on:
-  workflow_dispatch
+  # workflow_dispatch
+  push:
+    branches:
+      - master
 
 jobs:
-  create_release:
-    name: Create Release
-    if: contains('["raub"]', github.actor)
-    runs-on: ubuntu-latest
+  # create_release:
+  #   name: Create Release
+  #   if: contains('["raub"]', github.actor)
+  #   runs-on: ubuntu-latest
 
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #   outputs:
+  #     upload_url: ${{ steps.create_release.outputs.upload_url }}
 
-    steps:
-      - name: Create Draft Release
-        id: create_release
-        uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          draft: true
-          tag_name: qt-bin
-          name: Qt Binaries
-          body: Qt Binaries
+  #   steps:
+  #     - name: Create Draft Release
+  #       id: create_release
+  #       uses: softprops/action-gh-release@v2
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         draft: true
+  #         tag_name: qt-bin
+  #         name: Qt Binaries
+  #         body: Qt Binaries
 
   build:
     name: Fetch
     strategy:
         matrix:
-          os: [ubuntu-22.04, windows-2022, macos-14, [self-hosted, linux, ARM64]]
+          # os: [ubuntu-22.04, windows-2022, macos-14, [self-hosted, linux, ARM64]]
+          os: [[self-hosted, linux, ARM64]]
 
     runs-on: ${{ matrix.os }}
 
@@ -44,7 +48,8 @@ jobs:
         if: matrix.os != 'ubuntu-22.04' && matrix.os != 'macos-14' && matrix.os != 'windows-2022'
         run: |
           python -m pip --version
-          python -m pip install pyqt5
+          python -m pip install --upgrade setuptools
+          python -m pip install pyqt6
           python -m pip install aqt
           aqt install-qt linux_arm64 desktop 6.8.0 linux_gcc_arm64
 
