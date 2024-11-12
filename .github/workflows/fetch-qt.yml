@@ -10,25 +10,25 @@ on:
       - master
 
 jobs:
-  # create_release:
-  #   name: Create Release
-  #   if: contains('["raub"]', github.actor)
-  #   runs-on: ubuntu-latest
+  create_release:
+    name: Create Release
+    if: contains('["raub"]', github.actor)
+    runs-on: ubuntu-latest
 
-  #   outputs:
-  #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
 
-  #   steps:
-  #     - name: Create Draft Release
-  #       id: create_release
-  #       uses: softprops/action-gh-release@v2
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         draft: true
-  #         tag_name: qt-bin
-  #         name: Qt Binaries
-  #         body: Qt Binaries
+    steps:
+      - name: Create Draft Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          draft: true
+          tag_name: qt-bin
+          name: Qt Binaries
+          body: Qt Binaries
 
   build:
     name: Fetch
@@ -47,32 +47,65 @@ jobs:
           cache: 'true'
           cache-key-prefix: 'install-qt-${{ matrix.os }}'
 
-      - name: List Qt Dir - Linux
+      - name: Create Tmp Dir
+        run: |
+          rm -rf ${{ github.workspace }}/../__tmp
+          mkdir -p ${{ github.workspace }}/../__tmp
+          mkdir -p ${{ github.workspace }}/../__tmp/lib
+          mkdir -p ${{ github.workspace }}/../__tmp/bin
+          mkdir -p ${{ github.workspace }}/../__tmp/plugins
+          mkdir -p ${{ github.workspace }}/../__tmp/qml
+          echo "QT_TMP=${{ github.workspace }}/../__tmp" >> $GITHUB_ENV
+
+      - name: Copy Qt Dir - Linux
         if: matrix.os == 'ubuntu-22.04'
         run: |
-          ls ${{ github.workspace }}/../Qt/6.8.0/gcc_64
+          echo "OS_NAME=linux" >> $GITHUB_ENV
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/lib $QT_TMP/lib
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/bin $QT_TMP/bin
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/plugins $QT_TMP/plugins
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/qml $QT_TMP/qml
 
-      - name: List Qt Dir - Linux ARM
-        if: matrix.os == 'self-hosted, linux, ARM64'
+      - name: Copy Qt Dir - Linux ARM
+        if: matrix.os != 'ubuntu-22.04' && matrix.os != 'macos-14' && matrix.os != 'windows-2022'
         run: |
-          ls /home/opc/6.8.0/gcc_arm64
+          echo "OS_NAME=aarch64" >> $GITHUB_ENV
+          cp -r /home/opc/6.8.0/gcc_arm64/lib $QT_TMP/lib
+          cp -r /home/opc/6.8.0/gcc_arm64/bin $QT_TMP/bin
+          cp -r /home/opc/6.8.0/gcc_arm64/plugins $QT_TMP/plugins
+          cp -r /home/opc/6.8.0/gcc_arm64/qml $QT_TMP/qml
+          
 
-      - name: List Qt Dir - MacOS
+      - name: Copy Qt Dir - MacOS ARM
         if: matrix.os == 'macos-14'
         run: |
-          ls ${{ github.workspace }}/../Qt/6.8.0/macos
+          echo "OS_NAME=darwin-arm64" >> $GITHUB_ENV
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/lib $QT_TMP/lib
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/bin $QT_TMP/bin
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/plugins $QT_TMP/plugins
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/qml $QT_TMP/qml
 
-      - name: List Qt Dir - Windows
+      - name: Copy Qt Dir - Windows
         if: matrix.os == 'windows-2022'
         run: |
-          ls '${{ github.workspace }}\..\Qt\6.8.0'
+          echo "OS_NAME=windows" >> $GITHUB_ENV
+          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\lib' '$QT_TMP\lib'
+          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\bin' '$QT_TMP\lib'
+          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\plugins' '$QT_TMP\lib'
+          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\qml' '$QT_TMP\lib'
 
-      # - name: Store Binaries
-      #   uses: softprops/action-gh-release@v2
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     draft: true
-      #     tag_name: qt-bin
-      #     name: Qt Binaries
-      #     body: Qt Binaries
+      - name: Pack Libs
+        run: |
+          cd '$QT_TMP'
+          tar -czf ../$OS_NAME.gz * '$QT_TMP'
+
+      - name: Store Binaries
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          draft: true
+          tag_name: qt-bin
+          name: Qt Binaries
+          body: Qt Binaries
+          files: $QT_TMP/../$OS_NAME.gz
