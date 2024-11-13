@@ -90,9 +90,9 @@ jobs:
         run: |
           echo "OS_NAME=windows" >> $GITHUB_ENV
           cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\lib' '$QT_TMP\lib'
-          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\bin' '$QT_TMP\lib'
-          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\plugins' '$QT_TMP\lib'
-          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\qml' '$QT_TMP\lib'
+          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\bin' '$QT_TMP\bin'
+          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\plugins' '$QT_TMP\plugins'
+          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\qml' '$QT_TMP\qml'
 
       - name: Pack Libs
         run: |
