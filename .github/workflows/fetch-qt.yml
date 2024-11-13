@@ -89,10 +89,10 @@ jobs:
         if: matrix.os == 'windows-2022'
         run: |
           echo "OS_NAME=windows" >> $GITHUB_ENV
-          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\lib' '$QT_TMP\lib'
-          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\bin' '$QT_TMP\bin'
-          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\plugins' '$QT_TMP\plugins'
-          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\qml' '$QT_TMP\qml'
+          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\lib' '${{ env.QT_TMP }}\lib'
+          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\bin' '${{ env.QT_TMP }}\bin'
+          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\plugins' '${{ env.QT_TMP }}\plugins'
+          cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\qml' '${{ env.QT_TMP }}\qml'
 
       - name: Pack Libs
         run: |
