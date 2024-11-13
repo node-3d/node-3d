@@ -61,29 +61,29 @@ jobs:
         if: matrix.os == 'ubuntu-22.04'
         run: |
           echo "OS_NAME=linux" >> $GITHUB_ENV
-          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/lib $QT_TMP/lib
-          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/bin $QT_TMP/bin
-          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/plugins $QT_TMP/plugins
-          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/qml $QT_TMP/qml
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/lib ${{ env.QT_TMP }}/lib
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/bin ${{ env.QT_TMP }}/bin
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/plugins ${{ env.QT_TMP }}/plugins
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/gcc_64/qml ${{ env.QT_TMP }}/qml
 
       - name: Copy Qt Dir - Linux ARM
         if: matrix.os != 'ubuntu-22.04' && matrix.os != 'macos-14' && matrix.os != 'windows-2022'
         run: |
           echo "OS_NAME=aarch64" >> $GITHUB_ENV
-          cp -r /home/opc/6.8.0/gcc_arm64/lib $QT_TMP/lib
-          cp -r /home/opc/6.8.0/gcc_arm64/bin $QT_TMP/bin
-          cp -r /home/opc/6.8.0/gcc_arm64/plugins $QT_TMP/plugins
-          cp -r /home/opc/6.8.0/gcc_arm64/qml $QT_TMP/qml
+          cp -r /home/opc/6.8.0/gcc_arm64/lib ${{ env.QT_TMP }}/lib
+          cp -r /home/opc/6.8.0/gcc_arm64/bin ${{ env.QT_TMP }}/bin
+          cp -r /home/opc/6.8.0/gcc_arm64/plugins ${{ env.QT_TMP }}/plugins
+          cp -r /home/opc/6.8.0/gcc_arm64/qml ${{ env.QT_TMP }}/qml
           
 
       - name: Copy Qt Dir - MacOS ARM
         if: matrix.os == 'macos-14'
         run: |
           echo "OS_NAME=darwin-arm64" >> $GITHUB_ENV
-          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/lib $QT_TMP/lib
-          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/bin $QT_TMP/bin
-          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/plugins $QT_TMP/plugins
-          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/qml $QT_TMP/qml
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/lib ${{ env.QT_TMP }}/lib
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/bin ${{ env.QT_TMP }}/bin
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/plugins ${{ env.QT_TMP }}/plugins
+          cp -r ${{ github.workspace }}/../Qt/6.8.0/macos/qml ${{ env.QT_TMP }}/qml
 
       - name: Copy Qt Dir - Windows
         if: matrix.os == 'windows-2022'
@@ -93,11 +93,12 @@ jobs:
           cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\bin' '${{ env.QT_TMP }}'
           cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\plugins' '${{ env.QT_TMP }}'
           cp -r '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64\qml' '${{ env.QT_TMP }}'
+          ls '${{ env.QT_TMP }}'
 
       - name: Pack Libs
         run: |
-          cd '$QT_TMP'
-          tar -czf ../$OS_NAME.gz * '$QT_TMP'
+          cd '${{ env.QT_TMP }}'
+          tar -czf ../${{ env.OS_NAME }}.gz * '${{ env.QT_TMP }}'
 
       - name: Store Binaries
         uses: softprops/action-gh-release@v2
@@ -108,4 +109,4 @@ jobs:
           tag_name: qt-bin
           name: Qt Binaries
           body: Qt Binaries
-          files: $QT_TMP/../$OS_NAME.gz
+          files: ${{ env.QT_TMP }}/../${{ env.OS_NAME }}.gz
