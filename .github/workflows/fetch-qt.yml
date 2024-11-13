@@ -71,10 +71,10 @@ jobs:
         if: matrix.os != 'ubuntu-22.04' && matrix.os != 'macos-14' && matrix.os != 'windows-2022'
         run: |
           echo "OS_NAME=aarch64" >> $GITHUB_ENV
-          cp -r /home/opc/6.8.0/gcc_arm64/lib ${{ env.QT_TMP }}/lib
-          cp -r /home/opc/6.8.0/gcc_arm64/bin ${{ env.QT_TMP }}/bin
-          cp -r /home/opc/6.8.0/gcc_arm64/plugins ${{ env.QT_TMP }}/plugins
-          cp -r /home/opc/6.8.0/gcc_arm64/qml ${{ env.QT_TMP }}/qml
+          cp -r /home/opc/6.8.0/gcc_arm64/lib ${{ env.QT_TMP }}
+          cp -r /home/opc/6.8.0/gcc_arm64/bin ${{ env.QT_TMP }}
+          cp -r /home/opc/6.8.0/gcc_arm64/plugins ${{ env.QT_TMP }}
+          cp -r /home/opc/6.8.0/gcc_arm64/qml ${{ env.QT_TMP }}
           
 
       - name: Copy Qt Dir - MacOS ARM
