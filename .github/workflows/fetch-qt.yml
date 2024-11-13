@@ -55,8 +55,7 @@ jobs:
           mkdir -p ${{ github.workspace }}/../__tmp/bin
           mkdir -p ${{ github.workspace }}/../__tmp/plugins
           mkdir -p ${{ github.workspace }}/../__tmp/qml
-          echo "QT_TMP1=${{ github.workspace }}/../__tmp" >> $GITHUB_ENV
-          echo "QT_TMP=${QT_TMP1//\\//}" >> $GITHUB_ENV
+          echo "QT_TMP=${{ replace(github.workspace, '\\', '/') }}/../__tmp" >> $GITHUB_ENV
 
       - name: Copy Qt Dir - Linux
         if: matrix.os == 'ubuntu-22.04'
