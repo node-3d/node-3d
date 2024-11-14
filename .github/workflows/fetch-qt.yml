@@ -64,13 +64,15 @@ jobs:
         if: matrix.os == 'ubuntu-22.04'
         run: |
           echo "OS_NAME=linux" >> $GITHUB_ENV
-          ./scripts/copy-qt-linux.sh ${{ env.QT_TMP }} ${{ github.workspace }}/../Qt/6.8.0/gcc_64
+          chmod +x scripts/copy-qt-linux.sh
+          scripts/copy-qt-linux.sh ${{ env.QT_TMP }} ${{ github.workspace }}/../Qt/6.8.0/gcc_64
 
       - name: Copy Qt Dir - Linux ARM
         if: matrix.os != 'ubuntu-22.04' && matrix.os != 'macos-14' && matrix.os != 'windows-2022'
         run: |
           echo "OS_NAME=aarch64" >> $GITHUB_ENV
-          ./scripts/copy-qt-linux.sh ${{ env.QT_TMP }} /home/opc/6.8.0/gcc_arm64
+          chmod +x scripts/copy-qt-linux.sh
+          scripts/copy-qt-linux.sh ${{ env.QT_TMP }} /home/opc/6.8.0/gcc_arm64
           
 
       - name: Copy Qt Dir - MacOS ARM
@@ -84,13 +86,15 @@ jobs:
           ls ${{ github.workspace }}/../Qt/6.8.0/macos/lib
           echo QMLQMLQML
           ls ${{ github.workspace }}/../Qt/6.8.0/macos/qml
-          ./scripts/copy-qt-macos.sh ${{ env.QT_TMP }} ${{ github.workspace }}/../Qt/6.8.0/macos
+          chmod +x scripts/copy-qt-macos.sh
+          scripts/copy-qt-macos.sh ${{ env.QT_TMP }} ${{ github.workspace }}/../Qt/6.8.0/macos
 
       - name: Copy Qt Dir - Windows
         if: matrix.os == 'windows-2022'
         run: |
           echo "OS_NAME=windows" >> $GITHUB_ENV
-          ./scripts/copy-qt-windows.sh '${{ env.QT_TMP }}' '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64'
+          chmod +x scripts/copy-qt-windows.sh
+          scripts/copy-qt-windows.sh '${{ env.QT_TMP }}' '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64'
 
       - name: Pack Libs
         run: |
