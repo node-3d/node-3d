@@ -39,6 +39,11 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Fetch Repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
       - name: Install Qt
         if: matrix.os == 'ubuntu-22.04' || matrix.os == 'macos-14' || matrix.os == 'windows-2022'
         uses: jurplel/install-qt-action@v4
