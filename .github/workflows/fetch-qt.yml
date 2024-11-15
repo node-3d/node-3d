@@ -63,19 +63,19 @@ jobs:
           chmod +x scripts/qt-mkdir.sh
           scripts/qt-mkdir.sh ${{ env.QT_TMP }}
 
-      # - name: Copy Qt Dir - Linux
-      #   if: matrix.os == 'ubuntu-22.04'
-      #   run: |
-      #     echo "OS_NAME=linux" >> $GITHUB_ENV
-      #     chmod +x scripts/qt-copy-linux.sh
-      #     scripts/qt-copy-linux.sh ${{ env.QT_TMP }} ${{ github.workspace }}/../Qt/6.8.0/gcc_64
+      - name: Copy Qt Dir - Linux
+        if: matrix.os == 'ubuntu-22.04'
+        run: |
+          echo "OS_NAME=linux" >> $GITHUB_ENV
+          chmod +x scripts/qt-copy-linux.sh
+          scripts/qt-copy-linux.sh ${{ env.QT_TMP }} ${{ github.workspace }}/../Qt/6.8.0/gcc_64
 
-      # - name: Copy Qt Dir - Linux ARM
-      #   if: matrix.os != 'ubuntu-22.04' && matrix.os != 'macos-14' && matrix.os != 'windows-2022'
-      #   run: |
-      #     echo "OS_NAME=aarch64" >> $GITHUB_ENV
-      #     chmod +x scripts/qt-copy-linux.sh
-      #     scripts/qt-copy-linux.sh ${{ env.QT_TMP }} /home/opc/6.8.0/gcc_arm64
+      - name: Copy Qt Dir - Linux ARM
+        if: matrix.os != 'ubuntu-22.04' && matrix.os != 'macos-14' && matrix.os != 'windows-2022'
+        run: |
+          echo "OS_NAME=aarch64" >> $GITHUB_ENV
+          chmod +x scripts/qt-copy-linux.sh
+          scripts/qt-copy-linux.sh ${{ env.QT_TMP }} /home/opc/6.8.0/gcc_arm64
 
       - name: Copy Qt Dir - MacOS ARM
         if: matrix.os == 'macos-14'
@@ -90,11 +90,11 @@ jobs:
           chmod +x scripts/qt-copy-macos.sh
           scripts/qt-copy-macos.sh ${{ env.QT_TMP }} ${{ github.workspace }}/../Qt/6.8.0/macos
 
-      # - name: Copy Qt Dir - Windows
-      #   if: matrix.os == 'windows-2022'
-      #   run: |
-      #     echo "OS_NAME=windows" >> $GITHUB_ENV
-      #     scripts/qt-copy-windows.sh '${{ env.QT_TMP }}' '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64'
+      - name: Copy Qt Dir - Windows
+        if: matrix.os == 'windows-2022'
+        run: |
+          echo "OS_NAME=windows" >> $GITHUB_ENV
+          scripts/qt-copy-windows.sh '${{ env.QT_TMP }}' '${{ github.workspace }}\..\Qt\6.8.0\msvc2022_64'
 
       - name: Pack Libs
         run: |
