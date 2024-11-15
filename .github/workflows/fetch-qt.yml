@@ -82,8 +82,9 @@ jobs:
         run: |
           echo "OS_NAME=darwin-arm64" >> $GITHUB_ENV
           chmod +x scripts/qt-copy-macos.sh
-          ls ${{ env.QT_TMP }}
           scripts/qt-copy-macos.sh ${{ env.QT_TMP }} ${{ github.workspace }}/../Qt/6.8.0/macos
+          chmod +x scripts/fix-rpath.sh
+          scripts/fix-rpath.sh ${{ env.QT_TMP }}/gui/plugins/platforms/libqcocoa.dylib
 
       - name: Copy Qt Dir - Windows
         if: matrix.os == 'windows-2022'
