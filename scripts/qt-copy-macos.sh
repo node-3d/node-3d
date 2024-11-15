@@ -6,49 +6,49 @@ cp $2/plugins/platforms/libqminimal.dylib $1/core/plugins/platforms/libqminimal.
 
 mkdir -p $1/core/QtCore.framework
 mkdir -p $1/core/QtCore.framework/Versions
-mkdir -p $1/core/QtCore.framework/Versions/6
-cp $2/lib/QtCore.framework/Versions/6/QtCore $1/core/QtCore.framework/Versions/6/QtCore
+mkdir -p $1/core/QtCore.framework/Versions/Current
+cp $2/lib/QtCore.framework/Versions/Current/QtCore $1/core/QtCore.framework/Versions/Current/QtCore
 
 mkdir -p $1/core/QtDBus.framework
 mkdir -p $1/core/QtDBus.framework/Versions
-mkdir -p $1/core/QtDBus.framework/Versions/6
-cp $2/lib/QtDBus.framework/Versions/6/QtDBus $1/core/QtDBus.framework/Versions/6/QtDBus
+mkdir -p $1/core/QtDBus.framework/Versions/Current
+cp $2/lib/QtDBus.framework/Versions/Current/QtDBus $1/core/QtDBus.framework/Versions/Current/QtDBus
 
 mkdir -p $1/core/QtNetwork.framework
 mkdir -p $1/core/QtNetwork.framework/Versions
-mkdir -p $1/core/QtNetwork.framework/Versions/6
-cp $2/lib/QtNetwork.framework/Versions/6/QtNetwork $1/core/QtNetwork.framework/Versions/6/QtNetwork
+mkdir -p $1/core/QtNetwork.framework/Versions/Current
+cp $2/lib/QtNetwork.framework/Versions/Current/QtNetwork $1/core/QtNetwork.framework/Versions/Current/QtNetwork
 
 mkdir -p $1/core/QtPositioningQuick.framework
 mkdir -p $1/core/QtPositioningQuick.framework/Versions
-mkdir -p $1/core/QtPositioningQuick.framework/Versions/6
-cp $2/lib/QtPositioningQuick.framework/Versions/6/QtPositioningQuick $1/core/QtPositioningQuick.framework/Versions/6/QtPositioningQuick
+mkdir -p $1/core/QtPositioningQuick.framework/Versions/Current
+cp $2/lib/QtPositioningQuick.framework/Versions/Current/QtPositioningQuick $1/core/QtPositioningQuick.framework/Versions/Current/QtPositioningQuick
 
 mkdir -p $1/core/QtPrintSupport.framework
 mkdir -p $1/core/QtPrintSupport.framework/Versions
-mkdir -p $1/core/QtPrintSupport.framework/Versions/6
-cp $2/lib/QtPrintSupport.framework/Versions/6/QtPrintSupport $1/core/QtPrintSupport.framework/Versions/6/QtPrintSupport
+mkdir -p $1/core/QtPrintSupport.framework/Versions/Current
+cp $2/lib/QtPrintSupport.framework/Versions/Current/QtPrintSupport $1/core/QtPrintSupport.framework/Versions/Current/QtPrintSupport
 
 # Gui
 mkdir -p $1/gui/QtGui.framework
 mkdir -p $1/gui/QtGui.framework/Versions
-mkdir -p $1/gui/QtGui.framework/Versions/6
-cp $2/lib/QtGui.framework/Versions/6/QtGui $1/gui/QtGui.framework/Versions/6/QtGui
+mkdir -p $1/gui/QtGui.framework/Versions/Current
+cp $2/lib/QtGui.framework/Versions/Current/QtGui $1/gui/QtGui.framework/Versions/Current/QtGui
 
 mkdir -p $1/gui/QtOpenGL.framework
 mkdir -p $1/gui/QtOpenGL.framework/Versions
-mkdir -p $1/gui/QtOpenGL.framework/Versions/6
-cp $2/lib/QtOpenGL.framework/Versions/6/QtOpenGL $1/gui/QtOpenGL.framework/Versions/6/QtOpenGL
+mkdir -p $1/gui/QtOpenGL.framework/Versions/Current
+cp $2/lib/QtOpenGL.framework/Versions/Current/QtOpenGL $1/gui/QtOpenGL.framework/Versions/Current/QtOpenGL
 
 mkdir -p $1/gui/QtSvg.framework
 mkdir -p $1/gui/QtSvg.framework/Versions
-mkdir -p $1/gui/QtSvg.framework/Versions/6
-cp $2/lib/QtSvg.framework/Versions/6/QtSvg $1/gui/QtSvg.framework/Versions/6/QtSvg
+mkdir -p $1/gui/QtSvg.framework/Versions/Current
+cp $2/lib/QtSvg.framework/Versions/Current/QtSvg $1/gui/QtSvg.framework/Versions/Current/QtSvg
 
 mkdir -p $1/gui/QtWidgets.framework
 mkdir -p $1/gui/QtWidgets.framework/Versions
-mkdir -p $1/gui/QtWidgets.framework/Versions/6
-cp $2/lib/QtWidgets.framework/Versions/6/QtWidgets $1/gui/QtWidgets.framework/Versions/6/QtWidgets
+mkdir -p $1/gui/QtWidgets.framework/Versions/Current
+cp $2/lib/QtWidgets.framework/Versions/Current/QtWidgets $1/gui/QtWidgets.framework/Versions/Current/QtWidgets
 
 cp $2/plugins/iconengines/libqsvgicon.dylib $1/gui/plugins/iconengines/libqsvgicon.dylib
 cp $2/plugins/imageformats/libqgif.dylib $1/gui/plugins/imageformats/libqgif.dylib
@@ -62,98 +62,98 @@ cp $2/plugins/platformthemes/libqxdgdesktopportal.dylib $1/gui/plugins/platformt
 # QML
 mkdir -p $1/qml/QtQml.framework
 mkdir -p $1/qml/QtQml.framework/Versions
-mkdir -p $1/qml/QtQml.framework/Versions/6
-cp $2/lib/QtQml.framework/Versions/6/QtQml $1/qml/QtQml.framework/Versions/6/QtGui
+mkdir -p $1/qml/QtQml.framework/Versions/Current
+cp $2/lib/QtQml.framework/Versions/Current/QtQml $1/qml/QtQml.framework/Versions/Current/QtGui
 
 mkdir -p $1/qml/QtQuick.framework
 mkdir -p $1/qml/QtQuick.framework/Versions
-mkdir -p $1/qml/QtQuick.framework/Versions/6
-cp $2/lib/QtQuick.framework/Versions/6/QtQuick $1/qml/QtQuick.framework/Versions/6/QtQuick
+mkdir -p $1/qml/QtQuick.framework/Versions/Current
+cp $2/lib/QtQuick.framework/Versions/Current/QtQuick $1/qml/QtQuick.framework/Versions/Current/QtQuick
 
 mkdir -p $1/qml/QtQuickControls2.framework
 mkdir -p $1/qml/QtQuickControls2.framework/Versions
-mkdir -p $1/qml/QtQuickControls2.framework/Versions/6
-cp $2/lib/QtQuickControls2.framework/Versions/6/QtQuickControls2 $1/qml/QtQuickControls2.framework/Versions/6/QtQuickControls2
+mkdir -p $1/qml/QtQuickControls2.framework/Versions/Current
+cp $2/lib/QtQuickControls2.framework/Versions/Current/QtQuickControls2 $1/qml/QtQuickControls2.framework/Versions/Current/QtQuickControls2
 
 mkdir -p $1/qml/QtQuickTemplates2.framework
 mkdir -p $1/qml/QtQuickTemplates2.framework/Versions
-mkdir -p $1/qml/QtQuickTemplates2.framework/Versions/6
-cp $2/lib/QtQuickTemplates2.framework/Versions/6/QtQuickTemplates2 $1/qml/QtQuickTemplates2.framework/Versions/6/QtQuickTemplates2
+mkdir -p $1/qml/QtQuickTemplates2.framework/Versions/Current
+cp $2/lib/QtQuickTemplates2.framework/Versions/Current/QtQuickTemplates2 $1/qml/QtQuickTemplates2.framework/Versions/Current/QtQuickTemplates2
 
 mkdir -p $1/qml/QtQuickWidgets.framework
 mkdir -p $1/qml/QtQuickWidgets.framework/Versions
-mkdir -p $1/qml/QtQuickWidgets.framework/Versions/6
-cp $2/lib/QtQuickWidgets.framework/Versions/6/QtQuickWidgets $1/qml/QtQuickWidgets.framework/Versions/6/QtQuickWidgets
+mkdir -p $1/qml/QtQuickWidgets.framework/Versions/Current
+cp $2/lib/QtQuickWidgets.framework/Versions/Current/QtQuickWidgets $1/qml/QtQuickWidgets.framework/Versions/Current/QtQuickWidgets
 
 mkdir -p $1/qml/Qt6QuickVectorImage.framework
 mkdir -p $1/qml/Qt6QuickVectorImage.framework/Versions
-mkdir -p $1/qml/Qt6QuickVectorImage.framework/Versions/6
-cp $2/lib/Qt6QuickVectorImage.framework/Versions/6/Qt6QuickVectorImage $1/qml/Qt6QuickVectorImage.framework/Versions/6/Qt6QuickVectorImage
+mkdir -p $1/qml/Qt6QuickVectorImage.framework/Versions/Current
+cp $2/lib/Qt6QuickVectorImage.framework/Versions/Current/Qt6QuickVectorImage $1/qml/Qt6QuickVectorImage.framework/Versions/Current/Qt6QuickVectorImage
 
 mkdir -p $1/qml/Qt6QmlCompiler.framework
 mkdir -p $1/qml/Qt6QmlCompiler.framework/Versions
-mkdir -p $1/qml/Qt6QmlCompiler.framework/Versions/6
-cp $2/lib/Qt6QmlCompiler.framework/Versions/6/Qt6QmlCompiler $1/qml/Qt6QmlCompiler.framework/Versions/6/Qt6QmlCompiler
+mkdir -p $1/qml/Qt6QmlCompiler.framework/Versions/Current
+cp $2/lib/Qt6QmlCompiler.framework/Versions/Current/Qt6QmlCompiler $1/qml/Qt6QmlCompiler.framework/Versions/Current/Qt6QmlCompiler
 
 mkdir -p $1/qml/Qt6QmlCore.framework
 mkdir -p $1/qml/Qt6QmlCore.framework/Versions
-mkdir -p $1/qml/Qt6QmlCore.framework/Versions/6
-cp $2/lib/Qt6QmlCore.framework/Versions/6/Qt6QmlCore $1/qml/Qt6QmlCore.framework/Versions/6/Qt6QmlCore
+mkdir -p $1/qml/Qt6QmlCore.framework/Versions/Current
+cp $2/lib/Qt6QmlCore.framework/Versions/Current/Qt6QmlCore $1/qml/Qt6QmlCore.framework/Versions/Current/Qt6QmlCore
 
 mkdir -p $1/qml/Qt6QuickControls2Basic.framework
 mkdir -p $1/qml/Qt6QuickControls2Basic.framework/Versions
-mkdir -p $1/qml/Qt6QuickControls2Basic.framework/Versions/6
-cp $2/lib/Qt6QuickControls2Basic.framework/Versions/6/Qt6QuickControls2Basic $1/qml/Qt6QuickControls2Basic.framework/Versions/6/Qt6QuickControls2Basic
+mkdir -p $1/qml/Qt6QuickControls2Basic.framework/Versions/Current
+cp $2/lib/Qt6QuickControls2Basic.framework/Versions/Current/Qt6QuickControls2Basic $1/qml/Qt6QuickControls2Basic.framework/Versions/Current/Qt6QuickControls2Basic
 
 mkdir -p $1/qml/Qt6QuickControls2Impl.framework
 mkdir -p $1/qml/Qt6QuickControls2Impl.framework/Versions
-mkdir -p $1/qml/Qt6QuickControls2Impl.framework/Versions/6
-cp $2/lib/Qt6QuickControls2Impl.framework/Versions/6/Qt6QuickControls2Impl $1/qml/Qt6QuickControls2Impl.framework/Versions/6/Qt6QuickControls2Impl
+mkdir -p $1/qml/Qt6QuickControls2Impl.framework/Versions/Current
+cp $2/lib/Qt6QuickControls2Impl.framework/Versions/Current/Qt6QuickControls2Impl $1/qml/Qt6QuickControls2Impl.framework/Versions/Current/Qt6QuickControls2Impl
 
 mkdir -p $1/qml/Qt6QuickDialogs2.framework
 mkdir -p $1/qml/Qt6QuickDialogs2.framework/Versions
-mkdir -p $1/qml/Qt6QuickDialogs2.framework/Versions/6
-cp $2/lib/Qt6QuickDialogs2.framework/Versions/6/Qt6QuickDialogs2 $1/qml/Qt6QuickDialogs2.framework/Versions/6/Qt6QuickDialogs2
+mkdir -p $1/qml/Qt6QuickDialogs2.framework/Versions/Current
+cp $2/lib/Qt6QuickDialogs2.framework/Versions/Current/Qt6QuickDialogs2 $1/qml/Qt6QuickDialogs2.framework/Versions/Current/Qt6QuickDialogs2
 
 mkdir -p $1/qml/Qt6QuickDialogs2QuickImpl.framework
 mkdir -p $1/qml/Qt6QuickDialogs2QuickImpl.framework/Versions
-mkdir -p $1/qml/Qt6QuickDialogs2QuickImpl.framework/Versions/6
-cp $2/lib/Qt6QuickDialogs2QuickImpl.framework/Versions/6/Qt6QuickDialogs2QuickImpl $1/qml/Qt6QuickDialogs2QuickImpl.framework/Versions/6/Qt6QuickDialogs2QuickImpl
+mkdir -p $1/qml/Qt6QuickDialogs2QuickImpl.framework/Versions/Current
+cp $2/lib/Qt6QuickDialogs2QuickImpl.framework/Versions/Current/Qt6QuickDialogs2QuickImpl $1/qml/Qt6QuickDialogs2QuickImpl.framework/Versions/Current/Qt6QuickDialogs2QuickImpl
 
 mkdir -p $1/qml/Qt6QuickDialogs2Utils.framework
 mkdir -p $1/qml/Qt6QuickDialogs2Utils.framework/Versions
-mkdir -p $1/qml/Qt6QuickDialogs2Utils.framework/Versions/6
-cp $2/lib/Qt6QuickDialogs2Utils.framework/Versions/6/Qt6QuickDialogs2Utils $1/qml/Qt6QuickDialogs2Utils.framework/Versions/6/Qt6QuickDialogs2Utils
+mkdir -p $1/qml/Qt6QuickDialogs2Utils.framework/Versions/Current
+cp $2/lib/Qt6QuickDialogs2Utils.framework/Versions/Current/Qt6QuickDialogs2Utils $1/qml/Qt6QuickDialogs2Utils.framework/Versions/Current/Qt6QuickDialogs2Utils
 
 mkdir -p $1/qml/Qt6QuickEffects.framework
 mkdir -p $1/qml/Qt6QuickEffects.framework/Versions
-mkdir -p $1/qml/Qt6QuickEffects.framework/Versions/6
-cp $2/lib/Qt6QuickEffects.framework/Versions/6/Qt6QuickEffects $1/qml/Qt6QuickEffects.framework/Versions/6/Qt6QuickEffects
+mkdir -p $1/qml/Qt6QuickEffects.framework/Versions/Current
+cp $2/lib/Qt6QuickEffects.framework/Versions/Current/Qt6QuickEffects $1/qml/Qt6QuickEffects.framework/Versions/Current/Qt6QuickEffects
 
 mkdir -p $1/qml/Qt6QuickLayouts.framework
 mkdir -p $1/qml/Qt6QuickLayouts.framework/Versions
-mkdir -p $1/qml/Qt6QuickLayouts.framework/Versions/6
-cp $2/lib/Qt6QuickLayouts.framework/Versions/6/Qt6QuickLayouts $1/qml/Qt6QuickLayouts.framework/Versions/6/Qt6QuickLayouts
+mkdir -p $1/qml/Qt6QuickLayouts.framework/Versions/Current
+cp $2/lib/Qt6QuickLayouts.framework/Versions/Current/Qt6QuickLayouts $1/qml/Qt6QuickLayouts.framework/Versions/Current/Qt6QuickLayouts
 
 mkdir -p $1/qml/Qt6QuickParticles.framework
 mkdir -p $1/qml/Qt6QuickParticles.framework/Versions
-mkdir -p $1/qml/Qt6QuickParticles.framework/Versions/6
-cp $2/lib/Qt6QuickParticles.framework/Versions/6/Qt6QuickParticles $1/qml/Qt6QuickParticles.framework/Versions/6/Qt6QuickParticles
+mkdir -p $1/qml/Qt6QuickParticles.framework/Versions/Current
+cp $2/lib/Qt6QuickParticles.framework/Versions/Current/Qt6QuickParticles $1/qml/Qt6QuickParticles.framework/Versions/Current/Qt6QuickParticles
 
 mkdir -p $1/qml/Qt6QuickShapes.framework
 mkdir -p $1/qml/Qt6QuickShapes.framework/Versions
-mkdir -p $1/qml/Qt6QuickShapes.framework/Versions/6
-cp $2/lib/Qt6QuickShapes.framework/Versions/6/Qt6QuickShapes $1/qml/Qt6QuickShapes.framework/Versions/6/Qt6QuickShapes
+mkdir -p $1/qml/Qt6QuickShapes.framework/Versions/Current
+cp $2/lib/Qt6QuickShapes.framework/Versions/Current/Qt6QuickShapes $1/qml/Qt6QuickShapes.framework/Versions/Current/Qt6QuickShapes
 
 mkdir -p $1/qml/Qt6QmlWorkerScript.framework
 mkdir -p $1/qml/Qt6QmlWorkerScript.framework/Versions
-mkdir -p $1/qml/Qt6QmlWorkerScript.framework/Versions/6
-cp $2/lib/Qt6QmlWorkerScript.framework/Versions/6/Qt6QmlWorkerScript $1/qml/Qt6QmlWorkerScript.framework/Versions/6/Qt6QmlWorkerScript
+mkdir -p $1/qml/Qt6QmlWorkerScript.framework/Versions/Current
+cp $2/lib/Qt6QmlWorkerScript.framework/Versions/Current/Qt6QmlWorkerScript $1/qml/Qt6QmlWorkerScript.framework/Versions/Current/Qt6QmlWorkerScript
 
 mkdir -p $1/qml/Qt6QmlModels.framework
 mkdir -p $1/qml/Qt6QmlModels.framework/Versions
-mkdir -p $1/qml/Qt6QmlModels.framework/Versions/6
-cp $2/lib/Qt6QmlModels.framework/Versions/6/Qt6QmlModels $1/qml/Qt6QmlModels.framework/Versions/6/Qt6QmlModels
+mkdir -p $1/qml/Qt6QmlModels.framework/Versions/Current
+cp $2/lib/Qt6QmlModels.framework/Versions/Current/Qt6QmlModels $1/qml/Qt6QmlModels.framework/Versions/Current/Qt6QmlModels
 
 cp $2/plugins/qmltooling/libqmldbg_debugger.dylib $1/qml/plugins/qmltooling/libqmldbg_debugger.dylib
 cp $2/plugins/qmltooling/libqmldbg_inspector.dylib $1/qml/plugins/qmltooling/libqmldbg_inspector.dylib

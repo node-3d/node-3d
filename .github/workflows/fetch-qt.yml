@@ -86,7 +86,7 @@ jobs:
           echo QtCore 2 -------
           ls ${{ github.workspace }}/../Qt/6.8.0/macos/lib/QtCore.framework/Versions
           echo QtCore 3 -------
-          ls ${{ github.workspace }}/../Qt/6.8.0/macos/lib/QtCore.framework/Versions/6
+          ls ${{ github.workspace }}/../Qt/6.8.0/macos/lib/QtCore.framework/Versions/Current
           chmod +x scripts/qt-copy-macos.sh
           scripts/qt-copy-macos.sh ${{ env.QT_TMP }} ${{ github.workspace }}/../Qt/6.8.0/macos
 
