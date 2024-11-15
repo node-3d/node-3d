@@ -52,7 +52,6 @@ cp $2/plugins/imageformats/libqjpeg.dylib $1/gui/plugins/imageformats/libqjpeg.d
 cp $2/plugins/imageformats/libqsvg.dylib $1/gui/plugins/imageformats/libqsvg.dylib
 cp $2/plugins/platforms/libqcocoa.dylib $1/gui/plugins/platforms/libqcocoa.dylib
 cp $2/plugins/platforms/libqoffscreen.dylib $1/gui/plugins/platforms/libqoffscreen.dylib
-cp $2/plugins/platformthemes/libqxdgdesktopportal.dylib $1/gui/plugins/platformthemes/libqxdgdesktopportal.dylib
 
 # QML
 mkdir -p $1/qml/QtQml.framework
