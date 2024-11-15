@@ -27,10 +27,7 @@ cp $2/plugins/imageformats/libqsvg.so $1/gui/plugins/imageformats/libqsvg.so
 cp $2/plugins/platforms/libqlinuxfb.so $1/gui/plugins/platforms/libqlinuxfb.so
 cp $2/plugins/platforms/libqoffscreen.so $1/gui/plugins/platforms/libqoffscreen.so
 cp $2/plugins/platforms/libqwayland-generic.so $1/gui/plugins/platforms/libqwayland-generic.so
-cp $2/plugins/platforms/libqwayland-xcomposite-glx.so $1/gui/plugins/platforms/libqwayland-xcomposite-glx.so
 cp $2/plugins/platforms/libqxcb.so $1/gui/plugins/platforms/libqxcb.so
-cp $2/plugins/xcbglintegrations/libqwayland-egl.so $1/gui/plugins/xcbglintegrations/libqwayland-egl.so
-cp $2/plugins/xcbglintegrations/libqwayland-generic.so $1/gui/plugins/xcbglintegrations/libqwayland-generic.so
 
 # QML
 cp $2/lib/libQt6Qml.so.6 $1/qml/libQt6Qml.so.6

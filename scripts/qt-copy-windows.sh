@@ -13,14 +13,9 @@ cp $2/bin/Qt6Svg.dll $1/gui/Qt6Svg.dll
 cp $2/bin/Qt6Widgets.dll $1/gui/Qt6Widgets.dll
 cp $2/plugins/iconengines/qsvgicon.dll $1/gui/plugins/iconengines/qsvgicon.dll
 cp $2/plugins/imageformats/qgif.dll $1/gui/plugins/imageformats/qgif.dll
-cp $2/plugins/imageformats/qicns.dll $1/gui/plugins/imageformats/qicns.dll
 cp $2/plugins/imageformats/qico.dll $1/gui/plugins/imageformats/qico.dll
 cp $2/plugins/imageformats/qjpeg.dll $1/gui/plugins/imageformats/qjpeg.dll
 cp $2/plugins/imageformats/qsvg.dll $1/gui/plugins/imageformats/qsvg.dll
-cp $2/plugins/imageformats/qtga.dll $1/gui/plugins/imageformats/qtga.dll
-cp $2/plugins/imageformats/qtiff.dll $1/gui/plugins/imageformats/qtiff.dll
-cp $2/plugins/imageformats/qwbmp.dll $1/gui/plugins/imageformats/qwbmp.dll
-cp $2/plugins/imageformats/qwebp.dll $1/gui/plugins/imageformats/qwebp.dll
 cp $2/plugins/platforms/qoffscreen.dll $1/gui/plugins/platforms/qoffscreen.dll
 cp $2/plugins/platforms/qwindows.dll $1/gui/plugins/platforms/qwindows.dll
 
