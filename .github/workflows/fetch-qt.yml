@@ -82,6 +82,7 @@ jobs:
         run: |
           echo "OS_NAME=darwin-arm64" >> $GITHUB_ENV
           chmod +x scripts/qt-copy-macos.sh
+          ls ${{ env.QT_TMP }}
           scripts/qt-copy-macos.sh ${{ env.QT_TMP }} ${{ github.workspace }}/../Qt/6.8.0/macos
 
       - name: Copy Qt Dir - Windows
@@ -93,7 +94,7 @@ jobs:
       - name: Pack Libs
         run: |
           cd '${{ env.QT_TMP }}'
-          tar -czf ../${{ env.OS_NAME }}.gz * '${{ env.QT_TMP }}'
+          tar -czf ../${{ env.OS_NAME }}.gz *
 
       - name: Store Binaries
         uses: softprops/action-gh-release@v2
