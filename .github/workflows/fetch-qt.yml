@@ -81,12 +81,8 @@ jobs:
         if: matrix.os == 'macos-14'
         run: |
           echo "OS_NAME=darwin-arm64" >> $GITHUB_ENV
-          echo QtCore 1 -------
-          ls ${{ github.workspace }}/../Qt/6.8.0/macos/lib/QtCore.framework
-          echo QtCore 2 -------
-          ls ${{ github.workspace }}/../Qt/6.8.0/macos/lib/QtCore.framework/Versions
-          echo QtCore 3 -------
-          ls ${{ github.workspace }}/../Qt/6.8.0/macos/lib/QtCore.framework/Versions/Current
+          echo QtCore 0 -------
+          ls ${{ github.workspace }}/../Qt/6.8.0/macos/plugins
           chmod +x scripts/qt-copy-macos.sh
           scripts/qt-copy-macos.sh ${{ env.QT_TMP }} ${{ github.workspace }}/../Qt/6.8.0/macos
 
