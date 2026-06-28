@@ -1,0 +1,81 @@
+[submodule "3d-bullet-raub"]
+	path = packages/3d-bullet-raub
+	url = https://github.com/node-3d/3d-bullet-raub.git
+[submodule "3d-core-raub"]
+	path = packages/3d-core-raub
+	url = https://github.com/node-3d/3d-core-raub.git
+[submodule "3d-qml-raub"]
+	path = packages/3d-qml-raub
+	url = https://github.com/node-3d/3d-qml-raub.git
+[submodule "3d-webaudio-raub"]
+	path = packages/3d-webaudio-raub
+	url = https://github.com/node-3d/3d-webaudio-raub.git
+[submodule "addon-tools-raub"]
+	path = packages/addon-tools-raub
+	url = https://github.com/node-3d/addon-tools-raub.git
+[submodule "bullet-raub"]
+	path = packages/bullet-raub
+	url = https://github.com/node-3d/bullet-raub.git
+[submodule "cuda-raub"]
+	path = packages/cuda-raub
+	url = https://github.com/node-3d/cuda-raub.git
+[submodule "deps-bullet-raub"]
+	path = packages/deps-bullet-raub
+	url = https://github.com/node-3d/deps-bullet-raub.git
+[submodule "deps-freeimage-raub"]
+	path = packages/deps-freeimage-raub
+	url = https://github.com/node-3d/deps-freeimage-raub.git
+[submodule "deps-labsound-raub"]
+	path = packages/deps-labsound-raub
+	url = https://github.com/node-3d/deps-labsound-raub.git
+[submodule "deps-opengl-raub"]
+	path = packages/deps-opengl-raub
+	url = https://github.com/node-3d/deps-opengl-raub.git
+[submodule "deps-qmlui-raub"]
+	path = packages/deps-qmlui-raub
+	url = https://github.com/node-3d/deps-qmlui-raub.git
+[submodule "deps-qt-core-raub"]
+	path = packages/deps-qt-core-raub
+	url = https://github.com/node-3d/deps-qt-core-raub.git
+[submodule "deps-qt-gui-raub"]
+	path = packages/deps-qt-gui-raub
+	url = https://github.com/node-3d/deps-qt-gui-raub.git
+[submodule "deps-qt-qml-raub"]
+	path = packages/deps-qt-qml-raub
+	url = https://github.com/node-3d/deps-qt-qml-raub.git
+[submodule "deps-uiohook-raub"]
+	path = packages/deps-uiohook-raub
+	url = https://github.com/node-3d/deps-uiohook-raub.git
+[submodule "glfw-raub"]
+	path = packages/glfw-raub
+	url = https://github.com/node-3d/glfw-raub.git
+[submodule "image-raub"]
+	path = packages/image-raub
+	url = https://github.com/node-3d/image-raub.git
+[submodule "iohook-raub"]
+	path = packages/iohook-raub
+	url = https://github.com/node-3d/iohook-raub.git
+[submodule "opencl-raub"]
+	path = packages/opencl-raub
+	url = https://github.com/node-3d/opencl-raub.git
+[submodule "qml-colorhelpers-raub"]
+	path = packages/qml-colorhelpers-raub
+	url = https://github.com/node-3d/qml-colorhelpers-raub.git
+[submodule "qml-fontawesome-raub"]
+	path = packages/qml-fontawesome-raub
+	url = https://github.com/node-3d/qml-fontawesome-raub.git
+[submodule "qml-raub"]
+	path = packages/qml-raub
+	url = https://github.com/node-3d/qml-raub.git
+[submodule "qml-themedui-raub"]
+	path = packages/qml-themedui-raub
+	url = https://github.com/node-3d/qml-themedui-raub.git
+[submodule "segfault-raub"]
+	path = packages/segfault-raub
+	url = https://github.com/node-3d/segfault-raub.git
+[submodule "webaudio-raub"]
+	path = packages/webaudio-raub
+	url = https://github.com/node-3d/webaudio-raub.git
+[submodule "webgl-raub"]
+	path = packages/webgl-raub
+	url = https://github.com/node-3d/webgl-raub.git

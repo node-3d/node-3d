@@ -1,11 +1,11 @@
 # Node3D
 
-[![NPM](https://badge.fury.io/js/3d-core-raub.svg)](https://badge.fury.io/js/3d-core-raub)
-[![ESLint](https://github.com/node-3d/3d-core-raub/actions/workflows/eslint.yml/badge.svg)](https://github.com/node-3d/3d-core-raub/actions/workflows/eslint.yml)
-[![Test](https://github.com/node-3d/3d-core-raub/actions/workflows/test.yml/badge.svg)](https://github.com/node-3d/3d-core-raub/actions/workflows/test.yml)
+[![NPM](https://badge.fury.io/js/%40node-3d%2Fcore.svg)](https://badge.fury.io/js/@node-3d/core)
+[![ESLint](https://github.com/node-3d/core/actions/workflows/eslint.yml/badge.svg)](https://github.com/node-3d/core/actions/workflows/eslint.yml)
+[![Test](https://github.com/node-3d/core/actions/workflows/test.yml/badge.svg)](https://github.com/node-3d/core/actions/workflows/test.yml)
 
 ```console
-npm i -s 3d-core-raub
+npm i -s @node-3d/core
 ```
 
 ![Node3D](https://github.com/node-3d/node-3d/raw/master/logo/front/logo.png)
@@ -20,7 +20,7 @@ npm i -s 3d-core-raub
 * Read/write files.
 * Crossplatform: Linux x64, Linux ARM, MacOS x64, Windows x64.
 
-![Example](https://github.com/node-3d/3d-core-raub/raw/4.1.0/examples/screenshot.png)
+![Example](https://github.com/node-3d/core/raw/4.1.0/examples/screenshot.png)
 
 Compatibility with **three.js** allows porting the existing JS code.
 The real OpenGL backend is used (not ANGLE). So it is possible to use the GL resource IDs
@@ -40,7 +40,7 @@ For example, see
 	mkdir my-project
 	cd my-project
 	npm init -y
-	npm i -s 3d-core-raub three
+	npm i -s @node-3d/core three
 	touch index.js
 	```
 
@@ -49,9 +49,9 @@ For example, see
 	```javascript
 	// Init Node3D environment
 	const three = require('three');
-	const { init, addThreeHelpers } = require('3d-core-raub');
+	const { init, addThreeHelpers } = require('@node-3d/core');
 	const { doc, gl, requestAnimationFrame } = init({ isGles3: true, isWebGL2: true, vsync: false });
-	addThreeHelpers(three, gl);
+	addThreeHelpers(three);
 	
 	// Three.js rendering setup
 	const renderer = new three.WebGLRenderer();
@@ -97,7 +97,7 @@ For example, see
 	animate();
 	```
 
-1. See docs and examples: [3d-core-raub](https://github.com/raub/node-3d-core).
+1. See docs and examples: [@node-3d/core](https://github.com/raub/node-3d-core).
 
 1. Take a look at Three.js [examples](https://threejs.org/examples/).
 
@@ -105,52 +105,52 @@ For example, see
 ## Node3D Modules
 
 1. **Core** - key components to run WebGL code on Node.js.
-	* [3d-core-raub](https://github.com/node-3d/3d-core-raub) -
+	* [@node-3d/core](https://github.com/node-3d/core) -
 	3D Core, this is just enough for Node3D to work.
-	* [addon-tools-raub](https://github.com/node-3d/addon-tools-raub) -
+	* [@node-3d/addon-tools](https://github.com/node-3d/addon-tools) -
 	helpers for Node.js addons.
-	* [glfw-raub](https://github.com/node-3d/glfw-raub) -
+	* [@node-3d/glfw](https://github.com/node-3d/glfw) -
 	native window control, can mimic web Document/Window/Canvas.
-	* [image-raub](https://github.com/node-3d/image-raub) -
+	* [@node-3d/image](https://github.com/node-3d/image) -
 	image loading, can mimic web
 	[Image](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image).
-	* [segfault-raub](https://github.com/node-3d/segfault-raub) -
+	* [@node-3d/segfault](https://github.com/node-3d/segfault) -
 	catches and logs the C++ crash messages: segmentation fault, etc.
-	* [webgl-raub](https://github.com/node-3d/webgl-raub) -
+	* [@node-3d/webgl](https://github.com/node-3d/webgl) -
 	a [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
 	implementation.
 
 1. **Dependency** - carries one or more precompiled binary and/or C++ headers.
-	* [deps-bullet-raub](https://github.com/node-3d/deps-bullet-raub) -
+	* [@node-3d/deps-bullet](https://github.com/node-3d/deps-bullet) -
 	[Bullet Physics](https://pybullet.org/wordpress/) binaries and headers.
-	* [deps-freeimage-raub](https://github.com/node-3d/deps-freeimage-raub) -
+	* [@node-3d/deps-freeimage](https://github.com/node-3d/deps-freeimage) -
 	[FreeImage](http://freeimage.sourceforge.net/) binaries and headers.
-	* [deps-labsound-raub](https://github.com/node-3d/deps-labsound-raub) -
+	* [@node-3d/deps-labsound](https://github.com/node-3d/deps-labsound) -
 	[LabSound](https://github.com/LabSound/LabSound) binaries and headers.
-	* [deps-opengl-raub](https://github.com/node-3d/deps-opengl-raub) -
+	* [@node-3d/deps-opengl](https://github.com/node-3d/deps-opengl) -
 	[OpenGL](https://www.opengl.org/), [GLFW](https://www.glfw.org/),
 	[GLEW](http://glew.sourceforge.net/) binaries and headers.
-	* [deps-qmlui-raub](https://github.com/node-3d/deps-qmlui-raub) -
+	* [@node-3d/deps-qmlui](https://github.com/node-3d/deps-qmlui) -
 	QmlUi binaries and headers.
-	* [deps-qt-core-raub](https://github.com/node-3d/deps-qt-core-raub) -
+	* [@node-3d/deps-qt-core](https://github.com/node-3d/deps-qt-core) -
 	Qt binaries for console apps.
-	* [deps-qt-gui-raub](https://github.com/node-3d/deps-qt-gui-raub) -
+	* [@node-3d/deps-qt-gui](https://github.com/node-3d/deps-qt-gui) -
 	Qt binaries for GUI apps.
-	* [deps-qt-qml-raub](https://github.com/node-3d/deps-qt-qml-raub) -
+	* [@node-3d/deps-qt-qml](https://github.com/node-3d/deps-qt-qml) -
 	Qt binaries for QML apps.
-	* [deps-uiohook-raub](https://github.com/node-3d/deps-uiohook-raub) -
+	* [@node-3d/deps-uiohook](https://github.com/node-3d/deps-uiohook) -
 	binaries and headers to use [libuiohook](https://github.com/kwhat/libuiohook) with NPM.
 
 1. **Addon** - provides native bindings.
-	* [bullet-raub](https://github.com/node-3d/bullet-raub) -
+	* [@node-3d/bullet](https://github.com/node-3d/bullet) -
 	rigid-body subset of Bullet Physics.
-	* [cuda-raub](https://github.com/node-3d/cuda-raub) -
+	* [@node-3d/cuda](https://github.com/node-3d/cuda) -
 	addon for running NVidia CUDA programs on GPU.
-	* [opencl-raub](https://github.com/node-3d/opencl-raub) -
+	* [@node-3d/opencl](https://github.com/node-3d/opencl) -
 	addon for running OpenCL programs on GPU.
-	* [qml-raub](https://github.com/node-3d/qml-raub) -
+	* [@node-3d/qml](https://github.com/node-3d/qml) -
 	Node3D-QML interoperation.
-	* [webaudio-raub](https://github.com/node-3d/webaudio-raub) -
+	* [@node-3d/webaudio](https://github.com/node-3d/webaudio) -
 	a [WebAudio](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 	implementation.
 
@@ -164,26 +164,26 @@ features that combine **Node3D** envitonment and whatever addon(s) the plugin wr
 	import { dirname } from 'node:path';
 	import { fileURLToPath } from 'node:url';
 	import * as three from 'three';
-	import { init, addThreeHelpers } from '3d-core-raub';
-	import { init as initQml } from '3d-qml-raub';
+	import { gl, init, addThreeHelpers } from '@node-3d/core';
+	import { init as initQml } from '@node-3d/plugin-qml';
 
-	const __dirname = dirname(fileURLToPath(import.meta.url));
+	const cwd = import.meta.dirname;
 	const {
-		doc, Image: Img, gl,
+		doc, Image: Img,
 	} = init({ isGles3: true, isWebGL2: true });
-	addThreeHelpers(three, gl);
-	const { QmlOverlay, loop } = initQml({ doc, gl, cwd: __dirname, three });
+	addThreeHelpers(three);
+	const { QmlOverlay, loop } = initQml({ doc, gl, cwd, three });
 	
 	// ...
-	const overlay = new QmlOverlay({ file: `${__dirname}/qml/gui.qml` });
+	const overlay = new QmlOverlay({ file: `${cwd}/qml/gui.qml` });
 	scene.add(overlay.mesh);
 	```
 
-	* [3d-bullet-raub](https://github.com/node-3d/3d-bullet-raub) -
+	* [@node-3d/plugin-bullet](https://github.com/node-3d/plugin-bullet) -
 	extends 3D Core with Bullet Physics.
-	* [3d-qml-raub](https://github.com/node-3d/3d-qml-raub) -
+	* [@node-3d/plugin-qml](https://github.com/node-3d/plugin-qml) -
 	extends 3D Core with QML graphics.
-	* [3d-webaudio-raub](https://github.com/node-3d/3d-webaudio-raub) -
+	* [@node-3d/plugin-webaudio](https://github.com/node-3d/plugin-webaudio) -
 	extends 3D Core with an audio interface.
 
 
@@ -193,6 +193,54 @@ Bugs and enhancements are tracked as
 [GitHub issues](https://github.com/node-3d/node-3d/issues).
 You can also create an issue on a specific repository of
 [Node3D]((https://github.com/node-3d)).
+
+
+### Local Workspace
+
+This repository is also a Git superproject for the Node3D package repositories.
+Clone with packages, or initialize them after cloning:
+
+```console
+npm run packages:update
+```
+
+Install all npm workspace packages from this repository root:
+
+```console
+npm install
+```
+
+For metadata-only installs that should not run native package postinstall
+scripts:
+
+```console
+npm install --ignore-scripts
+```
+
+Run a script across every package that defines it:
+
+```console
+npm run test:watch
+npm run packages:test
+npm run packages:lint
+npm run build:all
+```
+
+Run a script in one package:
+
+```console
+npm --workspace @node-3d/core run test:watch
+npm --workspace @node-3d/webgl run build:rebuild
+```
+
+Print the local dependency graph:
+
+```console
+npm run packages:graph
+```
+
+On PowerShell installations that block `npm.ps1`, use `npm.cmd` for the same
+commands.
 
 
 ### Issues
@@ -222,7 +270,7 @@ any of its third-party libraries.**
 **Node3D** modules have their own code licensed under **MIT**, meaning
 "I've just put it here, do what you want, have fun". Some
 modules have **separately licensed third-party software** in them. For instance,
-`deps-freeimage-raub` carries the **FreeImage**
+`@node-3d/deps-freeimage` carries the **FreeImage**
 binaries and headers, and those are the property of their respective owners,
 and are licensed under **FIPL** terms (but free to use anyway).
 

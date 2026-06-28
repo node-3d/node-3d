@@ -1,0 +1,64 @@
+{
+	"name": "node-3d",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"description": "Node3D superproject and local workspace.",
+	"workspaces": [
+		"packages/addon-tools-raub",
+		"packages/deps-bullet-raub",
+		"packages/deps-freeimage-raub",
+		"packages/deps-labsound-raub",
+		"packages/deps-opengl-raub",
+		"packages/deps-qmlui-raub",
+		"packages/deps-qt-core-raub",
+		"packages/deps-qt-gui-raub",
+		"packages/deps-qt-qml-raub",
+		"packages/deps-uiohook-raub",
+		"packages/segfault-raub",
+		"packages/webaudio-raub",
+		"packages/webgl-raub",
+		"packages/bullet-raub",
+		"packages/cuda-raub",
+		"packages/glfw-raub",
+		"packages/image-raub",
+		"packages/iohook-raub",
+		"packages/opencl-raub",
+		"packages/qml-raub",
+		"packages/3d-core-raub",
+		"packages/3d-bullet-raub",
+		"packages/3d-qml-raub",
+		"packages/3d-webaudio-raub",
+		"packages/qml-fontawesome-raub",
+		"packages/qml-colorhelpers-raub",
+		"packages/qml-themedui-raub"
+	],
+	"scripts": {
+		"packages:update": "git submodule update --init --recursive",
+		"packages:graph": "node scripts/workspace-graph.ts",
+		"packages:lint": "npm run build:ci --workspace @node-3d/addon-tools && npm run lint:all --workspaces --if-present",
+		"packages:test": "npm run test:ci --workspaces --if-present",
+		"lint:oxlint": "oxlint .",
+		"build:ci": "npm run build:ci --workspaces --if-present",
+		"lint:ts": "npm run lint:ts --workspaces --if-present",
+		"lint:all": "npm run lint:oxlint && npm run lint:ts && npm run lint:gypi",
+		"lint:gypi": "npm run lint:gypi --workspaces --if-present"
+	},
+	"engines": {
+		"node": ">=24.13.0",
+		"npm": ">=11.6.2"
+	},
+	"devDependencies": {
+		"@rslib/core": "^0.21.3",
+		"@types/node": "^24.1.0",
+		"@types/three": "0.174.0",
+		"@typescript/native-preview": "^7.0.0-dev.20260503.1",
+		"oxlint": "^1.65.0",
+		"three": "0.174.0",
+		"typescript": "^6.0.3"
+	},
+	"overrides": {
+		"@types/three": "0.174.0",
+		"three": "0.174.0"
+	}
+}
