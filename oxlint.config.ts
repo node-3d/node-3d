@@ -6,7 +6,7 @@ const config: OxlintConfig = {
 	...sharedConfig,
 	ignorePatterns: [
 		...(sharedConfig.ignorePatterns ?? []),
-		'packages/3d-core-raub/examples/palette/utils/DRACOLoader.ts',
+		'packages/core/examples/palette/utils/DRACOLoader.ts',
 		'packages/@node-3d/plugin-qml/examples/qt-calqlatr/calqlatr/content/calculator.js',
 		'packages/@node-3d/qml-themedui/ThemedUi/default-theme.js',
 		'packages/@node-3d/qml-themedui/examples/qml/themes/themes.js',
