@@ -97,7 +97,7 @@ For example, see
 	animate();
 	```
 
-1. See docs and examples: [@node-3d/core](https://github.com/raub/node-3d-core).
+1. See docs and examples: [@node-3d/core](https://github.com/node-3d/core).
 
 1. Take a look at Three.js [examples](https://threejs.org/examples/).
 
@@ -155,7 +155,7 @@ For example, see
 	implementation.
 
 1. **Plugin** - a high-level **Node3D** module designed to seamlessly use the addons
-together with 3d-core. A plugin uses 3d-core context and primitives to provide additional
+together with `@node-3d/core`. A plugin uses the core context and primitives to provide additional
 features that combine **Node3D** envitonment and whatever addon(s) the plugin wraps.
 
 	For example:
