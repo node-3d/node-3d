@@ -12,17 +12,6 @@ const config: OxlintConfig = {
 		'packages/@node-3d/qml-themedui/examples/qml/themes/themes.js',
 		'packages/@node-3d/webaudio/examples/pending/*.js',
 	],
-	overrides: [
-		...(sharedConfig.overrides ?? []),
-		{
-			files: ['packages/*/ts/**/*.ts'],
-			rules: {
-				'typescript/ban-ts-comment': 'off',
-				'typescript/no-explicit-any': 'off',
-				'typescript/no-this-alias': 'off',
-			},
-		},
-	],
 	options: {
 		denyWarnings: true,
 		reportUnusedDisableDirectives: 'error',
