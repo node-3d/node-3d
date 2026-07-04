@@ -49,13 +49,14 @@
 		"npm": ">=11.6.2"
 	},
 	"devDependencies": {
-		"@rslib/core": "^0.21.3",
-		"@types/node": "^24.1.0",
+		"@rslib/core": "0.23.2",
+		"@types/node": "24.13.2",
 		"@types/three": "0.174.0",
-		"@typescript/native-preview": "^7.0.0-dev.20260503.1",
-		"oxlint": "^1.65.0",
+		"@typescript/native-preview": "7.0.0-dev.20260704.1",
+		"oxlint": "1.72.0",
 		"three": "0.174.0",
-		"typescript": "^6.0.3"
+		"typescript": "6.0.3",
+		"oxfmt": "0.57.0"
 	},
 	"overrides": {
 		"@types/three": "0.174.0",
