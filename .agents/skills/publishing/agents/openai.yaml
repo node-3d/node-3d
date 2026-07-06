@@ -1,0 +1,4 @@
+interface:
+  display_name: "Publishing"
+  short_description: "Pre-publish checks and release safety"
+  default_prompt: "Use $publishing to audit a Node3D package before publishing."

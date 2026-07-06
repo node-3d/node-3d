@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dependency Packages"
+  short_description: "Bundled binary/header dependency packages"
+  default_prompt: "Use $deps to work on a Node3D deps-* package."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Core"
+  short_description: "Browser/WebGL environment compatibility"
+  default_prompt: "Use $core to work on Node3D core browser and WebGL compatibility."

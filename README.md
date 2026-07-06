@@ -1,199 +1,178 @@
 # Node3D
 
 [![NPM](https://badge.fury.io/js/%40node-3d%2Fcore.svg)](https://badge.fury.io/js/@node-3d/core)
-[![ESLint](https://github.com/node-3d/core/actions/workflows/eslint.yml/badge.svg)](https://github.com/node-3d/core/actions/workflows/eslint.yml)
+[![Lint](https://github.com/node-3d/core/actions/workflows/lint.yml/badge.svg)](https://github.com/node-3d/core/actions/workflows/lint.yml)
 [![Test](https://github.com/node-3d/core/actions/workflows/test.yml/badge.svg)](https://github.com/node-3d/core/actions/workflows/test.yml)
 
 ```console
-npm i -s @node-3d/core
+npm install @node-3d/core
 ```
 
 ![Node3D](https://github.com/node-3d/node-3d/raw/master/logo/front/logo.png)
 
-
 ## Desktop 3D applications with **Node.js** and **OpenGL**.
 
-* **WebGL**-like interface. Real OpenGL though.
-* **Three.js** compatible environment.
-* Use node modules and compiled addons: CUDA, OpenCL, etc.
-* Window control. Multiwindow applications.
-* Read/write files.
-* Crossplatform: Linux x64, Linux ARM, MacOS x64, Windows x64.
+- **WebGL**-like interface. Real OpenGL though.
+- **Three.js** compatible environment.
+- Use node modules and compiled addons: CUDA, OpenCL, etc.
+- Window control. Multiwindow applications.
+- Read/write files.
+- Cross-platform: Windows x64, Linux x64, Linux ARM64, macOS x64, macOS ARM64.
 
 ![Example](https://github.com/node-3d/core/raw/4.1.0/examples/screenshot.png)
 
 Compatibility with **three.js** allows porting the existing JS code.
-The real OpenGL backend is used (not ANGLE). So it is possible to use the GL resource IDs
-to setup interoperation with CUDA or OpenCL. This is the most important feature of this
+The real OpenGL backend is used, not ANGLE. This makes it possible to use GL resource IDs
+to set up interoperation with CUDA or OpenCL. This is the most important feature of this
 project and why it was created in the first place.
 
-It is quite possible to create a fully-features apps and games using this framework.
+It is possible to create full applications and games using this framework.
 For example, see
 [Space Simulation Toolkit](https://store.steampowered.com/app/1196080/Space_Simulation_Toolkit/).
-
 
 ## Quick start
 
 1. Setup the project directory:
 
-	```console
-	mkdir my-project
-	cd my-project
-	npm init -y
-	npm i -s @node-3d/core three
-	touch index.js
-	```
+    ```console
+    mkdir my-project
+    cd my-project
+    npm init -y
+    npm install @node-3d/core three
+    touch index.mjs
+    ```
 
 1. Paste the code and see if it works:
 
-	```javascript
-	// Init Node3D environment
-	const three = require('three');
-	const { init, addThreeHelpers } = require('@node-3d/core');
-	const { doc, gl, requestAnimationFrame } = init({ isGles3: true, isWebGL2: true, vsync: false });
-	addThreeHelpers(three);
-	
-	// Three.js rendering setup
-	const renderer = new three.WebGLRenderer();
-	const scene = new three.Scene();
-	const camera = new three.PerspectiveCamera(70, doc.w / doc.h, 0.2, 500);
-	camera.position.z = 35;
-	scene.background = new three.Color(0x333333);
-	
-	// Add scene lights
-	scene.add(new three.AmbientLight(0xc1c1c1, 0.5));
-	const sun = new three.DirectionalLight(0xffffff, 2);
-	sun.position.set(-1, 0.5, 1);
-	scene.add(sun);
-	
-	// Original knot mesh
-	const knotGeometry = new three.TorusKnotGeometry(10, 1.85, 256, 20, 2, 7);
-	const knotMaterial = new three.MeshToonMaterial({ color: 0x6cc24a });
-	const knotMesh = new three.Mesh(knotGeometry, knotMaterial);
-	scene.add(knotMesh);
-	
-	// A slightly larger knot mesh, inside-out black - for outline
-	const outlineGeometry = new three.TorusKnotGeometry(10, 2, 256, 20, 2, 7);
-	const outlineMaterial = new three.MeshBasicMaterial({ color: 0, side: three.BackSide });;
-	const outlineMesh = new three.Mesh(outlineGeometry, outlineMaterial);
-	knotMesh.add(outlineMesh);
-	
-	// Handle window resizing
-	doc.addEventListener('resize', () => {
-		camera.aspect = doc.w / doc.h;
-		camera.updateProjectionMatrix();
-		renderer.setSize(doc.w, doc.h);
-	});
-	
-	// Called repeatedly to render new frames
-	const animate = () => {
-		requestAnimationFrame(animate);
-		const time = Date.now();
-		knotMesh.rotation.x = time * 0.0005;
-		knotMesh.rotation.y = time * 0.001;
-		renderer.render(scene, camera);
-	};
-	
-	animate();
-	```
+    ```js
+    import * as THREE from 'three';
+
+    import { Screen, addThreeHelpers, init } from '@node-3d/core';
+
+    const { loop } = init({ isGles3: true, isWebGL2: true, title: 'Node3D' });
+    addThreeHelpers(THREE);
+
+    const screen = new Screen({ three: THREE, fov: 70, z: 35 });
+    screen.scene.background = new THREE.Color(0x333333);
+
+    screen.scene.add(new THREE.AmbientLight(0xc1c1c1, 0.5));
+
+    const sun = new THREE.DirectionalLight(0xffffff, 2);
+    sun.position.set(-1, 0.5, 1);
+    screen.scene.add(sun);
+
+    const geometry = new THREE.TorusKnotGeometry(10, 1.85, 256, 20, 2, 7);
+    const material = new THREE.MeshToonMaterial({ color: 0x6cc24a });
+    const mesh = new THREE.Mesh(geometry, material);
+    screen.scene.add(mesh);
+
+    loop((now) => {
+    	mesh.rotation.x = now * 0.0005;
+    	mesh.rotation.y = now * 0.001;
+    	screen.draw();
+    });
+    ```
 
 1. See docs and examples: [@node-3d/core](https://github.com/node-3d/core).
 
 1. Take a look at Three.js [examples](https://threejs.org/examples/).
 
-
 ## Node3D Modules
 
-1. **Core** - key components to run WebGL code on Node.js.
-	* [@node-3d/core](https://github.com/node-3d/core) -
-	3D Core, this is just enough for Node3D to work.
-	* [@node-3d/addon-tools](https://github.com/node-3d/addon-tools) -
-	helpers for Node.js addons.
-	* [@node-3d/glfw](https://github.com/node-3d/glfw) -
-	native window control, can mimic web Document/Window/Canvas.
-	* [@node-3d/image](https://github.com/node-3d/image) -
-	image loading, can mimic web
-	[Image](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image).
-	* [@node-3d/segfault](https://github.com/node-3d/segfault) -
-	catches and logs the C++ crash messages: segmentation fault, etc.
-	* [@node-3d/webgl](https://github.com/node-3d/webgl) -
-	a [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
-	implementation.
+1.  **Core** - key components to run WebGL and Three.js code on Node.js.
+    - [@node-3d/core](https://github.com/node-3d/core) -
+      3D Core, this is just enough for Node3D to work.
+    - [@node-3d/addon-tools](https://github.com/node-3d/addon-tools) -
+      helpers for Node.js addons.
+    - [@node-3d/glfw](https://github.com/node-3d/glfw) -
+      native window control, can mimic web Document/Window/Canvas.
+    - [@node-3d/image](https://github.com/node-3d/image) -
+      image loading, can mimic web
+      [Image](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image).
+    - [@node-3d/segfault](https://github.com/node-3d/segfault) -
+      catches and logs the C++ crash messages: segmentation fault, etc.
+    - [@node-3d/webgl](https://github.com/node-3d/webgl) -
+      a [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
+      implementation.
 
-1. **Dependency** - carries one or more precompiled binary and/or C++ headers.
-	* [@node-3d/deps-bullet](https://github.com/node-3d/deps-bullet) -
-	[Bullet Physics](https://pybullet.org/wordpress/) binaries and headers.
-	* [@node-3d/deps-freeimage](https://github.com/node-3d/deps-freeimage) -
-	[FreeImage](http://freeimage.sourceforge.net/) binaries and headers.
-	* [@node-3d/deps-labsound](https://github.com/node-3d/deps-labsound) -
-	[LabSound](https://github.com/LabSound/LabSound) binaries and headers.
-	* [@node-3d/deps-opengl](https://github.com/node-3d/deps-opengl) -
-	[OpenGL](https://www.opengl.org/), [GLFW](https://www.glfw.org/),
-	[GLEW](http://glew.sourceforge.net/) binaries and headers.
-	* [@node-3d/deps-qmlui](https://github.com/node-3d/deps-qmlui) -
-	QmlUi binaries and headers.
-	* [@node-3d/deps-qt-core](https://github.com/node-3d/deps-qt-core) -
-	Qt binaries for console apps.
-	* [@node-3d/deps-qt-gui](https://github.com/node-3d/deps-qt-gui) -
-	Qt binaries for GUI apps.
-	* [@node-3d/deps-qt-qml](https://github.com/node-3d/deps-qt-qml) -
-	Qt binaries for QML apps.
-	* [@node-3d/deps-uiohook](https://github.com/node-3d/deps-uiohook) -
-	binaries and headers to use [libuiohook](https://github.com/kwhat/libuiohook) with NPM.
+1.  **Dependency packages** - carry precompiled binaries, dynamic libraries, and/or C++ headers.
+    - [@node-3d/deps-bullet](https://github.com/node-3d/deps-bullet) -
+      [Bullet Physics](https://pybullet.org/wordpress/) binaries and headers.
+    - [@node-3d/deps-freeimage](https://github.com/node-3d/deps-freeimage) -
+      [FreeImage](http://freeimage.sourceforge.net/) binaries and headers.
+    - [@node-3d/deps-labsound](https://github.com/node-3d/deps-labsound) -
+      [LabSound](https://github.com/LabSound/LabSound) binaries and headers.
+    - [@node-3d/deps-opengl](https://github.com/node-3d/deps-opengl) -
+      [OpenGL](https://www.opengl.org/), [GLFW](https://www.glfw.org/),
+      [GLEW](http://glew.sourceforge.net/) binaries and headers.
+    - [@node-3d/deps-qmlui](https://github.com/node-3d/deps-qmlui) -
+      QmlUi binaries and headers.
+    - [@node-3d/deps-qt-core](https://github.com/node-3d/deps-qt-core) -
+      Qt binaries for console apps.
+    - [@node-3d/deps-qt-gui](https://github.com/node-3d/deps-qt-gui) -
+      Qt binaries for GUI apps.
+    - [@node-3d/deps-qt-qml](https://github.com/node-3d/deps-qt-qml) -
+      Qt binaries for QML apps.
+    - [@node-3d/deps-uiohook](https://github.com/node-3d/deps-uiohook) -
+      binaries and headers to use [libuiohook](https://github.com/kwhat/libuiohook) with npm.
 
-1. **Addon** - provides native bindings.
-	* [@node-3d/bullet](https://github.com/node-3d/bullet) -
-	rigid-body subset of Bullet Physics.
-	* [@node-3d/cuda](https://github.com/node-3d/cuda) -
-	addon for running NVidia CUDA programs on GPU.
-	* [@node-3d/opencl](https://github.com/node-3d/opencl) -
-	addon for running OpenCL programs on GPU.
-	* [@node-3d/qml](https://github.com/node-3d/qml) -
-	Node3D-QML interoperation.
-	* [@node-3d/webaudio](https://github.com/node-3d/webaudio) -
-	a [WebAudio](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
-	implementation.
+1.  **Native addons** - provide Node.js bindings to native graphics, compute, audio, input, and physics libraries.
+    - [@node-3d/bullet](https://github.com/node-3d/bullet) -
+      rigid-body subset of Bullet Physics.
+    - [@node-3d/cuda](https://github.com/node-3d/cuda) -
+      addon for running NVIDIA CUDA programs on GPU.
+    - [@node-3d/iohook](https://github.com/node-3d/iohook) -
+      global input hook bindings.
+    - [@node-3d/opencl](https://github.com/node-3d/opencl) -
+      addon for running OpenCL programs on GPU.
+    - [@node-3d/qml](https://github.com/node-3d/qml) -
+      Node3D-QML interoperation.
+    - [@node-3d/webaudio](https://github.com/node-3d/webaudio) -
+      a [WebAudio](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+      implementation.
 
-1. **Plugin** - a high-level **Node3D** module designed to seamlessly use the addons
-together with `@node-3d/core`. A plugin uses the core context and primitives to provide additional
-features that combine **Node3D** envitonment and whatever addon(s) the plugin wraps.
+1.  **Plugins** - high-level **Node3D** packages that compose addon capabilities
+    with `@node-3d/core`. A plugin uses the core context and primitives to expose
+    features that combine the **Node3D** environment with the addon(s) it wraps.
 
-	For example:
+    For example:
 
-	```javascript
-	import { dirname } from 'node:path';
-	import { fileURLToPath } from 'node:url';
-	import * as three from 'three';
-	import { gl, init, addThreeHelpers } from '@node-3d/core';
-	import { init as initQml } from '@node-3d/plugin-qml';
+    ```js
+    import * as THREE from 'three';
+    import { gl, init, addThreeHelpers } from '@node-3d/core';
+    import { init as initQml } from '@node-3d/plugin-qml';
 
-	const cwd = import.meta.dirname;
-	const {
-		doc, Image: Img,
-	} = init({ isGles3: true, isWebGL2: true });
-	addThreeHelpers(three);
-	const { QmlOverlay, loop } = initQml({ doc, gl, cwd, three });
-	
-	// ...
-	const overlay = new QmlOverlay({ file: `${cwd}/qml/gui.qml` });
-	scene.add(overlay.mesh);
-	```
+    const cwd = import.meta.dirname;
+    const { doc } = init({ isGles3: true, isWebGL2: true });
+    addThreeHelpers(THREE);
+    const { QmlOverlay } = initQml({ doc, gl, cwd, three: THREE });
 
-	* [@node-3d/plugin-bullet](https://github.com/node-3d/plugin-bullet) -
-	extends 3D Core with Bullet Physics.
-	* [@node-3d/plugin-qml](https://github.com/node-3d/plugin-qml) -
-	extends 3D Core with QML graphics.
-	* [@node-3d/plugin-webaudio](https://github.com/node-3d/plugin-webaudio) -
-	extends 3D Core with an audio interface.
+    // ...
+    const overlay = new QmlOverlay({ file: `${cwd}/qml/gui.qml` });
+    scene.add(overlay.mesh);
+    ```
 
+    - [@node-3d/plugin-bullet](https://github.com/node-3d/plugin-bullet) -
+      extends 3D Core with Bullet Physics.
+    - [@node-3d/plugin-qml](https://github.com/node-3d/plugin-qml) -
+      extends 3D Core with QML graphics.
+    - [@node-3d/plugin-webaudio](https://github.com/node-3d/plugin-webaudio) -
+      extends 3D Core with an audio interface.
+
+1.  **QML helpers** - reusable QML assets and controls for packages that use QML.
+    - [@node-3d/qml-colorhelpers](https://github.com/node-3d/qml-colorhelpers) -
+      color picker and color display components.
+    - [@node-3d/qml-fontawesome](https://github.com/node-3d/qml-fontawesome) -
+      FontAwesome 6+ icons for QML.
+    - [@node-3d/qml-themedui](https://github.com/node-3d/qml-themedui) -
+      themed QML UI components.
 
 ## Contributing to Node3D
 
 Bugs and enhancements are tracked as
 [GitHub issues](https://github.com/node-3d/node-3d/issues).
 You can also create an issue on a specific repository of
-[Node3D]((https://github.com/node-3d)).
-
+[Node3D](https://github.com/node-3d).
 
 ### Local Workspace
 
@@ -220,17 +199,17 @@ npm install --ignore-scripts
 Run a script across every package that defines it:
 
 ```console
-npm run test:watch
+npm run test:watch --workspaces --if-present
 npm run packages:test
 npm run packages:lint
-npm run build:all
+npm run build:ci
 ```
 
 Run a script in one package:
 
 ```console
 npm --workspace @node-3d/core run test:watch
-npm --workspace @node-3d/webgl run build:rebuild
+npm --workspace @node-3d/webgl run build:ci
 ```
 
 Print the local dependency graph:
@@ -239,28 +218,25 @@ Print the local dependency graph:
 npm run packages:graph
 ```
 
-On PowerShell installations that block `npm.ps1`, use `npm.cmd` for the same
+On PowerShell installations that block `npm.ps1`, use `npm` for the same
 commands.
-
 
 ### Issues
 
-* Use a clear and descriptive title.
-* Describe the desired enhancement / problem.
-* Provide examples to demonstrate the issue.
-* If the problem involves a crash, provide its trace log.
-
+- Use a clear and descriptive title.
+- Describe the desired enhancement / problem.
+- Provide examples to demonstrate the issue.
+- If the problem involves a crash, provide its trace log.
 
 ### Pull Requests
 
-* Do not include issue numbers in the PR title.
-* Commits use the present tense ("Add feature" not "Added feature").
-* Commits use the imperative mood ("Move cursor to..." not "Moves cursor to...").
-* File System
-	* Only lowercase in file/directory names.
-	* Words are separated with dashes.
-	* If there is an empty directory to be kept, place an empty **.keep** file inside.
-
+- Do not include issue numbers in the PR title.
+- Commits use the present tense ("Add feature" not "Added feature").
+- Commits use the imperative mood ("Move cursor to..." not "Moves cursor to...").
+- File System
+    - Only lowercase in file/directory names.
+    - Words are separated with dashes.
+    - If there is an empty directory to be kept, place an empty **.keep** file inside.
 
 ## License
 

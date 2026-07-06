@@ -1,0 +1,4 @@
+interface:
+  display_name: "Examples"
+  short_description: "Realistic Node3D package examples"
+  default_prompt: "Use $examples to create or review meaningful Node3D examples."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Native Addons"
+  short_description: "N-API addon production for Node3D"
+  default_prompt: "Use $native-addons to implement or review a Node3D native addon."

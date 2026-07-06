@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docs"
+  short_description: "README and API docs for Node3D packages"
+  default_prompt: "Use $docs to update Node3D package documentation."

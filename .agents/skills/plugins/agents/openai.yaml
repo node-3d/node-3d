@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plugins"
+  short_description: "Node3D plugin integration patterns"
+  default_prompt: "Use $plugins to build or review a Node3D plugin package."

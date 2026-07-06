@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tests"
+  short_description: "Unit and visual testing for Node3D"
+  default_prompt: "Use $tests to add or review Node3D test coverage."

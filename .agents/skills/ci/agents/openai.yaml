@@ -1,0 +1,4 @@
+interface:
+  display_name: "CI"
+  short_description: "GitHub Actions for Node3D packages"
+  default_prompt: "Use $ci to create or maintain Node3D GitHub Actions workflows."

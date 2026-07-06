@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compute"
+  short_description: "GPU compute workflows and interop"
+  default_prompt: "Use $compute to implement or review a Node3D GPU compute workflow."
