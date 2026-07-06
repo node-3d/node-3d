@@ -30,6 +30,10 @@ through npm workspaces and Git submodules under `packages/`.
 ## Baseline Tooling
 
 - JS stack: TypeScript, ESM, Rslib, TSGO, Oxlint, Oxfmt.
+- On Windows-native Codex agent sessions, use `npm.cmd` instead of bare `npm`
+  when running npm commands. The agent shell is PowerShell even when the visible
+  integrated terminal uses Git Bash, and bare `npm` can resolve to `npm.ps1`
+  and hit PowerShell execution-policy errors.
 - Native addons: C++ 17, Node-API, node-addon-api.
 - Prefer root workspace commands for broad checks, and package workspace
   commands for focused work:
@@ -48,7 +52,9 @@ npm --workspace @node-3d/package-name run build:ci
 
 ## Package Shape
 
-- `dist/` is generated output. Do not edit it directly.
+- `dist/` and `.rslib/` are generated output. Ignore them in Git and do not
+  edit or commit them. They should be created by package builds and included in
+  npm packages through each package's `files` allowlist.
 - For TypeScript packages, publish one public JS entry and declaration entry
   through `dist/index.js` and `dist/index.d.ts`.
 - Keep public APIs re-exported from `ts/index.ts`. Avoid package exports for
@@ -62,6 +68,8 @@ npm --workspace @node-3d/package-name run build:ci
   from package build configs.
 - Keep package install lifecycle scripts as root-level JS, usually `install.js`,
   instead of pulling lifecycle code into the library TypeScript graph.
+- Keep `prepare` mapped to `npm run build:ci` for packages that publish
+  generated `dist/`, but do not rely on committed `dist/` in GitHub source.
 - Root workspace package-lock updates and standalone
   package-lock updates are different concerns.
 
@@ -137,5 +145,8 @@ node -e "import('./packages/package-name/dist/index.js').then((m) => console.log
   Then commit root to update submodule pointers and any root files that changed.
 - Do not push, publish, or create release artifacts unless the user explicitly
   asks for it.
-- Before packaging or release-related work, use `npm pack --dry-run` to inspect
-  package contents to ensure no irrelevant files are published.
+- Before packaging or release-related conclusions, build first. Use
+  `npm pack --dry-run` only when its output is inspected by a person or checked
+  by tooling; it is not a substitute for building generated artifacts.
+- Publish workflows that use `npm publish --ignore-scripts` must explicitly
+  install dependencies and run `npm run build:ci` for TypeScript packages.

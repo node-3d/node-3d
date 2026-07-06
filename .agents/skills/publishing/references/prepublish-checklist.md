@@ -29,11 +29,21 @@ Dependency packages intentionally use `index.js` and `index.d.ts`.
 
 ## Pack Contents
 
-Run:
+For TypeScript packages, build before inspecting the tarball:
+
+```powershell
+npm --workspace @node-3d/package-name run build:ci
+```
+
+Then run:
 
 ```powershell
 npm pack --workspace @node-3d/package-name --dry-run
 ```
+
+The dry run shows exactly what npm would publish. It is useful for manual review
+or for future tooling that validates the tarball, but it is only diagnostic
+unless something actually checks the output. It does not replace the build step.
 
 For TS packages, the output should include:
 `dist/`,
@@ -41,6 +51,11 @@ For TS packages, the output should include:
 license,
 package metadata,
 config files.
+
+`dist/`, `.rslib/`, package tarballs (`*.tgz`), and native build directories are
+generated artifacts. They should be ignored by Git and should not be committed.
+The npm package should receive `dist/` from the explicit build performed before
+packing or publishing.
 
 ## Focused Checks
 
@@ -64,6 +79,12 @@ npm ci --ignore-scripts
 ```
 
 Native packages may download prebuilt binaries in postinstall. Do not trigger those scripts accidentally during package metadata work.
+
+Publish workflows may use `npm publish --ignore-scripts` to avoid lifecycle
+surprises, but then they must explicitly run the package build first. For TS
+packages, the release path should install dependencies, run `npm run build:ci`,
+then publish. Add tarball validation later as a single feature that creates,
+checks, and publishes the same artifact.
 
 ## Built Entry Check
 

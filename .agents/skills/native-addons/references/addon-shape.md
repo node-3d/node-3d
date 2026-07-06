@@ -32,6 +32,8 @@ package-root/
 - `ts/` is library source and source-level tests.
 - Examples live in `examples/`.
 - Package lifecycle plumbing stays at package root.
+- Delete stale source folders after source layout cleanup. Do not leave empty
+  legacy `js/` or `test/` folders once their contents have moved.
 
 ## Package Contract
 
@@ -77,7 +79,10 @@ Use namespaced scripts with concrete flavors:
 - `lint:all`
 - `prepare`
 
-`prepare` should build `dist/` for packaging. Do not rely on committed `dist/` for GitHub source.
+`prepare` should build `dist/` for packaging. Do not rely on committed `dist/`
+for GitHub source. `dist/` and `.rslib/` are generated artifacts: ignore them
+in Git, include `dist/` in the npm `files` allowlist, and have publish
+workflows build explicitly before `npm publish --ignore-scripts`.
 
 ## Install Script
 
