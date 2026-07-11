@@ -24,6 +24,7 @@
 		"packages/image",
 		"packages/iohook",
 		"packages/opencl",
+		"packages/steam-api",
 		"packages/qml",
 		"packages/core",
 		"packages/plugin-bullet",

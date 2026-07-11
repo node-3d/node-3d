@@ -79,3 +79,6 @@
 [submodule "webgl"]
 	path = packages/webgl
 	url = https://github.com/node-3d/webgl.git
+[submodule "packages/steam-api"]
+	path = packages/steam-api
+	url = https://github.com/node-3d/steam-api.git
