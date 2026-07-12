@@ -45,7 +45,7 @@
 		"lint:all": "npm run lint:oxlint && npm run lint:ts && npm run lint:gypi",
 		"lint:gypi": "npm run lint:gypi --workspaces --if-present",
 		"format:ts": "oxfmt -c ./oxfmt.config.ts --no-error-on-unmatched-pattern \"**/*.{js,jsx,ts,tsx}\"",
-		"format:ci": "oxfmt -c ./oxfmt.config.ts --check --no-error-on-unmatched-pattern \"**/*.{js,jsx,ts,tsx}\""
+		"format:ts:ci": "oxfmt -c ./oxfmt.config.ts --check --no-error-on-unmatched-pattern \"**/*.{js,jsx,ts,tsx}\""
 	},
 	"engines": {
 		"node": ">=24.13.0",
