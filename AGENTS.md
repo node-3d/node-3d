@@ -41,10 +41,11 @@ through npm workspaces and Git submodules under `packages/`.
 ```powershell
 npm run packages:graph
 npm run format:ci
-npm run format:ci --workspaces --if-present
 npm run lint:all
 npm run packages:test
 npm run build:ci
+npm --workspace @node-3d/package-name run format:ts:ci
+npm --workspace @node-3d/package-name run format:src:ci
 npm --workspace @node-3d/package-name run lint:all
 npm --workspace @node-3d/package-name run test:ci
 npm --workspace @node-3d/package-name run build:ci
