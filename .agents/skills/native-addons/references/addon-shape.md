@@ -81,8 +81,8 @@ Use namespaced scripts with concrete flavors:
 
 `prepare` should build `dist/` for packaging. Do not rely on committed `dist/`
 for GitHub source. `dist/` and `.rslib/` are generated artifacts: ignore them
-in Git, include `dist/` in the npm `files` allowlist, and have publish
-workflows build explicitly before `npm publish --ignore-scripts`.
+in Git, include `dist/` in the npm `files` allowlist, and build explicitly
+before publishing.
 
 ## Install Script
 

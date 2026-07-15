@@ -80,11 +80,30 @@ npm ci --ignore-scripts
 
 Native packages may download prebuilt binaries in postinstall. Do not trigger those scripts accidentally during package metadata work.
 
-Publish workflows may use `npm publish --ignore-scripts` to avoid lifecycle
-surprises, but then they must explicitly run the package build first. For TS
-packages, the release path should install dependencies, run `npm run build:ci`,
-then publish. Add tarball validation later as a single feature that creates,
-checks, and publishes the same artifact.
+## Local Publish Path
+
+Publishing is local and agent-assisted, not handled by per-package GitHub
+Actions. Before running `npm publish`, make sure the intended package commit
+exists in its standalone repository and the root superproject pointer is updated
+when the root repo is part of the release state.
+
+For TypeScript packages, install dependencies, run `npm run build:ci`, inspect
+`npm pack --dry-run`, and then publish from the package repository. Prefer the
+package's `publishConfig` for access settings instead of duplicating flags unless
+a package lacks that metadata.
+
+On native Windows agent sessions, use `npm.cmd` for these commands.
+
+For packages that provide shared tooling or config, validate a real consumer from
+a packed tarball before publishing. For example, validate `@node-3d/segfault`
+against a packed `@node-3d/addon-tools` release candidate using normal
+`npm run` scripts, not `npx` shortcuts.
+
+After publishing, verify the registry state with:
+
+```powershell
+npm view @node-3d/package-name@version
+```
 
 ## Built Entry Check
 

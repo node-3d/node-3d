@@ -10,7 +10,9 @@ Typical package workflows:
 - test: run portable tests; avoid requiring unavailable native resources
 - cpplint: copy/use shared addon-tools config and run C++ lint
 - build: build TS bundle or native binary where infrastructure supports it
-- publish: publish package with the package's established release pattern
+
+Dedicated publish workflows are intentionally not maintained. Package publishing
+is local and agent-assisted through the publishing skill checklist.
 
 ## Install Mode
 
@@ -32,7 +34,6 @@ Before adding a workflow, compare similar packages. Keep:
 - Node version setup,
 - npm command names,
 - cache strategy,
-- publish permissions,
 - package manager usage,
 - artifact naming,
 - platform matrices

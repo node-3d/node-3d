@@ -5,7 +5,11 @@ description: Audit and prepare Node3D packages for safe npm publishing. Use for 
 
 # Publishing
 
-Use this skill whenever a change can affect how a Node3D package installs, builds, packs, publishes, or is committed across the superproject and submodule repositories.
+Use this skill whenever a change can affect how a Node3D package installs,
+builds, packs, publishes, or is committed across the superproject and submodule
+repositories. Node3D publishing is intentionally local and agent-assisted; do
+not create or rely on dedicated package publish workflows unless the release
+policy changes.
 
 ## Workflow
 
@@ -15,6 +19,8 @@ Use this skill whenever a change can affect how a Node3D package installs, build
 4. Run the narrow package checks first. Use `npm pack --dry-run` before release-facing conclusions.
 5. For package content changes, commit inside the package submodule first. Commit the root superproject pointer only after the package commit exists.
 6. Do not push, publish, tag, or create release artifacts unless the user explicitly asks.
+7. When publishing is requested, prefer a local `npm publish` from the package
+   repository after the checklist passes and the intended Git state is committed.
 
 ## References
 

@@ -149,5 +149,6 @@ node -e "import('./packages/package-name/dist/index.js').then((m) => console.log
 - Before packaging or release-related conclusions, build first. Use
   `npm pack --dry-run` only when its output is inspected by a person or checked
   by tooling; it is not a substitute for building generated artifacts.
-- Publish workflows that use `npm publish --ignore-scripts` must explicitly
-  install dependencies and run `npm run build:ci` for TypeScript packages.
+- Publishing is intentionally local and agent-assisted. Do not add package
+  publish workflows unless the release policy changes; use the publishing skill
+  checklist before running `npm publish`.
