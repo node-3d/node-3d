@@ -1,6 +1,6 @@
 # Node3D
 
-[![NPM](https://badge.fury.io/js/%40node-3d%2Fcore.svg)](https://badge.fury.io/js/@node-3d/core)
+[![NPM](https://badge.fury.io/js/@node-3d%2Fcore.svg)](https://badge.fury.io/js/@node-3d/core)
 [![Lint](https://github.com/node-3d/core/actions/workflows/lint.yml/badge.svg)](https://github.com/node-3d/core/actions/workflows/lint.yml)
 [![Test](https://github.com/node-3d/core/actions/workflows/test.yml/badge.svg)](https://github.com/node-3d/core/actions/workflows/test.yml)
 
