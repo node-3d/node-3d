@@ -88,9 +88,9 @@ exists in its standalone repository and the root superproject pointer is updated
 when the root repo is part of the release state.
 
 For TypeScript packages, install dependencies, run `npm run build:ci`, inspect
-`npm pack --dry-run`, and then publish from the package repository. Prefer the
-package's `publishConfig` for access settings instead of duplicating flags unless
-a package lacks that metadata.
+`npm pack --dry-run`, and then have the user publish from the package repository
+in an interactive terminal. Prefer the package's `publishConfig` for access
+settings instead of duplicating flags unless a package lacks that metadata.
 
 On native Windows agent sessions, use `npm.cmd` for these commands.
 
@@ -99,7 +99,7 @@ a packed tarball before publishing. For example, validate `@node-3d/segfault`
 against a packed `@node-3d/addon-tools` release candidate using normal
 `npm run` scripts, not `npx` shortcuts.
 
-After publishing, verify the registry state with:
+After the user publishes, verify the registry state with:
 
 ```powershell
 npm view @node-3d/package-name@version

@@ -19,8 +19,10 @@ policy changes.
 4. Run the narrow package checks first. Use `npm pack --dry-run` before release-facing conclusions.
 5. For package content changes, commit inside the package submodule first. Commit the root superproject pointer only after the package commit exists.
 6. Do not push, publish, tag, or create release artifacts unless the user explicitly asks.
-7. When publishing is requested, prefer a local `npm publish` from the package
-   repository after the checklist passes and the intended Git state is committed.
+7. When publishing is requested, validate the package and leave the final
+   interactive `npm publish` command for the user to run from a terminal. npm
+   OTP prompts are interactive and should not be handled through Codex command
+   execution.
 
 ## References
 
