@@ -7,6 +7,9 @@ through npm workspaces and Git submodules under `packages/`.
 - Use the root `engines` field as the source of truth for Node.js and npm
   versions. Keep package-level engine metadata aligned with it.
 
+IMPORTANT: Always prioritize the currently prompted task. For example,
+never speak about (nor perform) Git commits unless directly prompted.
+
 ## Repository Model
 
 - Every workspace package under `packages/` is also a standalone repository.
