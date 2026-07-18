@@ -35,6 +35,12 @@ For TypeScript packages, build before inspecting the tarball:
 npm --workspace @node-3d/package-name run build:ci
 ```
 
+When validating multiple packages from the root workspace, do not run dependent
+package `build:ci` scripts in parallel. Workspace packages resolve each other
+through local package folders, and Rslib may clean/regenerate `dist/`; a package
+can fail declaration generation if a dependency's `dist` is temporarily absent.
+Build dependencies first or use a root/topological build command.
+
 Then run:
 
 ```powershell

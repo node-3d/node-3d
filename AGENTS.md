@@ -129,6 +129,11 @@ node -e "import('./packages/package-name/dist/index.js').then((m) => console.log
 
 - Use `--ignore-scripts` for metadata-only dependency work
   when native postinstall scripts should not run.
+- Do not run `build:ci` in parallel for packages where one workspace package
+  imports another package's generated `dist/` declarations. Rslib may clean and
+  regenerate `dist/` during build, so a dependent package can fail declaration
+  generation if its local workspace dependency is rebuilding at the same time.
+  Run builds through the root/topological script or build dependencies first.
 - Prefer fixing Oxlint and TypeScript violations over adding package-local
   suppressions. If a suppression is unavoidable, keep it narrow and explain the
   unclear native or runtime contract.
