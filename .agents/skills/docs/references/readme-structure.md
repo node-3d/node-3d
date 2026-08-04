@@ -34,5 +34,8 @@ Preserve Node3D's central positioning:
 
 - Native addon docs should mention prebuilt binaries and whether install compiles.
 - `deps-*` docs should identify third-party software and license constraints.
+- Package READMEs should point to the repository attestation index for release
+  binary provenance. Do not copy individual attestation links into release
+  bodies; rebuilds and edited release text make that brittle.
 - Plugin docs should show how the plugin composes `@node-3d/core` with addon-level capabilities.
 - Core docs should explain the browser-like environment and Three.js helpers.

@@ -25,6 +25,13 @@ Use `npm ci --ignore-scripts` when:
 - a GPU/runtime/toolchain is not available,
 - the workflow is metadata, lint, or pure TypeScript only.
 
+## macOS Homebrew
+
+When installing x64 Homebrew dependencies under `/usr/local` on macOS CI, clean
+conflicting `/usr/local/bin/python*`, `pip*`, `idle*`, and `pydoc*` symlinks as
+needed. Untap `aws/tap` if unrelated Homebrew trust warnings interfere with
+package setup.
+
 ## Consistency
 
 Before adding a workflow, compare similar packages. Keep:
@@ -36,7 +43,8 @@ Before adding a workflow, compare similar packages. Keep:
 - cache strategy,
 - package manager usage,
 - artifact naming,
-- platform matrices
+- platform matrices,
+- pinned Oxlint/Oxfmt versions
 
 aligned unless the package has a real difference.
 

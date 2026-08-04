@@ -22,6 +22,15 @@ Some packages still use `test/**/*.test.ts`. Follow the package's current conven
 
 Skip gracefully only for environmental absence, not for real code failures. A skip should make clear what dependency was missing: binary, CUDA runtime, OpenCL device, display server, etc.
 
+## Runtime Diagnostics
+
+Temporary probes are useful during native runtime research, but successful paths
+should be promoted into normal public APIs or tests and the probe code removed.
+
+When a child-process test validates native runtime behavior, fail on native error
+diagnostics such as `GLFW Error ...` even if the child process exits
+successfully.
+
 ## Commands
 
 Use package scripts first:

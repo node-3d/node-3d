@@ -16,6 +16,7 @@
 		"packages/deps-qt-qml",
 		"packages/deps-uiohook",
 		"packages/segfault",
+		"packages/uv-loop",
 		"packages/webaudio",
 		"packages/webgl",
 		"packages/bullet",

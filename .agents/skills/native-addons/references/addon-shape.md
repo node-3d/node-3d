@@ -77,16 +77,25 @@ Use namespaced scripts with concrete flavors:
 - `lint:oxlint`
 - `lint:ts`
 - `lint:all`
-- `prepare`
+- `prepack`
 
-`prepare` should build `dist/` for packaging. Do not rely on committed `dist/`
-for GitHub source. `dist/` and `.rslib/` are generated artifacts: ignore them
-in Git, include `dist/` in the npm `files` allowlist, and build explicitly
-before publishing.
+Use `prepack`, not `prepare`, to build `dist/` for packaging. `prepare` can run
+during local/workspace installs and trigger rebuilds while dependent packages
+consume generated declarations. Do not rely on committed `dist/` for GitHub
+source. `dist/` and `.rslib/` are generated artifacts: ignore them in Git,
+include `dist/` in the npm `files` allowlist, and build explicitly before
+publishing.
 
 ## Install Script
 
-Use a root `install.js` for postinstall behavior. It should perform package install work such as downloading prebuilt binaries. Do not put install lifecycle logic into the library TS graph.
+Use a root `install.js` for postinstall behavior. It should perform package
+install work such as downloading prebuilt binaries. Do not put install lifecycle
+logic into the library TS graph.
+
+Prefer shared `@node-3d/addon-tools` download/install helpers through normal
+package scripts. Their release-asset downloads retry transient failures three
+total times, with waits after the first failures, so a transient postinstall
+download does not leave dependent binary packages unavailable in CI.
 
 ## Verification
 

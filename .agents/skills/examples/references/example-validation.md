@@ -6,6 +6,13 @@ Use the strongest practical validation without assuming unavailable hardware or 
 
 Examples should be included in package `tsconfig.json` when useful for type checking, but excluded from `tsconfig.build.json` unless the package deliberately builds examples.
 
+Avoid stray example-only `tsconfig` files or nested package setups when they
+cause IDE or dependency-resolution drift. Convert MJS examples to TypeScript
+where reasonable in packages that already validate TypeScript examples.
+
+Example dependencies used by checked examples belong in package
+`devDependencies` so normal install flow provides them.
+
 Run package checks:
 
 ```powershell

@@ -174,6 +174,9 @@ Bugs and enhancements are tracked as
 You can also create an issue on a specific repository of
 [Node3D](https://github.com/node-3d).
 
+Project-level decisions are recorded in
+[Architecture Decision Records](docs/adr/README.md).
+
 ### Local Workspace
 
 This repository is also a Git superproject for the Node3D package repositories.

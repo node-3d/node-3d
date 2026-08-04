@@ -18,6 +18,14 @@ Inspect `package.json`:
 - `engines`
 - repository/license metadata
 
+Common package metadata:
+
+- `license: MIT`
+- `bugs` should point to the root `node-3d` repo issues.
+- `homepage` should point to the root `node-3d` README.
+- `repository` should point to the package-specific `node-3d/<package>` repo.
+- `publishConfig.access` should be `public` for scoped public packages.
+
 TS packages should generally expose:
 
 - `main: dist/index.js`
@@ -26,6 +34,16 @@ TS packages should generally expose:
 - `exports["."].default`
 
 Dependency packages intentionally use `index.js` and `index.d.ts`.
+
+Runtime dependencies between Node3D packages should use `~` ranges so patch
+updates can flow without forcing every dependent package to republish, while
+minor changes remain explicit. Development dependencies should be exact/pinned
+because repository lockfiles control them and they do not affect consumer
+installation. Peer dependencies describe compatibility and may use ranges, such
+as `three: ">=0.174.0 <1"` or optional peers for opt-in testing helpers.
+
+Keep `tslib` as a direct dependency where emitted code needs it, pinned to
+`2.8.1`.
 
 ## Pack Contents
 
@@ -86,6 +104,14 @@ npm ci --ignore-scripts
 
 Native packages may download prebuilt binaries in postinstall. Do not trigger those scripts accidentally during package metadata work.
 
+## Lifecycle Scripts
+
+Use `prepack`, not `prepare`, for packages that need to build `dist/` before
+packing or publishing. `prepare` also runs during local/workspace install
+scenarios and can cause one package to rebuild while another package is trying
+to consume its generated declarations. `prepack` runs for `npm pack` and
+`npm publish`, where generated publish artifacts must exist.
+
 ## Local Publish Path
 
 Publishing is local and agent-assisted, not handled by per-package GitHub
@@ -110,6 +136,10 @@ After the user publishes, verify the registry state with:
 ```powershell
 npm view @node-3d/package-name@version
 ```
+
+Publish packages in dependency order so registry installs resolve without
+depending on the monorepo. After replacement scoped packages are available,
+deprecate old package names with `npm deprecate <old-name> "<message>"`.
 
 ## Built Entry Check
 
