@@ -17,12 +17,17 @@ policy changes.
 2. Determine whether the task affects the root workspace, one package as a standalone repo, or both.
 3. Inspect package metadata: `type`, `main`, `types`, `exports`, `files`, scripts, dependencies, engines, and lockfiles.
 4. Run the narrow package checks first. Use `npm pack --dry-run` before release-facing conclusions.
-5. For package content changes, commit inside the package submodule first. Commit the root superproject pointer only after the package commit exists.
-6. Do not push, publish, tag, or create release artifacts unless the user explicitly asks.
-7. When publishing is requested, validate the package and leave the final
-   interactive `npm publish` command for the user to run from a terminal. npm
-   OTP prompts are interactive and should not be handled through Codex command
-   execution.
+5. For native addons, compare native sources and build inputs before creating
+   binary releases. Do not create identical binaries purely to couple a GitHub
+   binary tag to an npm package version. JavaScript-only, documentation-only,
+   lockfile-only, and metadata-only releases must keep `install.js` pinned to
+   the latest valid native binary tag.
+6. For package content changes, commit inside the package submodule first. Commit the root superproject pointer only after the package commit exists.
+7. Do not push, publish, tag, or create release artifacts unless the user explicitly asks.
+8. Never run npm operations that can require a one-time password, including
+   `npm publish`, `npm unpublish`, `npm login`, owner/access changes, or
+   dist-tag changes. Validate the package and provide the exact intended
+   `npm.cmd` commands for the user to run manually in an authenticated terminal.
 
 ## References
 

@@ -154,6 +154,16 @@ node -e "import('./packages/package-name/dist/index.js').then((m) => console.log
   Then commit root to update submodule pointers and any root files that changed.
 - Do not push, publish, or create release artifacts unless the user explicitly
   asks for it.
+- Do not run npm operations that can be blocked by one-time passwords, including
+  `npm publish`, `npm unpublish`, `npm login`, owner/access changes, or
+  dist-tag changes. Validate package state and provide the exact intended
+  `npm.cmd` commands for the user to run manually in an authenticated terminal.
+- Do not create native binary releases purely to match an npm package version.
+  For JavaScript-only, documentation-only, lockfile-only, or metadata-only
+  releases, keep `install.js` pinned to the latest existing native binary tag
+  whose artifacts are still valid. Advance the binary tag only when native
+  sources, native build configuration, ABI/runtime/platform baselines, bundled
+  native inputs, or archive/install layout changed.
 - Before packaging or release-related conclusions, build first. Use
   `npm pack --dry-run` only when its output is inspected by a person or checked
   by tooling; it is not a substitute for building generated artifacts.

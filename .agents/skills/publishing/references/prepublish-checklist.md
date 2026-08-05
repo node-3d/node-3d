@@ -104,6 +104,24 @@ npm ci --ignore-scripts
 
 Native packages may download prebuilt binaries in postinstall. Do not trigger those scripts accidentally during package metadata work.
 
+## Native Binary Release Tags
+
+Do not create or require a new native binary release only because the npm
+package version changed. npm package versions and GitHub binary release tags are
+intentionally decoupled.
+
+For JavaScript-only, documentation-only, lockfile-only, or metadata-only package
+releases, keep `install.js` pinned to the latest existing native binary tag
+whose artifacts remain valid. Advance the binary tag and run binary workflows
+only when native C++ sources, native build configuration, bundled native inputs,
+ABI/runtime/platform baselines, or archive/install layout changed.
+
+During publish readiness, review `install.js` as a separate contract:
+
+- if native artifacts changed, verify the matching GitHub release assets exist;
+- if native artifacts did not change, verify the pinned older binary release
+  assets still exist and do not create duplicate binaries for version parity.
+
 ## Lifecycle Scripts
 
 Use `prepack`, not `prepare`, for packages that need to build `dist/` before
@@ -120,11 +138,17 @@ exists in its standalone repository and the root superproject pointer is updated
 when the root repo is part of the release state.
 
 For TypeScript packages, install dependencies, run `npm run build:ci`, inspect
-`npm pack --dry-run`, and then have the user publish from the package repository
-in an interactive terminal. Prefer the package's `publishConfig` for access
-settings instead of duplicating flags unless a package lacks that metadata.
+`npm pack --dry-run`, and then provide the exact intended publish command for
+the user to run from the package repository in an authenticated terminal. Prefer
+the package's `publishConfig` for access settings instead of duplicating flags
+unless a package lacks that metadata.
 
 On native Windows agent sessions, use `npm.cmd` for these commands.
+
+Agents must not run npm operations that can require a one-time password:
+`npm publish`, `npm unpublish`, `npm login`, owner/access changes, or dist-tag
+changes. OTP prompts and recovery are user-controlled. The agent's job is to
+validate state and return copyable commands, not to attempt these operations.
 
 For packages that provide shared tooling or config, validate a real consumer from
 a packed tarball before publishing. For example, validate `@node-3d/segfault`

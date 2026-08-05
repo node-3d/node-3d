@@ -20,3 +20,4 @@ existing decision.
 - [0009 - uv-loop shared idle pump](0009-uv-loop-shared-idle-pump.md)
 - [0010 - Direct libuv ABI policy](0010-direct-libuv-abi-policy.md)
 - [0011 - Node-major binary release lines](0011-node-major-binary-release-lines.md)
+- [0012 - Native binary release reuse](0012-native-binary-release-reuse.md)
