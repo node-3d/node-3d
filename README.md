@@ -17,7 +17,7 @@ npm install @node-3d/core
 - Use node modules and compiled addons: CUDA, OpenCL, etc.
 - Window control. Multiwindow applications.
 - Read/write files.
-- Cross-platform: Windows x64, Linux x64, Linux ARM64, macOS x64, macOS ARM64.
+- Cross-platform: Windows x64/ARM64, Linux x64/ARM64, macOS x64/ARM64.
 
 ![Example](https://github.com/node-3d/core/raw/4.1.0/examples/screenshot.png)
 
@@ -127,6 +127,8 @@ For example, see
       addon for running OpenCL programs on GPU.
     - [@node-3d/qml](https://github.com/node-3d/qml) -
       Node3D-QML interoperation.
+    - [@node-3d/uv-loop](https://github.com/node-3d/uv-loop) -
+      libuv idle scheduling for GLFW-backed frame loops.
     - [@node-3d/webaudio](https://github.com/node-3d/webaudio) -
       a [WebAudio](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
       implementation.
@@ -166,6 +168,18 @@ For example, see
       FontAwesome 6+ icons for QML.
     - [@node-3d/qml-themedui](https://github.com/node-3d/qml-themedui) -
       themed QML UI components.
+
+## Native Binary Compatibility
+
+Native addon release archives are built for Windows x64/ARM64, Linux
+x64/ARM64, and macOS x64/ARM64 where the package supports those platforms.
+
+Most addons rely on Node-API for ABI compatibility across Node.js versions.
+Addons that call Node's embedded libuv directly can require Node-major-specific
+binaries. These packages use release tags shaped as
+`<package-version>-<node-major>`, with odd Node.js majors falling back to the
+previous even/LTS line and out-of-range majors falling back to the nearest
+configured line.
 
 ## Contributing to Node3D
 

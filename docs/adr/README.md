@@ -16,3 +16,7 @@ existing decision.
 - [0005 - macOS headless OpenGL CI strategy](0005-macos-headless-opengl-ci.md)
 - [0006 - Windows ARM OpenGL and OpenCL compatibility](0006-windows-arm-opengl-opencl.md)
 - [0007 - CUDA toolkit installer policy](0007-cuda-toolkit-installer-policy.md)
+- [0008 - Render loop scheduling policy](0008-render-loop-scheduling-policy.md)
+- [0009 - uv-loop shared idle pump](0009-uv-loop-shared-idle-pump.md)
+- [0010 - Direct libuv ABI policy](0010-direct-libuv-abi-policy.md)
+- [0011 - Node-major binary release lines](0011-node-major-binary-release-lines.md)
