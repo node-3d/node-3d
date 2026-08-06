@@ -93,6 +93,15 @@ npm --workspace @node-3d/package-name run build:ci
 
 Use `--if-present` only when the package family legitimately lacks the script.
 
+## Debug and Research Helpers
+
+Before publish readiness, remove research-only debug helpers introduced during
+investigation. This includes temporary diagnostic exports, one-off timing APIs,
+extra logging, benchmark probes in normal examples, and native helpers whose
+only purpose was to answer the current research question. Keep them only when
+the user explicitly promotes them to supported package API or documented
+examples.
+
 ## Install Script Safety
 
 For metadata-only work, prefer:

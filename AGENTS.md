@@ -173,6 +173,10 @@ node -e "import('./packages/package-name/dist/index.js').then((m) => console.log
   whose artifacts are still valid. Advance the binary tag only when native
   sources, native build configuration, ABI/runtime/platform baselines, bundled
   native inputs, or archive/install layout changed.
+- Remove research-only debug helpers before publish readiness. Temporary
+  instrumentation, diagnostic native exports, one-off timing APIs, logging, and
+  example probes introduced to investigate a problem must be reverted unless
+  the user explicitly promotes them to supported package API or examples.
 - Before packaging or release-related conclusions, build first. Use
   `npm pack --dry-run` only when its output is inspected by a person or checked
   by tooling; it is not a substitute for building generated artifacts.
