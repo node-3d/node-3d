@@ -154,10 +154,19 @@ node -e "import('./packages/package-name/dist/index.js').then((m) => console.log
   Then commit root to update submodule pointers and any root files that changed.
 - Do not push, publish, or create release artifacts unless the user explicitly
   asks for it.
+- When the user asks to prepare a package for publishing, treat that as an
+  explicit request to commit and push the prepared package state and the root
+  superproject pointer after validation passes. Stop before pushing only when
+  there is an obvious blocker requiring user attention, such as failing checks,
+  unresolved dependency/version state, missing required release assets, or
+  unrelated dirty work that cannot be safely separated.
 - Do not run npm operations that can be blocked by one-time passwords, including
   `npm publish`, `npm unpublish`, `npm login`, owner/access changes, or
   dist-tag changes. Validate package state and provide the exact intended
-  `npm.cmd` commands for the user to run manually in an authenticated terminal.
+  `npm` commands for the user to run manually in an authenticated terminal.
+  Do not add `--otp`; npm handles browser-based confirmation interactively for
+  the user. Do not add `npm view` after publish unless the user asks for an
+  extra registry check.
 - Do not create native binary releases purely to match an npm package version.
   For JavaScript-only, documentation-only, lockfile-only, or metadata-only
   releases, keep `install.js` pinned to the latest existing native binary tag

@@ -137,11 +137,18 @@ Actions. Before running `npm publish`, make sure the intended package commit
 exists in its standalone repository and the root superproject pointer is updated
 when the root repo is part of the release state.
 
+When the user asks to prepare a package for publishing, validation should end in
+committed and pushed package/root state unless there is an obvious blocker that
+needs user attention. Obvious blockers include failing checks, unresolved
+dependency or version state, missing required binary release assets, or
+unrelated dirty work that cannot be safely separated from the publish prep.
+
 For TypeScript packages, install dependencies, run `npm run build:ci`, inspect
 `npm pack --dry-run`, and then provide the exact intended publish command for
-the user to run from the package repository in an authenticated terminal. Prefer
-the package's `publishConfig` for access settings instead of duplicating flags
-unless a package lacks that metadata.
+the user to run from the package repository in an authenticated terminal. The
+user-facing command should use `npm`, not `npm.cmd`; `npm.cmd` is only for agent
+execution on Windows. Prefer the package's `publishConfig` for access settings
+instead of duplicating flags unless a package lacks that metadata.
 
 On native Windows agent sessions, use `npm.cmd` for these commands.
 
@@ -149,17 +156,17 @@ Agents must not run npm operations that can require a one-time password:
 `npm publish`, `npm unpublish`, `npm login`, owner/access changes, or dist-tag
 changes. OTP prompts and recovery are user-controlled. The agent's job is to
 validate state and return copyable commands, not to attempt these operations.
+Do not include `--otp` in user-facing npm commands; npm opens the browser-based
+confirmation flow interactively when needed.
 
 For packages that provide shared tooling or config, validate a real consumer from
 a packed tarball before publishing. For example, validate `@node-3d/segfault`
 against a packed `@node-3d/addon-tools` release candidate using normal
 `npm run` scripts, not `npx` shortcuts.
 
-After the user publishes, verify the registry state with:
-
-```powershell
-npm view @node-3d/package-name@version
-```
+After the user publishes, treat npm's publish output as sufficient confirmation
+unless the user asks for an additional registry check or the publish feedback is
+ambiguous.
 
 Publish packages in dependency order so registry installs resolve without
 depending on the monorepo. After replacement scoped packages are available,

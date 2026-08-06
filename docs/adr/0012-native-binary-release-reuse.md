@@ -48,5 +48,7 @@ native binary workflow.
 
 Agents must not attempt OTP-blocked npm operations such as publish, unpublish,
 login, owner/access changes, or dist-tag changes. They should validate release
-state and return the exact npm commands for a user to run manually in an
-authenticated terminal.
+state and return the exact `npm` commands for a user to run manually in an
+authenticated terminal. The commands should not include `--otp`; npm handles
+browser-based confirmation interactively for the user. npm publish output is
+sufficient confirmation unless the user asks for an additional registry check.
