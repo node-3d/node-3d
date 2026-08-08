@@ -12,7 +12,7 @@ Examples are part of the public package contract. They should be realistic, runn
 1. Identify the package feature or workflow the example should demonstrate.
 2. Import Node3D packages by package name, such as `@node-3d/core`, not by reaching into `../dist` or `../ts`.
 3. Keep examples TypeScript-first when the supported Node.js version can execute them directly.
-4. Use package-local `examples/assets/` for fixtures that exist to support examples.
+4. Place examples under the correct ownership directory: `examples/core/` for Node3D-authored examples and diagnostics, or a vendor directory such as `examples/three/` or `examples/pixi/` for copied/adapted vendor examples.
 5. Prefer examples that cover meaningful behavior: rendering, event loops, browser compatibility, interop, plugins, resources, or API edge cases.
 6. Run the example or the closest available type/build check. For visual examples, verify output when the environment supports it.
 

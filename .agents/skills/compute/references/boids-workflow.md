@@ -1,6 +1,6 @@
 # Boids Compute Workflow
 
-The primary compute reference is `packages/core/examples/boids`. It implements one simulation three ways:
+The primary compute reference is `packages/core/examples/core/boids`. It implements one simulation three ways:
 
 - `boids-gl.ts`: GLSL render-to-texture compute through Three.js `GPUComputationRenderer`.
 - `boids-cl.ts`: OpenCL kernel updates shared OpenGL VBOs.

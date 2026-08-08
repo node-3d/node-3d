@@ -37,6 +37,9 @@ recursive `setImmediate` loop.
 Browser-style frame APIs that are implemented on top of GLFW route through
 GLFW frame scheduling when they need to swap native frames.
 
+Native frame-start pacing and callback timestamp semantics are covered by
+[0013 - Frame pacing and real-time callbacks](0013-frame-pacing-and-real-time-callbacks.md).
+
 Performance comparison examples should be limited to examples whose purpose is
 frame pacing or scheduler comparison; ordinary examples should just use the
 current GLFW loop APIs.

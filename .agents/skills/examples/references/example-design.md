@@ -38,6 +38,23 @@ Prefer examples that demonstrate real workflows:
 - OpenCL/CUDA/OpenGL interop where environment allows,
 - edge cases such as fullscreen/multiwindow/context recreation.
 
+## Directory Layout
+
+Use example directories to separate ownership:
+
+- `examples/core/` contains Node3D-authored examples, diagnostics, package
+  workflows, stress tests, and shared helpers.
+- `examples/three/` contains examples copied or closely adapted from official
+  Three.js examples.
+- `examples/pixi/` contains examples copied or closely adapted from official
+  Pixi examples.
+- Future vendor integrations should get their own vendor directory, such as
+  `examples/babylonjs/`, when examples are copied or adapted from that vendor.
+
+Do not put Node3D-specific diagnostics or package-design probes in vendor
+directories. Keep vendor examples close to upstream shape and add only the
+Node3D environment glue needed to run them locally.
+
 ## Assets
 
 Use `examples/assets/` for fixtures that are used in examples and tests.

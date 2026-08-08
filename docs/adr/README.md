@@ -21,3 +21,4 @@ existing decision.
 - [0010 - Direct libuv ABI policy](0010-direct-libuv-abi-policy.md)
 - [0011 - Node-major binary release lines](0011-node-major-binary-release-lines.md)
 - [0012 - Native binary release reuse](0012-native-binary-release-reuse.md)
+- [0013 - Frame pacing and real-time callbacks](0013-frame-pacing-and-real-time-callbacks.md)

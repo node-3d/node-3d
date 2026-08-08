@@ -77,6 +77,40 @@ For example, see
 
 1. Take a look at Three.js [examples](https://threejs.org/examples/).
 
+## Frame pacing and vsync
+
+Node3D render loops are scheduled through the native GLFW/uv-loop path, not a
+recursive JavaScript `setImmediate` loop. For ordinary rendering, use
+`vsync: true` and let Node3D pace frame starts against the current monitor
+refresh rate.
+
+`vsync` and `swapInterval` values follow this policy:
+
+- `false` or `0` renders unpaced with `glfwSwapInterval(0)`.
+- `true` uses the synced path.
+- negative numbers request adaptive sync where available, otherwise normal sync.
+- positive numbers request normal sync.
+
+For synced paths, the native layer gates render callbacks in all window modes:
+windowed, borderless, and fullscreen. Callbacks still receive actual monotonic
+time, so input, animation, physics, and game logic stay connected to real time.
+Applications that need to cap rare long pauses should clamp deltas or use a
+fixed-step accumulator in their own simulation code.
+
+## Examples
+
+Core examples are organized by source:
+
+- `packages/core/examples/core/` contains Node3D-authored examples, diagnostics,
+  stress tests, and shared helpers.
+- `packages/core/examples/three/` contains examples copied or closely adapted
+  from official Three.js examples.
+- `packages/core/examples/pixi/` contains examples copied or closely adapted
+  from official Pixi examples.
+
+Future vendor examples should use their own directory, such as
+`examples/babylonjs/`, while Node3D-specific probes stay under `examples/core/`.
+
 ## Node3D Modules
 
 1.  **Core** - key components to run WebGL and Three.js code on Node.js.

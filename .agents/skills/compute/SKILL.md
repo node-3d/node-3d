@@ -5,7 +5,7 @@ description: Implement Node3D GPU compute workflows. Use for CUDA, OpenCL, GLSL 
 
 # Compute
 
-Use this skill for the mechanics of GPU compute in Node3D. The reference model is `packages/core/examples/boids`, which implements the same simulation three ways: GLSL render-to-texture, OpenCL/OpenGL shared VBOs, and CUDA/OpenGL shared VBOs.
+Use this skill for the mechanics of GPU compute in Node3D. The reference model is `packages/core/examples/core/boids`, which implements the same simulation three ways: GLSL render-to-texture, OpenCL/OpenGL shared VBOs, and CUDA/OpenGL shared VBOs.
 
 ## Workflow
 
