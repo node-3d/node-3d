@@ -10,13 +10,13 @@ npm install @node-3d/core
 
 ![Node3D](https://github.com/node-3d/node-3d/raw/master/logo/front/logo.png)
 
-## Desktop 3D applications with **Node.js** and **OpenGL**.
+## WebGL and multimedia apps on **Node.js**
 
-- **WebGL**-like interface. Real OpenGL though.
+- **WebGL**-like interface. Real **OpenGL** though.
 - **Three.js** compatible environment.
-- Use node modules and compiled addons: CUDA, OpenCL, etc.
+- Use node modules and compiled addons: **CUDA**, **OpenCL**, etc.
 - Window control. Multiwindow applications.
-- Read/write files.
+- Read/write files and network directly with Node.js.
 - Cross-platform: Windows x64/ARM64, Linux x64/ARM64, macOS x64/ARM64.
 
 ![Example](https://github.com/node-3d/core/raw/4.1.0/examples/screenshot.png)
@@ -115,18 +115,19 @@ Future vendor examples should use their own directory, such as
 
 1.  **Core** - key components to run WebGL and Three.js code on Node.js.
     - [@node-3d/core](https://github.com/node-3d/core) -
-      3D Core, this is just enough for Node3D to work.
+      extensible browser-like Node.js runtime for multimedia apps.
     - [@node-3d/addon-tools](https://github.com/node-3d/addon-tools) -
       helpers for Node.js addons.
     - [@node-3d/glfw](https://github.com/node-3d/glfw) -
-      native window control, can mimic web Document/Window/Canvas.
+      native window control.
     - [@node-3d/image](https://github.com/node-3d/image) -
       image loading, can mimic web
       [Image](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image).
     - [@node-3d/segfault](https://github.com/node-3d/segfault) -
-      catches and logs the C++ crash messages: segmentation fault, etc.
+      catches and logs the native-level crash messages: segmentation fault, etc.
     - [@node-3d/webgl](https://github.com/node-3d/webgl) -
-      a [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
+      a thin, minimalistic
+      [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
       implementation.
 
 1.  **Dependency packages** - carry precompiled binaries, dynamic libraries, and/or C++ headers.
