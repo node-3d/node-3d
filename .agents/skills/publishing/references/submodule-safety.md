@@ -18,9 +18,16 @@ Preserve unrelated dirty work in both the root and package submodules.
 When package contents change:
 
 1. Commit inside the package submodule.
-2. Push the package submodule only if the user asked to push.
+2. Push the package submodule only if the user asked to push, or if the user
+   asked to prepare a package for publishing.
 3. Commit the root superproject pointer after package commits exist.
-4. Push root only if the user asked to push.
+4. Push root only if the user asked to push, or if the user asked to prepare a
+   package for publishing.
+
+Before npm publish instructions are handed to the user, the package submodule
+and root superproject must both be synchronized with their upstream remotes when
+both are in scope. A package commit that exists only locally, or a root pointer
+commit that exists only locally, is not publish-ready state.
 
 Do not fold package content changes into a root-only commit. The root only records submodule commit pointers plus root files.
 

@@ -28,8 +28,14 @@ policy changes.
    Stop before pushing only for an obvious blocker that requires user attention,
    such as failing checks, unresolved dependency/version state, missing required
    release assets, or unrelated dirty work that cannot be safely separated.
-8. Do not push, publish, tag, or create release artifacts unless the user explicitly asks.
-9. Never run npm operations that can require a one-time password, including
+8. Before providing `npm publish` instructions, verify the standalone package
+   repository and any root superproject state are synchronized with their
+   remotes. `git status --short --branch` must be clean and must not show local
+   commits ahead of upstream in the package repo or root repo. If pushing fails,
+   or if the branch has diverged, stop and report the blocker instead of
+   presenting the package as publish-ready.
+9. Do not push, publish, tag, or create release artifacts unless the user explicitly asks.
+10. Never run npm operations that can require a one-time password, including
    `npm publish`, `npm unpublish`, `npm login`, owner/access changes, or
    dist-tag changes. Validate the package and provide the exact intended
    `npm` commands for the user to run manually in an authenticated terminal.

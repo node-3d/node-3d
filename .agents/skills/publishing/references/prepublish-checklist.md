@@ -152,6 +152,17 @@ needs user attention. Obvious blockers include failing checks, unresolved
 dependency or version state, missing required binary release assets, or
 unrelated dirty work that cannot be safely separated from the publish prep.
 
+Before giving the user an `npm publish` command, verify remote synchronization:
+
+- the standalone package repository has pushed the exact package commit being
+  published;
+- the root superproject has pushed the commit that records the package
+  submodule pointer, lockfile, and documentation state when the root repo is in
+  scope;
+- `git status --short --branch` is clean and does not show local commits ahead
+  of upstream for the package repo or root repo;
+- any failed push, missing upstream, or diverged branch is a publish blocker.
+
 For TypeScript packages, install dependencies, run `npm run build:ci`, inspect
 `npm pack --dry-run`, and then provide the exact intended publish command for
 the user to run from the package repository in an authenticated terminal. The

@@ -160,6 +160,13 @@ node -e "import('./packages/package-name/dist/index.js').then((m) => console.log
   there is an obvious blocker requiring user attention, such as failing checks,
   unresolved dependency/version state, missing required release assets, or
   unrelated dirty work that cannot be safely separated.
+- Before telling the user to run `npm publish`, ensure the standalone package
+  repository and, when applicable, the root superproject are fully synchronized
+  with their remotes. The package commit must be pushed, the root submodule
+  pointer/lock/docs commit must be pushed, and `git status --short --branch`
+  must not report local commits ahead of upstream for either repo. If remote
+  synchronization fails or the branch diverges, treat that as a publish blocker
+  and do not provide publish instructions as if the package is ready.
 - Do not run npm operations that can be blocked by one-time passwords, including
   `npm publish`, `npm unpublish`, `npm login`, owner/access changes, or
   dist-tag changes. Validate package state and provide the exact intended
