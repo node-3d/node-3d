@@ -137,6 +137,12 @@ node -e "import('./packages/package-name/dist/index.js').then((m) => console.log
 - Prefer fixing Oxlint and TypeScript violations over adding package-local
   suppressions. If a suppression is unavoidable, keep it narrow and explain the
   unclear native or runtime contract.
+- Native window tests must be CI-friendly. Tests that instantiate GLFW/core
+  windows in CI should use the package test bootstrap/helper rather than
+  ad hoc `new GlfwWindow()` or `new BrowserDocument()` calls. macOS CI must set
+  the GLFW Null platform before importing auto-initializing public entries and
+  create hidden EGL/GLES windows. Linux CI may use the established Xvfb/default
+  path when that package already validates it.
 
 ## Documentation and API Expectations
 

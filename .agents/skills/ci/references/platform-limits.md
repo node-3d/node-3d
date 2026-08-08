@@ -67,6 +67,14 @@ For GLFW teardown, prefer Node environment cleanup hooks over process
 `std::atexit()` cleanup. On macOS Mesa/EGL, `std::atexit()` cleanup can run too
 late and emit `EGL: Failed to clear current context`.
 
+## Linux OpenGL
+
+Linux CI may run under Xvfb. If a package's Linux suite already validates the
+default GLFW platform under Xvfb, keep that path unless the test specifically
+needs a null/offscreen platform. The important rule is to centralize
+test-created GLFW/core windows through the package bootstrap/helper so
+additional documents do not bypass CI-tuned visibility and context hints.
+
 ## Windows ARM OpenGL
 
 Windows ARM runners can report

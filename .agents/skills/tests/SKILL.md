@@ -13,8 +13,12 @@ Use this skill for normal unit tests and visual tests. Node3D tests often need t
 2. Prefer `node --test` tests that run in the package's existing script shape.
 3. Keep tests near TS source as `*.test.ts` when that is the package convention.
 4. Make native-load or hardware-dependent tests skip gracefully when the environment cannot support them.
-5. For visual tests, verify that screenshots or generated images are deterministic enough for CI before adding baselines.
-6. Run the focused package test command and relevant lint/type checks.
+5. For tests that instantiate GLFW/core windows in CI, use the package's test
+   bootstrap/helper instead of ad hoc document/window construction. macOS needs
+   GLFW Null platform before auto-init and hidden EGL/GLES windows; Linux may
+   keep the established Xvfb/default path when that package already validates it.
+6. For visual tests, verify that screenshots or generated images are deterministic enough for CI before adding baselines.
+7. Run the focused package test command and relevant lint/type checks.
 
 ## References
 

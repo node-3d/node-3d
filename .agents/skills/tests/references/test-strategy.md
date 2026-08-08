@@ -22,6 +22,29 @@ Some packages still use `test/**/*.test.ts`. Follow the package's current conven
 
 Skip gracefully only for environmental absence, not for real code failures. A skip should make clear what dependency was missing: binary, CUDA runtime, OpenCL device, display server, etc.
 
+## Headless Native Windows
+
+Tests that create GLFW or `@node-3d/core` windows must not assume a user
+desktop exists in CI. Use the package's test bootstrap/helper for every
+test-created window or document so initialization order, visibility, context
+hints, and platform-specific runner behavior stay centralized.
+
+macOS native-window tests should use the explicit headless path: set GLFW
+`PLATFORM_NULL` before importing public modules that auto-initialize GLFW, then
+create hidden EGL/OpenGL ES windows with depth, stencil, and multisampling
+disabled unless the test needs those buffers.
+
+Linux native-window tests may use the established Xvfb/default platform path
+when that package already validates it. Do not change a green Linux suite to
+another GL bootstrap merely because macOS needs a stricter path.
+
+Use child-process probes when initialization order matters. A process that has
+already imported an auto-initializing GLFW entry cannot later switch the GLFW
+platform.
+
+Xvfb is acceptable as runner plumbing. Prefer proving the context is actually
+renderable through framebuffer or pixel readback.
+
 ## Runtime Diagnostics
 
 Temporary probes are useful during native runtime research, but successful paths

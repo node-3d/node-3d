@@ -11,6 +11,11 @@ Typical package workflows:
 - cpplint: copy/use shared addon-tools config and run C++ lint
 - build: build TS bundle or native binary where infrastructure supports it
 
+Native window tests need explicit package-level bootstrap rules. Workflows may
+use Xvfb, Mesa setup steps, or platform-specific defaults, but test code should
+create GLFW/core windows through shared test helpers so extra documents do not
+bypass CI-tuned visibility, context, and initialization-order requirements.
+
 Dedicated publish workflows are intentionally not maintained. Package publishing
 is local and agent-assisted through the publishing skill checklist.
 
