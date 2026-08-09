@@ -13,7 +13,9 @@ Use this skill for the central Node3D runtime environment: making Node.js feel e
 2. Preserve the core philosophy: browser/WebGL compatibility as a base, real native OpenGL as the backend, and explicit extension points for non-browser capabilities.
 3. Keep Three.js compatibility practical and source-backed. Check examples and current helper implementations before changing behavior.
 4. Treat globals such as `document`, `window`, canvas-like objects, image loading, animation loops, and context recreation as one coherent environment.
-5. When adding compatibility for another web library, identify the exact browser APIs it probes instead of overbuilding generic DOM features.
+5. Document intentional browser, WebGL, or Three.js divergences when they affect public behavior.
+6. When adding compatibility for another web library, identify the exact browser APIs it probes instead of overbuilding generic DOM features.
+7. Test window, document, canvas, and context behavior through the package's established helpers.
 
 ## References
 

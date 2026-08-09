@@ -35,3 +35,6 @@ For each public API:
 ## Keeping Docs Current
 
 When source changes public exports, update README/API docs in the same task. When examples change, check README snippets that were copied from them.
+
+When generated declarations are part of the public contract, build and inspect
+them for useful public JSDoc before documenting the API as complete.

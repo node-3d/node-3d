@@ -14,6 +14,7 @@ Use this skill for high-level Node3D packages that make multiple lower-level pie
 3. Keep browser-mimicking APIs aligned with the core environment model rather than inventing incompatible globals.
 4. Examples should show consumer-style composition through package imports.
 5. Tests should cover the integration contract, not just isolated helpers.
+6. Document behavior when optional native, QML, audio, physics, or browser-like runtime support is missing.
 
 ## References
 

@@ -1,222 +1,100 @@
 # Node3D Agent Guidance
 
-This repository coordinates the `@node-3d/*` package ecosystem
-through npm workspaces and Git submodules under `packages/`.
+This root repository coordinates the `@node-3d/*` package ecosystem through npm
+workspaces and Git submodules under `packages/`.
 
-- Agent skills live in this root repository, under `.agents/skills/`.
-- Use the root `engines` field as the source of truth for Node.js and npm
-  versions. Keep package-level engine metadata aligned with it.
+## Always
 
-IMPORTANT: Always prioritize the currently prompted task. For example,
-never speak about (nor perform) Git commits unless directly prompted.
+- Treat every workspace package under `packages/` as both a root workspace
+  package and a standalone repository.
+- Preserve unrelated dirty work in the root repo and package submodules.
+- Do not commit, push, publish, tag, or create release artifacts unless
+  the user explicitly asks.
+- On Windows-native Codex sessions, use `npm.cmd` instead of bare `npm`.
+- Keep package-level Node.js and npm engine metadata aligned with the root
+  `engines` field.
+- Treat `dist/`, `.rslib/`, package tarballs, native build folders, and
+  generated `.clang-format` files as generated output. Do not edit or commit
+  them as source.
 
-## Repository Model
+## Package Families
 
-- Every workspace package under `packages/` is also a standalone repository.
-  Changes that affect metadata, configs, or artifacts need to be valid in both
-  contexts.
-- The package families are:
-    - core and foundation packages: `core`, `addon-tools`, `glfw`, `image`,
-      `segfault`, `webgl`. The main consumer package is `core`; it is
-      sufficient to run WebGL/Three.js code.
-    - plugin packages: higher-level integrations that compose core/addon packages.
-      Current packages are `plugin-bullet`, `plugin-qml`, and
-      `plugin-webaudio`.
-    - native addons: implement Node.js bindings `glfw`, `image`,
-      `segfault`, `webgl`, `bullet`, `cuda`, `iohook`, `opencl`, `qml`,
-      `steam-api`, `uv-loop`, and `webaudio`.
-    - addon-tools - currently the single source of all code/CI utils and rules.
-    - dependencies `deps-*`: carry binaries, headers, and thin
-      JS/type entrypoints. Current packages are `deps-bullet`,
-      `deps-freeimage`, `deps-labsound`, `deps-opengl`, `deps-qmlui`,
-      `deps-qt-core`, `deps-qt-gui`, `deps-qt-qml`, and `deps-uiohook`.
-    - QML helpers: QML utility packages such as
-      `qml-fontawesome`, `qml-colorhelpers`, and `qml-themedui`.
-- Each package family serves different needs. Packages within a family should
-  follow the same conventions where practical, but implementation details can
-  differ when the underlying technology requires it.
+- Core and foundation packages: `core`, `addon-tools`, `glfw`, `image`,
+  `segfault`, `webgl`.
+- Plugin packages: `plugin-bullet`, `plugin-qml`, `plugin-webaudio`.
+- Native addons: `glfw`, `image`, `segfault`, `webgl`, `bullet`, `cuda`,
+  `iohook`, `opencl`, `qml`, `steam-api`, `uv-loop`, `webaudio`.
+- Dependency packages: `deps-bullet`, `deps-freeimage`, `deps-labsound`,
+  `deps-opengl`, `deps-qmlui`, `deps-qt-core`, `deps-qt-gui`,
+  `deps-qt-qml`, `deps-uiohook`.
+- QML helpers: `qml-fontawesome`, `qml-colorhelpers`, `qml-themedui`.
+  Keep QML import paths, asset layout, examples, and QML type names aligned; those
+  are the public contract for QML helper packages.
 
-## Baseline Tooling
+## Contract-Changing Work
 
-- JS stack: TypeScript, ESM, Rslib, TSGO, Oxlint, Oxfmt.
-- On Windows-native Codex agent sessions, use `npm.cmd` instead of bare `npm`
-  when running npm commands. The agent shell is PowerShell even when the visible
-  integrated terminal uses Git Bash, and bare `npm` can resolve to `npm.ps1`
-  and hit PowerShell execution-policy errors.
-- Native addons: C++ 17, Node-API, node-addon-api.
-- Prefer root workspace commands for broad checks, and package workspace
-  commands for focused work:
+- For high contract-change risk work, refer to `docs/contract-workflow.md`.
+  Avoid desynchronizing public contracts: public exports, native binding behavior,
+  install/binary/package layout, supported examples, platform/runtime claims,
+  CI validation meaning, release policy, or cross-package conventions.
+- Do not load it for routine docs edits, examples, tests, CI cleanup, or
+  internal refactors when the public contract is unchanged.
+- Report validation at the exact level performed; do not imply that type checks
+  validate native runtime, rendering, audio, compute, or input behavior.
 
-```powershell
-npm run packages:graph
-npm run format:ci
-npm run lint:all
-npm run packages:test
-npm run build:ci
-npm --workspace @node-3d/package-name run format:ts:ci
-npm --workspace @node-3d/package-name run format:src:ci
-npm --workspace @node-3d/package-name run lint:all
-npm --workspace @node-3d/package-name run test:ci
-npm --workspace @node-3d/package-name run build:ci
-```
+## Skill Routing
 
-## Package Shape
+- `$core` - `@node-3d/core`, browser-like environment behavior,
+  Document/Window/canvas behavior, WebGL/Three.js compatibility, runtime globals,
+  context management, and resource behavior.
+- `$native-addons` - C++ addons, addon-tools macros, `binding.gyp`,
+  `common.gypi`, `install.js`, binary loading, `ts/native.ts`, pointer/handle
+  modeling, and native contract verification.
+- `$deps` - `deps-*` packages, third-party binaries/headers, path helper
+  contracts, license/provenance notes, and install behavior.
+- `$plugins` - high-level packages that compose lower-level packages or
+  expose browser-like, multimedia, QML, audio, physics, or integration APIs.
+- `$compute` - CUDA, OpenCL, GLSL render-to-texture compute,
+  GL/CUDA/GL/OpenCL interop, GPU data layout, kernels, and compute examples.
+- `$docs` - package READMEs, API sections, usage snippets, package role
+  descriptions, and docs synchronized with exports and examples.
+- `$examples` - runnable examples, package self-imports, consumer-style
+  workflows, feature demos, assets, screenshots, and README snippets derived
+  from examples.
+- `$tests` - node:test coverage, native-load tests, runtime tests,
+  visual/offscreen tests, skipped hardware-dependent tests, and validation
+  strategy.
+- `$ci` - GitHub Actions, reusable actions, lint/test/build jobs,
+  matrices, native addon CI, GPU/platform limits, and CI package consistency.
+- `$publishing` - pack contents, package metadata, release readiness,
+  submodule/root safety, native binary tags, npm publish boundaries, and
+  publish-prep work.
 
-- `dist/` and `.rslib/` are generated output. Ignore them in Git and do not
-  edit or commit them. They should be created by package builds and included in
-  npm packages through each package's `files` allowlist.
-- For TypeScript packages, publish one public JS entry and declaration entry
-  through `dist/index.js` and `dist/index.d.ts`.
-- Keep public APIs re-exported from `ts/index.ts`. Avoid package exports for
-  internal modules unless there is a real standalone import use case.
-- Prefer named imports and exports. Do not keep default exports only to preserve
-  old CommonJS style.
-- Examples should behave like consumer code. Import Node3D packages by package
-  name, such as `@node-3d/core`, instead of reaching into `../dist` or `../ts`.
-- TypeScript examples should run directly on the supported Node.js version.
-  Include examples in normal type checking when appropriate, but exclude them
-  from package build configs.
-- Use TypeScript for source, tests, examples, and package-local scripts whenever
-  Node can execute them directly or the package bundler owns their output.
-  Scripts that are not shipped in the npm package should stay under tsconfig
-  coverage. `install.js` is the small shipped lifecycle exception: keep it as
-  root-level JavaScript rather than bundling install plumbing.
-- Keep package install lifecycle scripts as root-level JS, usually `install.js`,
-  instead of pulling lifecycle code into the library TypeScript graph.
-- Keep `prepare` mapped to `npm run build:ci` for packages that publish
-  generated `dist/`, but do not rely on committed `dist/` in GitHub source.
-- Root workspace package-lock updates and standalone
-  package-lock updates are different concerns.
+## Commands
 
-## Native Addons
-
-- Native addons have `src/` for `binding.gyp`, `common.gypi`, and
-  C++ sources; `ts/` for library source and source-level tests; and `examples/`
-  for TypeScript examples.
-- Native addon `bindings.cpp` files are module mount tables. They own
-  `NODE_API_MODULE` and mount methods, namespace objects, classes, and constants.
-  Put implementations in C++ files named after the class or API domain they
-  implement. Constants may stay in `bindings.cpp` because they bind directly and
-  have no implementation. See
-  `docs/adr/0015-native-addon-cpp-binding-organization.md`.
-- Native addons have `ts/native.ts` adapters that load the `.node`
-  binary with `createRequire(import.meta.url)` and exports a precisely typed
-  native object.
-- Trace C++ binding functions before typing `TNative`. Infer arguments from
-  addon-tools `_ARG` macros and return shapes from `RET_*` macros or explicit
-  `Napi::*::New` construction.
-- Avoid `any`, `Function`, broad `Record<string, unknown>`, and
-  `(...args: unknown[]) => unknown` for known native exports. If a native
-  contract is unclear, document the exact unresolved C++ expression instead of
-  hiding it behind a package-wide escape hatch.
-- Prefer branded object handles for real native object pointers when JS should
-  treat them as opaque. Use numbers for platform handles, Vulkan/OpenGL handles,
-  and intentionally numeric native values.
-- Keep local `src/common.gypi` synchronized with
-  `@node-3d/addon-tools/utils/common.gypi`; use the package `lint:gypi` script.
-- Keep C++ formatting synchronized with
-  `@node-3d/addon-tools/utils/.clang-format`; package `format:src` and
-  `format:src:ci` scripts should copy it with `cpclangformat()` before running
-  `clang-format-node`. Package-local `.clang-format` files are generated,
-  ignored, and overwritten.
-- Use addon-tools macros consistently for argument validation and returns.
-  Validate inputs before dereferencing, check buffer lengths before copying, and
-  make async/event paths tolerant of logically destroyed objects.
-- Do not assume CI has GPU hardware or special native toolchains. For CUDA/GPU
-  packages, keep portable TS/lint checks separate from hardware-dependent tests
-  unless a known runner path exists.
-
-## Formatting, Linting, and Tests
-
-Run narrow checks after a change in package code. Broaden when the
-change touches shared tooling, package contracts, or multiple packages.
-
-The expected verification set is:
-
-```bash
-npm run build:compile --workspace @node-3d/package-name
-npm run build:ci --workspace @node-3d/package-name
-npm run format:ts:ci --workspace @node-3d/package-name
-npm run format:src:ci --workspace @node-3d/package-name
-npm run lint:gypi --workspace @node-3d/package-name
-npm run lint:ts --workspace @node-3d/package-name
-npm run lint:oxlint --workspace @node-3d/package-name
-npm run test:ci --workspace @node-3d/package-name
-npm pack --workspace @node-3d/package-name --dry-run
-```
-
-- For generated-package validation, confirm the built public entry imports:
+Prefer package workspace commands for focused work and root commands for broad
+checks:
 
 ```powershell
-node -e "import('./packages/package-name/dist/index.js').then((m) => console.log(Object.keys(m)))"
+npm.cmd --workspace @node-3d/package-name run build:ci
+npm.cmd --workspace @node-3d/package-name run test:ci
+npm.cmd --workspace @node-3d/package-name run lint:all
+npm.cmd --workspace @node-3d/package-name run format:ts:ci
+npm.cmd --workspace @node-3d/package-name run format:src:ci
+npm.cmd --workspace @node-3d/package-name run lint:gypi
+npm.cmd pack --workspace @node-3d/package-name --dry-run
+npm.cmd run build:ci
+npm.cmd run packages:test
+npm.cmd run lint:all
+npm.cmd run format:ci
 ```
 
-- Use `--ignore-scripts` for metadata-only dependency work
-  when native postinstall scripts should not run.
-- Do not run `build:ci` in parallel for packages where one workspace package
-  imports another package's generated `dist/` declarations. Rslib may clean and
-  regenerate `dist/` during build, so a dependent package can fail declaration
-  generation if its local workspace dependency is rebuilding at the same time.
-  Run builds through the root/topological script or build dependencies first.
-- Prefer fixing Oxlint and TypeScript violations over adding package-local
-  suppressions. If a suppression is unavoidable, keep it narrow and explain the
-  unclear native or runtime contract.
-- Native window tests must be CI-friendly. Tests that instantiate GLFW/core
-  windows in CI should use the package test bootstrap/helper rather than
-  ad hoc `new GlfwWindow()` or `new BrowserDocument()` calls. macOS CI must set
-  the GLFW Null platform before importing auto-initializing public entries and
-  create hidden EGL/GLES windows. Linux CI may use the established Xvfb/default
-  path when that package already validates it.
+Use `--ignore-scripts` for metadata-only dependency work when native postinstall
+scripts should not run.
 
-## Documentation and API Expectations
+## Durable Decisions
 
-- Preserve the central Node3D value proposition: Node.js desktop 3D with real
-  OpenGL, WebGL/Three.js compatibility, CUDA/OpenCL interoperability, and
-  reusable package composition.
-- Keep README examples current with the package contract.
-- Ensure the generated declarations retain useful public JSDoc.
-- Dependency package READMEs document third-party licensing and
-  carried binaries/headers where relevant.
-
-## Git and Release Hygiene
-
-- Commit submodules separately when package contents change.
-  Then commit root to update submodule pointers and any root files that changed.
-- Do not push, publish, or create release artifacts unless the user explicitly
-  asks for it.
-- When the user asks to prepare a package for publishing, treat that as an
-  explicit request to commit and push the prepared package state and the root
-  superproject pointer after validation passes. Stop before pushing only when
-  there is an obvious blocker requiring user attention, such as failing checks,
-  unresolved dependency/version state, missing required release assets, or
-  unrelated dirty work that cannot be safely separated.
-- Before telling the user to run `npm publish`, ensure the standalone package
-  repository and, when applicable, the root superproject are fully synchronized
-  with their remotes. The package commit must be pushed, the root submodule
-  pointer/lock/docs commit must be pushed, and `git status --short --branch`
-  must not report local commits ahead of upstream for either repo. If remote
-  synchronization fails or the branch diverges, treat that as a publish blocker
-  and do not provide publish instructions as if the package is ready.
-- Do not run npm operations that can be blocked by one-time passwords, including
-  `npm publish`, `npm unpublish`, `npm login`, owner/access changes, or
-  dist-tag changes. Validate package state and provide the exact intended
-  `npm` commands for the user to run manually in an authenticated terminal.
-  Do not add `--otp`; npm handles browser-based confirmation interactively for
-  the user. Do not add `npm view` after publish unless the user asks for an
-  extra registry check.
-- Do not create native binary releases purely to match an npm package version.
-  For JavaScript-only, documentation-only, lockfile-only, or metadata-only
-  releases, keep `install.js` pinned to the latest existing native binary tag
-  whose artifacts are still valid. Advance the binary tag only when native
-  sources, native build configuration, ABI/runtime/platform baselines, bundled
-  native inputs, or archive/install layout changed.
-- Remove research-only debug helpers before publish readiness. Temporary
-  instrumentation, diagnostic native exports, one-off timing APIs, logging, and
-  example probes introduced to investigate a problem must be reverted unless
-  the user explicitly promotes them to supported package API or examples.
-- Before packaging or release-related conclusions, build first. Use
-  `npm pack --dry-run` only when its output is inspected by a person or checked
-  by tooling; it is not a substitute for building generated artifacts.
-- Publishing is intentionally local and agent-assisted. Do not add package
-  publish workflows unless the release policy changes; use the publishing skill
-  checklist before running `npm publish`.
+- Use ADRs in `docs/adr/` for durable decisions.
+  Refer to `docs/adr/README.md` and keep it in sync with the folder content.
+- Edit or add ADRs when changing global policies.
+  Package READMEs, or transient notes are not sufficient for durable project policies.
