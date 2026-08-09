@@ -14,6 +14,11 @@ When creating or updating a deps package, answer:
 - Which license terms apply to the third-party code?
 - Are there redistributable binary restrictions?
 
+If Node3D cannot redistribute the required SDK, headers, archive, or binaries,
+do not create a `deps-*` package for it. Use
+[ADR 0014](../../../../docs/adr/0014-private-third-party-build-inputs.md) for
+private third-party build inputs.
+
 ## Docs
 
 Package README files should identify the bundled library, what the package provides, and any important license notes. Root docs emphasize that Node3D code is MIT, while bundled third-party components keep their own licenses.

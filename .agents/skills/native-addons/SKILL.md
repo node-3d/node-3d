@@ -1,6 +1,6 @@
 ---
 name: native-addons
-description: Work on Node3D native addon packages and N-API binding surfaces. Use for C++ addon production, addon-tools macros, binding.gyp/common.gypi, install.js, binary loading, ts/native.ts typing, pointer and handle modeling, native package scripts, or native addon verification in packages such as glfw, image, webgl, segfault, bullet, cuda, opencl, qml, iohook, and webaudio.
+description: Work on Node3D native addon packages and N-API binding surfaces. Use for C++ addon production, addon-tools macros, binding.gyp/common.gypi, install.js, binary loading, ts/native.ts typing, pointer and handle modeling, native package scripts, or native addon verification in packages such as glfw, image, webgl, segfault, bullet, cuda, iohook, opencl, qml, steam-api, uv-loop, and webaudio.
 ---
 
 # Native Addons

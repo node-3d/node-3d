@@ -12,10 +12,14 @@ Use this skill for `deps-*` packages. These packages exist to make native Node3D
 1. Treat `deps-*` packages as a different family from TypeScript runtime packages and native addon packages.
 2. Preserve the thin entrypoint contract: expose paths and load-time environment setup needed by dependent addons.
 3. Keep third-party license and binary/header provenance visible in package docs.
-4. Do not force Rslib or `ts/` conventions onto a deps package unless the package has a concrete runtime reason.
-5. When changing binary layout, audit consumers that call `getPaths()`, `require(...)`, GYP variables, or platform bin/include paths.
+4. Create a `deps-*` package only when Node3D is allowed to redistribute the
+   required binaries or headers. If an SDK is private or license-restricted,
+   follow ADR 0014 instead of hiding it in a dependency package.
+5. Do not force Rslib or `ts/` conventions onto a deps package unless the package has a concrete runtime reason.
+6. When changing binary layout, audit consumers that call `getPaths()`, `require(...)`, GYP variables, or platform bin/include paths.
 
 ## References
 
 - Read [deps-package-model.md](references/deps-package-model.md) for package purpose, layout, and consumer contracts.
 - Read [third-party-bundling.md](references/third-party-bundling.md) for library acquisition, platform archives, and licensing concerns.
+- Read [ADR 0014](../../../docs/adr/0014-private-third-party-build-inputs.md) before handling private or license-restricted SDK inputs.

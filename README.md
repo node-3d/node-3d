@@ -162,6 +162,8 @@ Future vendor examples should use their own directory, such as
       addon for running OpenCL programs on GPU.
     - [@node-3d/qml](https://github.com/node-3d/qml) -
       Node3D-QML interoperation.
+    - [@node-3d/steam-api](https://github.com/node-3d/steam-api) -
+      Steamworks API bindings.
     - [@node-3d/uv-loop](https://github.com/node-3d/uv-loop) -
       libuv idle scheduling for GLFW-backed frame loops.
     - [@node-3d/webaudio](https://github.com/node-3d/webaudio) -

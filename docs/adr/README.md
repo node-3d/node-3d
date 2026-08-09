@@ -22,3 +22,5 @@ existing decision.
 - [0011 - Node-major binary release lines](0011-node-major-binary-release-lines.md)
 - [0012 - Native binary release reuse](0012-native-binary-release-reuse.md)
 - [0013 - Frame pacing and real-time callbacks](0013-frame-pacing-and-real-time-callbacks.md)
+- [0014 - Private third-party build inputs](0014-private-third-party-build-inputs.md)
+- [0015 - Native addon C++ binding organization](0015-native-addon-cpp-binding-organization.md)

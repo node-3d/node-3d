@@ -5,6 +5,10 @@
 ## Purpose
 
 They allow addon packages to build and run without every consumer manually installing platform-specific third-party libraries.
+Use this model only for third-party inputs that Node3D is allowed to
+redistribute. Private or license-restricted SDK inputs use the project policy in
+[ADR 0014](../../../../docs/adr/0014-private-third-party-build-inputs.md)
+instead of a `deps-*` package.
 
 Examples:
 

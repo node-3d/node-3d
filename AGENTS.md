@@ -16,14 +16,20 @@ never speak about (nor perform) Git commits unless directly prompted.
   Changes that affect metadata, configs, or artifacts need to be valid in both
   contexts.
 - The package families are:
-    - core: the main consumer package. It is sufficient to run WebGL/Three.js code.
+    - core and foundation packages: `core`, `addon-tools`, `glfw`, `image`,
+      `segfault`, `webgl`. The main consumer package is `core`; it is
+      sufficient to run WebGL/Three.js code.
     - plugin packages: higher-level integrations that compose core/addon packages.
-      E.g. provide Three.js primitives to easily display QML overlays.
+      Current packages are `plugin-bullet`, `plugin-qml`, and
+      `plugin-webaudio`.
     - native addons: implement Node.js bindings `glfw`, `image`,
-      `segfault`, `webgl`, `bullet`, `cuda`, `opencl`, `qml`, `webaudio`.
+      `segfault`, `webgl`, `bullet`, `cuda`, `iohook`, `opencl`, `qml`,
+      `steam-api`, `uv-loop`, and `webaudio`.
     - addon-tools - currently the single source of all code/CI utils and rules.
     - dependencies `deps-*`: carry binaries, headers, and thin
-      JS/type entrypoints.
+      JS/type entrypoints. Current packages are `deps-bullet`,
+      `deps-freeimage`, `deps-labsound`, `deps-opengl`, `deps-qmlui`,
+      `deps-qt-core`, `deps-qt-gui`, `deps-qt-qml`, and `deps-uiohook`.
     - QML helpers: QML utility packages such as
       `qml-fontawesome`, `qml-colorhelpers`, and `qml-themedui`.
 - Each package family serves different needs. Packages within a family should
@@ -70,6 +76,11 @@ npm --workspace @node-3d/package-name run build:ci
 - TypeScript examples should run directly on the supported Node.js version.
   Include examples in normal type checking when appropriate, but exclude them
   from package build configs.
+- Use TypeScript for source, tests, examples, and package-local scripts whenever
+  Node can execute them directly or the package bundler owns their output.
+  Scripts that are not shipped in the npm package should stay under tsconfig
+  coverage. `install.js` is the small shipped lifecycle exception: keep it as
+  root-level JavaScript rather than bundling install plumbing.
 - Keep package install lifecycle scripts as root-level JS, usually `install.js`,
   instead of pulling lifecycle code into the library TypeScript graph.
 - Keep `prepare` mapped to `npm run build:ci` for packages that publish
@@ -82,6 +93,12 @@ npm --workspace @node-3d/package-name run build:ci
 - Native addons have `src/` for `binding.gyp`, `common.gypi`, and
   C++ sources; `ts/` for library source and source-level tests; and `examples/`
   for TypeScript examples.
+- Native addon `bindings.cpp` files are module mount tables. They own
+  `NODE_API_MODULE` and mount methods, namespace objects, classes, and constants.
+  Put implementations in C++ files named after the class or API domain they
+  implement. Constants may stay in `bindings.cpp` because they bind directly and
+  have no implementation. See
+  `docs/adr/0015-native-addon-cpp-binding-organization.md`.
 - Native addons have `ts/native.ts` adapters that load the `.node`
   binary with `createRequire(import.meta.url)` and exports a precisely typed
   native object.
@@ -97,6 +114,11 @@ npm --workspace @node-3d/package-name run build:ci
   and intentionally numeric native values.
 - Keep local `src/common.gypi` synchronized with
   `@node-3d/addon-tools/utils/common.gypi`; use the package `lint:gypi` script.
+- Keep C++ formatting synchronized with
+  `@node-3d/addon-tools/utils/.clang-format`; package `format:src` and
+  `format:src:ci` scripts should copy it with `cpclangformat()` before running
+  `clang-format-node`. Package-local `.clang-format` files are generated,
+  ignored, and overwritten.
 - Use addon-tools macros consistently for argument validation and returns.
   Validate inputs before dereferencing, check buffer lengths before copying, and
   make async/event paths tolerant of logically destroyed objects.
@@ -114,6 +136,8 @@ The expected verification set is:
 ```bash
 npm run build:compile --workspace @node-3d/package-name
 npm run build:ci --workspace @node-3d/package-name
+npm run format:ts:ci --workspace @node-3d/package-name
+npm run format:src:ci --workspace @node-3d/package-name
 npm run lint:gypi --workspace @node-3d/package-name
 npm run lint:ts --workspace @node-3d/package-name
 npm run lint:oxlint --workspace @node-3d/package-name

@@ -32,6 +32,8 @@ package-root/
 - `ts/` is library source and source-level tests.
 - Examples live in `examples/`.
 - Package lifecycle plumbing stays at package root.
+- Package-local scripts live in `scripts/` when they are more than trivial
+  one-liners.
 - Delete stale source folders after source layout cleanup. Do not leave empty
   legacy `js/` or `test/` folders once their contents have moved.
 
@@ -71,6 +73,10 @@ Use namespaced scripts with concrete flavors:
 - `build:watch`
 - `build:compile`
 - `build:rebuild`
+- `format:ts`
+- `format:ts:ci`
+- `format:src`
+- `format:src:ci`
 - `test:ci`
 - `test:watch`
 - `lint:gypi`
@@ -85,6 +91,18 @@ consume generated declarations. Do not rely on committed `dist/` for GitHub
 source. `dist/` and `.rslib/` are generated artifacts: ignore them in Git,
 include `dist/` in the npm `files` allowlist, and build explicitly before
 publishing.
+
+Use TypeScript for source, tests, examples, and package-local scripts whenever
+Node can execute the files directly or the package bundler owns the generated
+output. Keep package-local scripts under `tsconfig.json` coverage. Root-level
+`install.js` is the small shipped lifecycle exception because it runs from
+`node_modules` during postinstall and normally does not justify a bundled output
+path.
+
+Native addons should expose `format:src` and `format:src:ci` scripts for C++
+sources. Copy the shared `@node-3d/addon-tools/utils/.clang-format` with
+`cpclangformat()` before invoking `clang-format-node`. Package-local
+`.clang-format` files are generated, gitignored, and can be overwritten.
 
 ## Install Script
 
@@ -102,6 +120,8 @@ download does not leave dependent binary packages unavailable in CI.
 ```powershell
 npm run build:compile --workspace @node-3d/package-name
 npm run build:ci --workspace @node-3d/package-name
+npm run format:ts:ci --workspace @node-3d/package-name
+npm run format:src:ci --workspace @node-3d/package-name
 npm run lint:gypi --workspace @node-3d/package-name
 npm run lint:ts --workspace @node-3d/package-name
 npm run lint:oxlint --workspace @node-3d/package-name

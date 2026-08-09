@@ -6,7 +6,9 @@ Node3D packages are standalone repositories and workspace packages. Workflow cha
 
 Typical package workflows:
 
-- lint: install without scripts when needed, then run `npm run lint:all`
+- lint: install without scripts when needed, then run `npm run format:ts:ci`;
+  native addons should also run `npm run format:src:ci`; then run
+  `npm run lint:all`
 - test: run portable tests; avoid requiring unavailable native resources
 - cpplint: copy/use shared addon-tools config and run C++ lint
 - build: build TS bundle or native binary where infrastructure supports it

@@ -14,6 +14,21 @@ Node3D native addons use addon-tools conventions to reduce repetitive N-API code
 - Initialize all state fields explicitly.
 - Make async event paths tolerant of objects that have been logically destroyed but may still be referenced by queued callbacks.
 
+## File Organization
+
+Follow [ADR 0015](../../../../docs/adr/0015-native-addon-cpp-binding-organization.md)
+for source layout once an addon has more than a trivial binding surface.
+
+Keep `bindings.cpp` as the module mount table. It owns `NODE_API_MODULE` and
+mounts methods, namespace objects, classes, and constants. It should not contain
+method implementations, callback bridge behavior, or native resource logic.
+Constants may stay there because they bind directly and have no implementation.
+
+Put implementations in files named after their responsibility: a class file for
+a native class, a domain file for a third-party API domain, or a callback file
+for callback state and polling. Shared helper headers are fine when a `.cpp`
+file would only add indirection.
+
 ## Pointer-like Values
 
 Prefer pointer-specific helpers when JavaScript does not need arithmetic or serialization.
