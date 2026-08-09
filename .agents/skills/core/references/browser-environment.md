@@ -25,6 +25,9 @@ Implement enough browser compatibility for graphics libraries and real applicati
 - `Document` inherits window behavior and adds web-document compatibility tricks.
 - `Window` manages native windows and events.
 - `requestAnimationFrame`/loop behavior must align with rendering expectations.
+- Keyboard events should remain browser-compatible where practical. Normalize
+  GLFW key events so application code can use familiar fields such as `key`,
+  `code`, `keyCode`, and `which`.
 - Context changes can require resource or renderer recreation.
 
 ## Adding Compatibility

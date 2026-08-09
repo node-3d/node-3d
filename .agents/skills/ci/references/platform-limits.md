@@ -75,6 +75,11 @@ needs a null/offscreen platform. The important rule is to centralize
 test-created GLFW/core windows through the package bootstrap/helper so
 additional documents do not bypass CI-tuned visibility and context hints.
 
+Core tests use a GLES/WebGL2 profile on Linux. Extra `BrowserDocument` instances
+created by tests should preserve that GLES profile so context sharing stays
+compatible, while still using the Xvfb/default platform. Do not request EGL on
+Linux CI unless the workflow explicitly installs and validates EGL support.
+
 ## Windows ARM OpenGL
 
 Windows ARM runners can report

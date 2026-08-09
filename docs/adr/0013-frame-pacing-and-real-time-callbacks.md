@@ -41,6 +41,16 @@ does not emit a render callback until the next frame slot is due. Driver swap
 sync remains enabled underneath the frame gate: adaptive sync is used where the
 window context reports support, otherwise ordinary sync is used.
 
+The refresh rate is captured during window creation and refreshed when the
+window's display relationship can change, such as move, resize, and mode
+changes. This keeps windowed and borderless pacing aligned with the monitor the
+window is actually on without doing monitor selection work on every idle tick.
+
+When a paced frame is not due yet, GLFW returns before polling window events,
+running the render callback, or swapping buffers. Event polling is therefore
+paced with actual frame attempts instead of happening on every hot idle-loop
+turn.
+
 Render callbacks receive the actual monotonic timestamp. Node3D does not feed a
 synthetic fixed-period timestamp to application code. Applications that need to
 protect simulation from rare long pauses should clamp their own delta or use a

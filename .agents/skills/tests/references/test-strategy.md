@@ -38,6 +38,12 @@ Linux native-window tests may use the established Xvfb/default platform path
 when that package already validates it. Do not change a green Linux suite to
 another GL bootstrap merely because macOS needs a stricter path.
 
+For core tests that create additional `BrowserDocument` instances after the
+initial test bootstrap, keep the context hints compatible with the initial
+document. On Linux this means using the Xvfb/default platform but preserving the
+same hidden GLES profile used by the first core test document; do not switch
+Linux to Null/EGL unless the workflow also provides and validates EGL.
+
 Use child-process probes when initialization order matters. A process that has
 already imported an auto-initializing GLFW entry cannot later switch the GLFW
 platform.
