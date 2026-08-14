@@ -76,6 +76,11 @@ license,
 package metadata,
 config files.
 
+The output should not include `examples/`. Node3D examples are always
+repository-only; see `docs/adr/0016-repository-only-examples.md`. Treat
+examples in npm pack output as a publish blocker unless a future ADR supersedes
+that policy.
+
 `dist/`, `.rslib/`, package tarballs (`*.tgz`), and native build directories are
 generated artifacts. They should be ignored by Git and should not be committed.
 The npm package should receive `dist/` from the explicit build performed before

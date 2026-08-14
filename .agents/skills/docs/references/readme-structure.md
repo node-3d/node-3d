@@ -33,6 +33,15 @@ Preserve Node3D's central positioning:
 ## Package-specific Notes
 
 - Native addon docs should mention prebuilt binaries and whether install compiles.
+- Native addon READMEs should keep structural parity with direct addon peers
+  such as `glfw`, `webgl`, `image`, and `segfault`: human package title,
+  Node3D ecosystem note, NPM/lint/test/C++ lint badges where applicable,
+  install command near the top, concise role/capability bullets, a minimal ESM
+  usage snippet, API sections, and Binary Origin.
+- Native addon READMEs may link to repository examples as supporting material,
+  but package publish policy belongs in ADR and publishing docs. Do not
+  foreground tarball policy such as repository-only examples in a package README
+  unless the package has an exceptional consumer-facing reason.
 - `deps-*` docs should identify third-party software and license constraints.
 - Package READMEs should point to the repository attestation index for release
   binary provenance. Do not copy individual attestation links into release

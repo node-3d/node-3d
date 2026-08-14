@@ -13,6 +13,8 @@ workspaces and Git submodules under `packages/`.
 - On Windows-native Codex sessions, use `npm.cmd` instead of bare `npm`.
 - Keep package-level Node.js and npm engine metadata aligned with the root
   `engines` field.
+- Keep examples repository-only. Do not include package `examples/` trees in
+  npm `files`, `dist/`, package tarballs, or runtime dependencies.
 - Treat `dist/`, `.rslib/`, package tarballs, native build folders, and
   generated `.clang-format` files as generated output. Do not edit or commit
   them as source.
@@ -37,6 +39,9 @@ workspaces and Git submodules under `packages/`.
   Avoid desynchronizing public contracts: public exports, native binding behavior,
   install/binary/package layout, supported examples, platform/runtime claims,
   CI validation meaning, release policy, or cross-package conventions.
+- Examples are source-repository contract, not npm package content. Publish
+  review should fail if examples appear in a package tarball unless a future
+  ADR supersedes `docs/adr/0016-repository-only-examples.md`.
 - Do not load it for routine docs edits, examples, tests, CI cleanup, or
   internal refactors when the public contract is unchanged.
 - Report validation at the exact level performed; do not imply that type checks

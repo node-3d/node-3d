@@ -24,3 +24,4 @@ existing decision.
 - [0013 - Frame pacing and real-time callbacks](0013-frame-pacing-and-real-time-callbacks.md)
 - [0014 - Private third-party build inputs](0014-private-third-party-build-inputs.md)
 - [0015 - Native addon C++ binding organization](0015-native-addon-cpp-binding-organization.md)
+- [0016 - Repository-only examples](0016-repository-only-examples.md)
