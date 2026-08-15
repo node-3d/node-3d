@@ -136,6 +136,22 @@ During publish readiness, review `install.js` as a separate contract:
 - if native artifacts did not change, verify the pinned older binary release
   assets still exist and do not create duplicate binaries for version parity.
 
+For a coordinated native binary and npm release, prepare the release state
+together before building release binaries:
+
+- bump the package `version` in `package.json`;
+- update the standalone package lockfile version metadata;
+- update the root workspace lockfile package version metadata when the root
+  workspace tracks the package;
+- update `install.js` to target the new binary release tag.
+
+It is acceptable for `install.js` to point at the new tag before that GitHub
+binary release exists. The package CI and native release workflows build the
+binaries from source when needed, including for test validation. The GitHub
+binary release assets are required before npm publishing to consumers, because
+published package installs will download from the tag referenced by
+`install.js`.
+
 ## Lifecycle Scripts
 
 Use `prepack`, not `prepare`, for packages that need to build `dist/` before
