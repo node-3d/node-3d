@@ -25,12 +25,24 @@ is local and agent-assisted through the publishing skill checklist.
 
 Use `npm ci` for normal package CI when postinstall is safe.
 
+Use plain `npm ci` for native addon binary build workflows by default. During a
+new addon binary release, the package's own postinstall may try to download the
+same release tag before the workflow has uploaded assets. Node3D's shared
+`@node-3d/addon-tools` installer treats a missing archive as a logged
+non-fatal install miss, and the following `npm run build:rebuild` step creates
+the current binary. This common path also lets dependency packages run their
+postinstall scripts normally, so their already-published binary inputs are
+available to the addon build.
+
 Use `npm ci --ignore-scripts` when:
 
-- the package postinstall downloads prebuilt binaries,
 - native binary availability is irrelevant to the check,
 - a GPU/runtime/toolchain is not available,
 - the workflow is metadata, lint, or pure TypeScript only.
+
+Do not add a selective `npm rebuild @node-3d/...` dependency install step to a
+native addon binary workflow unless the package has a documented blocker that
+plain `npm ci` cannot handle.
 
 ## macOS Homebrew
 
