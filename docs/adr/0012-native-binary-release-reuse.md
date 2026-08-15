@@ -31,6 +31,12 @@ that package. Advance the binary release tag only when one of these changes:
 * Node.js, ABI, runtime, or platform baseline for the binary,
 * any other change that affects the produced `.node` artifact.
 
+If a published npm package already points at a GitHub release tag and only that
+tag's binary assets are wrong, missing, or incomplete, repair the existing
+GitHub release assets for the same tag. Do not bump the npm package version,
+change `install.js`, update lockfile version metadata, or ask the user to
+republish npm solely for that binary-only repair.
+
 If an invalid binary release was created only for version parity, delete that
 GitHub release and tag. If an npm package was published that points at the
 deleted binary tag, the user should unpublish it when npm policy allows and

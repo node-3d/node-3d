@@ -22,6 +22,9 @@ policy changes.
    binary tag to an npm package version. JavaScript-only, documentation-only,
    lockfile-only, and metadata-only releases must keep `install.js` pinned to
    the latest valid native binary tag.
+   If only existing GitHub release binaries are wrong or incomplete and the
+   published npm package already points at that release tag, rebuild/replace
+   those release assets without bumping or republishing the npm package.
 6. For package content changes, commit inside the package submodule first. Commit the root superproject pointer only after the package commit exists.
 7. When the user asks to prepare a package for publishing, commit and push the
    prepared package state and root superproject pointer after validation passes.

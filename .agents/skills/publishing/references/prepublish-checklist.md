@@ -135,6 +135,11 @@ During publish readiness, review `install.js` as a separate contract:
 - if native artifacts changed, verify the matching GitHub release assets exist;
 - if native artifacts did not change, verify the pinned older binary release
   assets still exist and do not create duplicate binaries for version parity.
+- if the npm package is already published and `install.js` already points at
+  the release tag being repaired, treat missing, broken, or incomplete release
+  assets as a binary-only repair. Rebuild and replace the GitHub release assets
+  for that same tag, but do not bump `package.json`, change `install.js`, update
+  npm lock metadata, or instruct the user to republish npm.
 
 For a coordinated native binary and npm release, prepare the release state
 together before building release binaries:
