@@ -33,16 +33,17 @@ wins over conflicting skills/references.
 
 Inspection and task-required edits are allowed.
 
-- Commit only with explicit commit authorization.
-- Push only with explicit push authorization.
+- Commit/push only with explicit authorization from the user.
+- Explicit commit/push authorization applies to the currently checked-out branch.
+- Do not create or switch branches, open a pull request, or impose a review flow
+  unless the user explicitly requests it. An authorized push to the default
+  branch remains a push to that branch.
 - **"prepare <package> for publishing"** explicitly authorizes committing and
-  pushing the validated package state and corresponding root release state. It
-  does not authorize unrelated commits or changes outside the release scope.
-- Publishing prep does not authorize tags, GitHub releases/assets, or
-  `npm publish`.
+  pushing the validated package state and corresponding root repo state.
+- Publishing prep does not authorize unrelated commits, tags,
+  GitHub releases/assets, or changes outside the release scope.
 - Tags/releases require explicit authorization.
-- Never run npm operations that may require authentication/OTP (`npm publish`,
-  `npm unpublish`, `npm login`, owner/access or dist-tag changes). Validate and
+- Never run npm operations that require authentication. Validate and
   give the intended command to the user instead.
 
 Before any commit/push/tag/release action, re-check authorization and name the
