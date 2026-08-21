@@ -1,26 +1,33 @@
 ---
 name: tests
-description: Add, review, or maintain Node3D tests. Use for node:test unit tests, native-load tolerant tests, visual and screenshot tests, offscreen rendering checks, feature coverage strategy, package test scripts, skipped hardware-dependent tests, and testing browser/WebGL/Three.js compatibility.
+description: Add or maintain node:test, native-load/runtime, visual/offscreen, hardware-dependent, browser/WebGL/Three.js, and integration validation.
 ---
 
 # Tests
 
-Use this skill for normal unit tests and visual tests. Node3D tests often need to distinguish pure TypeScript logic, native binary load, graphics runtime behavior, and hardware-dependent compute behavior.
+## Owns
+
+Executable validation and the meaning of test coverage.
 
 ## Workflow
 
-1. Identify what layer the test targets: pure TS, native adapter typing/argument packing, native runtime, rendering, visual output, plugin integration, or compute interop.
-2. Prefer `node --test` tests that run in the package's existing script shape.
-3. Keep tests near TS source as `*.test.ts` when that is the package convention.
-4. Make native-load or hardware-dependent tests skip gracefully when the environment cannot support them.
-5. For tests that instantiate GLFW/core windows in CI, use the package's test
-   bootstrap/helper instead of ad hoc document/window construction. macOS needs
-   GLFW Null platform before auto-init and hidden EGL/GLES windows; Linux may
-   keep the established Xvfb/default path when that package already validates it.
-6. For visual tests, verify that screenshots or generated images are deterministic enough for CI before adding baselines.
-7. Run the focused package test command and relevant lint/type checks.
+1. Name the layer: pure TS, native adapter, native load, native runtime,
+   rendering, plugin integration, or compute/hardware.
+2. Use the package's established test/bootstrap shape and focused `node --test`
+   scripts.
+3. Skip unsupported native/hardware tests gracefully rather than converting them
+   into misleading passes.
+4. Centralize GLFW/core test windows through established helpers so CI-specific
+   context/platform settings remain consistent.
+5. For visual tests, require deterministic-enough output before adding baselines.
+6. Report exactly what the test proves.
+7. Skip only for a named environmental absence; native errors in an available
+   environment are failures. Use child-process probes when initialization order
+   makes an in-process test invalid.
 
-## References
+## Load References
 
-- Read [test-strategy.md](references/test-strategy.md) for layer-specific coverage guidance.
-- Read [visual-testing.md](references/visual-testing.md) for screenshot/offscreen rendering patterns and caveats.
+Load `.agents/references/ci-platform-limits.md` when platform runners, graphics
+contexts, GPUs, or native runtime availability affect the test.
+
+Add `$ci` only when workflow behavior itself changes.

@@ -1,22 +1,29 @@
 ---
 name: examples
-description: Create, review, or maintain Node3D examples. Use for runnable examples, package self-imports, realistic consumer-like usage, feature coverage demos, example assets, screenshots, README snippets derived from examples, and avoiding legacy relative imports into ts or dist.
+description: Create, review, or maintain Node3D runnable examples, consumer-style package imports, feature demos, vendor adaptations, assets, and example validation.
 ---
 
 # Examples
 
-Examples are part of the public package contract. They should be realistic, runnable, and close to how a consumer would use the package.
+## Owns
+
+Supported runnable workflows under package `examples/`.
 
 ## Workflow
 
-1. Identify the package feature or workflow the example should demonstrate.
-2. Import Node3D packages by package name, such as `@node-3d/core`, not by reaching into `../dist` or `../ts`.
-3. Keep examples TypeScript-first when the supported Node.js version can execute them directly.
-4. Place examples under the correct ownership directory: `examples/core/` for Node3D-authored examples and diagnostics, or a vendor directory such as `examples/three/` or `examples/pixi/` for copied/adapted vendor examples.
-5. Prefer examples that cover meaningful behavior: rendering, event loops, browser compatibility, interop, plugins, resources, or API edge cases.
-6. Run the example or the closest available type/build check. For visual examples, verify output when the environment supports it.
+1. Define the consumer behavior the example proves.
+2. Import Node3D packages by package name; never reach into `../ts` or `../dist`.
+3. Prefer TypeScript-first examples when the supported Node runtime can execute
+   them directly.
+4. Separate Node3D-authored examples from adapted vendor examples clearly.
+5. Run the example or nearest type/build validation; state hardware/visual limits
+   honestly.
+6. Keep examples out of npm package contents.
 
-## References
+## Load References
 
-- Read [example-design.md](references/example-design.md) for consumer-code conventions and feature coverage guidance.
-- Read [example-validation.md](references/example-validation.md) for practical run, type-check, asset, and screenshot validation patterns.
+Load `.agents/references/documentation-examples.md` for ownership/layout,
+consumer-code, and validation conventions.
+
+Use the behavior-owning skill as secondary when the example requires source/API
+changes.

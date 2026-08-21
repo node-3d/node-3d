@@ -1,23 +1,36 @@
 ---
 name: core
-description: Work on Node3D core browser, DOM, canvas, WebGL, and Three.js compatibility. Use for @node-3d/core, browser-like environment setup, Document/Window/Canvas behavior, global object wiring, raw WebGL support, Three.js helper compatibility, resource/context management, and the philosophy of Node.js desktop 3D with real OpenGL.
+description: Work on @node-3d/core browser-like runtime, Document/Window/canvas behavior, WebGL/Three.js compatibility, globals, context and resource behavior.
 ---
 
 # Core
 
-Use this skill for the central Node3D runtime environment: making Node.js feel enough like a browser/WebGL environment for 3D libraries while keeping direct access to native graphics resources.
+## Owns
+
+`@node-3d/core` runtime behavior and compatibility semantics.
 
 ## Workflow
 
-1. Inspect `@node-3d/core` together with `@node-3d/glfw`, `@node-3d/webgl`, and `@node-3d/image` when environment behavior crosses package boundaries.
-2. Preserve the core philosophy: browser/WebGL compatibility as a base, real native OpenGL as the backend, and explicit extension points for non-browser capabilities.
-3. Keep Three.js compatibility practical and source-backed. Check examples and current helper implementations before changing behavior.
-4. Treat globals such as `document`, `window`, canvas-like objects, image loading, animation loops, and context recreation as one coherent environment.
-5. Document intentional browser, WebGL, or Three.js divergences when they affect public behavior.
-6. When adding compatibility for another web library, identify the exact browser APIs it probes instead of overbuilding generic DOM features.
-7. Test window, document, canvas, and context behavior through the package's established helpers.
+1. Inspect `core` with `glfw`, `webgl`, and `image` only when the behavior crosses
+   those package boundaries.
+2. Identify the exact browser/WebGL/Three.js behavior required by source,
+   examples, tests, or upstream contracts.
+3. Preserve the project model: practical browser compatibility over real native
+   graphics resources, not a claim of complete browser emulation, with explicit
+   escape hatches.
+4. Treat globals, Document/Window/canvas, image loading, loops, contexts, and
+   resource recreation as one environment.
+5. Add focused tests/examples for public behavior and document intentional
+   compatibility divergences.
+6. Preserve `init()` caching, context-sharing assumptions, and documented
+   renderer/resource recreation behavior unless the contract intentionally
+   changes.
 
-## References
+## Load References
 
-- Read [browser-environment.md](references/browser-environment.md) for the Document/Window/global compatibility model.
-- Read [webgl-three.md](references/webgl-three.md) for WebGL, Three.js, context, and raw GL compatibility guidance.
+Load `.agents/references/browser-runtime.md` for environment/context compatibility
+work.
+
+Use `$native-addons` as a secondary skill only if C++/native binding artifacts
+are modified. Use `$tests`/`$examples`/`$docs` only when those owned artifacts are
+also changed.

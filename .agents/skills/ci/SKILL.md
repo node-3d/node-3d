@@ -1,22 +1,32 @@
 ---
 name: ci
-description: Maintain Node3D GitHub Actions and CI infrastructure. Use for workflow files, reusable actions, lint/test/build/publish jobs, platform matrices, native addon CI, CUDA/GPU limitations, prebuilt binary constraints, npm install script safety, cpplint, and keeping package CI consistent across repositories.
+description: Maintain Node3D GitHub Actions, reusable CI patterns, install modes, matrices, native/GPU/platform limits, lint/test/build jobs, and validation semantics.
 ---
 
 # CI
 
-Use this skill for GitHub Actions and package CI. Node3D CI must account for native addons, platform-specific binaries, direct TypeScript execution, and packages that cannot assume GPU hardware.
+## Owns
+
+CI workflow behavior and what automated validation claims to prove.
 
 ## Workflow
 
-1. Compare the target package with similar packages before inventing a workflow.
-2. Choose install mode deliberately. Use `npm ci --ignore-scripts` when native postinstall downloads or hardware assumptions would make CI brittle.
-3. Separate portable checks from hardware-dependent checks. Lint, tsgo, package build, pure TS tests, and cpplint can often run where native execution cannot.
-4. Encode known legacy C++ limitations explicitly and narrowly when a cleanup is out of scope.
-5. Keep workflow names, triggers, Node versions, npm commands, and publish patterns consistent across packages.
-6. When designing future reusable actions, preserve the standalone package repository model.
+1. Compare the target with similar package workflows before inventing a pattern.
+2. Choose install mode deliberately; use `--ignore-scripts` when native
+   postinstall behavior is irrelevant or brittle.
+3. Separate portable checks from native/hardware/graphics checks.
+4. Keep workflow names, triggers, Node/npm baselines, and package commands
+   consistent where the package model is shared.
+5. Encode unavoidable legacy/platform exceptions narrowly.
+6. If CI changes the meaning of project validation or supported platform claims,
+   Contract Gate is YES.
+7. Preserve standalone-package workflow paths; do not assume a root workspace
+   checkout. Use plain `npm ci` for native binary build workflows unless a
+   documented reason requires `--ignore-scripts`.
 
-## References
+## Load References
 
-- Read [github-actions.md](references/github-actions.md) for current workflow patterns and command choices.
-- Read [platform-limits.md](references/platform-limits.md) for native, GPU, CUDA, and platform-specific CI constraints.
+Load `.agents/references/ci-platform-limits.md` for GPU, OpenGL, native binary,
+macOS/Linux/Windows ARM, or runner-capability constraints.
+
+Use `$tests` as secondary when test semantics/scripts are modified.

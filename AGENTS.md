@@ -1,105 +1,112 @@
 # Node3D Agent Guidance
 
-This root repository coordinates the `@node-3d/*` package ecosystem through npm
-workspaces and Git submodules under `packages/`.
+The root is a superproject; `packages/*` are standalone npm workspaces and Git
+repositories.
 
-## Always
+## Precedence
 
-- Treat every workspace package under `packages/` as both a root workspace
-  package and a standalone repository.
-- Preserve unrelated dirty work in the root repo and package submodules.
-- Do not commit, push, publish, tag, or create release artifacts unless
-  the user explicitly asks.
-- On Windows-native Codex sessions, use `npm.cmd` instead of bare `npm`.
-- Keep package-level Node.js and npm engine metadata aligned with the root
-  `engines` field.
-- Keep examples repository-only. Do not include package `examples/` trees in
-  npm `files`, `dist/`, package tarballs, or runtime dependencies.
-- Treat `dist/`, `.rslib/`, package tarballs, native build folders, and
-  generated `.clang-format` files as generated output. Do not edit or commit
-  them as source.
+1. Current user instructions.
+2. This file: policy and authorization.
+3. `docs/contract-workflow.md` when Contract Gate = YES.
+4. Loaded skills: domain procedure.
+5. Loaded references: detailed facts/checklists.
+6. Existing source/docs/history.
 
-## Package Families
+Deeper context may specialize procedure but must not broaden authority. This file
+wins over conflicting skills/references.
 
-- Core and foundation packages: `core`, `addon-tools`, `glfw`, `image`,
-  `segfault`, `webgl`.
-- Plugin packages: `plugin-bullet`, `plugin-qml`, `plugin-webaudio`.
-- Native addons: `glfw`, `image`, `segfault`, `webgl`, `bullet`, `cuda`,
-  `iohook`, `opencl`, `qml`, `steam-api`, `uv-loop`, `webaudio`.
-- Dependency packages: `deps-bullet`, `deps-freeimage`, `deps-labsound`,
-  `deps-opengl`, `deps-qmlui`, `deps-qt-core`, `deps-qt-gui`,
-  `deps-qt-qml`, `deps-uiohook`.
-- QML helpers: `qml-fontawesome`, `qml-colorhelpers`, `qml-themedui`.
-  Keep QML import paths, asset layout, examples, and QML type names aligned; those
-  are the public contract for QML helper packages.
+## Global Invariants
 
-## Contract-Changing Work
+- Preserve unrelated dirty work in root and package submodules.
+- Keep every workspace package standalone-capable and root/package Node/npm
+  engine metadata aligned.
+- Do not edit/commit generated output as source: `dist/`, `.rslib/`, tarballs,
+  native build folders, generated `.clang-format`.
+- Examples are repository-only: exclude package `examples/` from npm `files`,
+  `dist/`, tarballs, and runtime dependencies.
+- Report validation exactly; build/type checks do not prove native runtime,
+  rendering, audio, compute, input, or platform behavior.
+- On Windows-native agent sessions execute npm as `npm.cmd`; user-facing commands
+  use `npm`.
 
-- For high contract-change risk work, refer to `docs/contract-workflow.md`.
-  Avoid desynchronizing public contracts: public exports, native binding behavior,
-  install/binary/package layout, supported examples, platform/runtime claims,
-  CI validation meaning, release policy, or cross-package conventions.
-- Examples are source-repository contract, not npm package content. Publish
-  review should fail if examples appear in a package tarball unless a future
-  ADR supersedes `docs/adr/0016-repository-only-examples.md`.
-- Do not load it for routine docs edits, examples, tests, CI cleanup, or
-  internal refactors when the public contract is unchanged.
-- Report validation at the exact level performed; do not imply that type checks
-  validate native runtime, rendering, audio, compute, or input behavior.
+## Authorization
 
-## Skill Routing
+Inspection and task-required edits are allowed.
 
-- `$core` - `@node-3d/core`, browser-like environment behavior,
-  Document/Window/canvas behavior, WebGL/Three.js compatibility, runtime globals,
-  context management, and resource behavior.
-- `$native-addons` - C++ addons, addon-tools macros, `binding.gyp`,
-  `common.gypi`, `install.js`, binary loading, `ts/native.ts`, pointer/handle
-  modeling, and native contract verification.
-- `$deps` - `deps-*` packages, third-party binaries/headers, path helper
-  contracts, license/provenance notes, and install behavior.
-- `$plugins` - high-level packages that compose lower-level packages or
-  expose browser-like, multimedia, QML, audio, physics, or integration APIs.
-- `$compute` - CUDA, OpenCL, GLSL render-to-texture compute,
-  GL/CUDA/GL/OpenCL interop, GPU data layout, kernels, and compute examples.
-- `$docs` - package READMEs, API sections, usage snippets, package role
-  descriptions, and docs synchronized with exports and examples.
-- `$examples` - runnable examples, package self-imports, consumer-style
-  workflows, feature demos, assets, screenshots, and README snippets derived
-  from examples.
-- `$tests` - node:test coverage, native-load tests, runtime tests,
-  visual/offscreen tests, skipped hardware-dependent tests, and validation
-  strategy.
-- `$ci` - GitHub Actions, reusable actions, lint/test/build jobs,
-  matrices, native addon CI, GPU/platform limits, and CI package consistency.
-- `$publishing` - pack contents, package metadata, release readiness,
-  submodule/root safety, native binary tags, npm publish boundaries, and
-  publish-prep work.
+- Commit only with explicit commit authorization.
+- Push only with explicit push authorization.
+- **"prepare <package> for publishing"** explicitly authorizes committing and
+  pushing the validated package state and corresponding root release state. It
+  does not authorize unrelated commits or changes outside the release scope.
+- Publishing prep does not authorize tags, GitHub releases/assets, or
+  `npm publish`.
+- Tags/releases require explicit authorization.
+- Never run npm operations that may require authentication/OTP (`npm publish`,
+  `npm unpublish`, `npm login`, owner/access or dist-tag changes). Validate and
+  give the intended command to the user instead.
 
-## Commands
+Before any commit/push/tag/release action, re-check authorization and name the
+repositories affected.
 
-Prefer package workspace commands for focused work and root commands for broad
-checks:
+## Context Routing
 
-```powershell
-npm.cmd --workspace @node-3d/package-name run build:ci
-npm.cmd --workspace @node-3d/package-name run test:ci
-npm.cmd --workspace @node-3d/package-name run lint:all
-npm.cmd --workspace @node-3d/package-name run format:ts:ci
-npm.cmd --workspace @node-3d/package-name run format:src:ci
-npm.cmd --workspace @node-3d/package-name run lint:gypi
-npm.cmd pack --workspace @node-3d/package-name --dry-run
-npm.cmd run build:ci
-npm.cmd run packages:test
-npm.cmd run lint:all
-npm.cmd run format:ci
-```
+Use the smallest useful context. Skills are selected by the changed behavior or
+artifact, not merely by nearby package names:
 
-Use `--ignore-scripts` for metadata-only dependency work when native postinstall
-scripts should not run.
+1. Choose exactly one primary skill for the behavior/artifact being changed.
+2. Add secondary skills only for additional artifacts actually modified; prefer
+   at most two.
+3. Load references only when a loaded skill names the triggering condition.
+4. Never preload all skills/references.
+
+Primary routes:
+
+- C++ bindings, GYP, `install.js`, `ts/native.ts`, native handles/lifetimes ->
+  `$native-addons`
+- core browser/DOM/canvas/WebGL/Three.js/runtime behavior -> `$core`
+- CUDA/OpenCL/GL compute and GPU interop -> `$compute`
+- `deps-*` binary/header/path contracts -> `$deps`
+- plugin composition/high-level integrations -> `$plugins`
+- README/API/package docs -> `$docs`
+- `examples/**`/consumer workflows -> `$examples`
+- tests/test infrastructure/validation strategy -> `$tests`
+- GitHub Actions/workflows/platform CI -> `$ci`
+- package metadata, pack/release readiness, versions/lock release state,
+  submodule release coordination -> `$publishing`
+
+For mixed work, the behavior owner is primary; changed artifact owners are
+secondary.
+
+## Contract Gate
+
+Set **YES** when a change affects or may desynchronize public API/exports, native
+arguments/returns/handles/callbacks/lifetime, runtime/browser/graphics/audio/
+compute/plugin behavior, install/binary/archive/package contents, supported
+consumer examples, platform claims, CI validation meaning, release policy, or a
+cross-package convention. Then load `docs/contract-workflow.md`.
+
+Set **NO** for typo/format-only edits and internal refactors whose public behavior,
+tests, examples, package contents, and exports remain unchanged.
+
+## Checkpoints
+
+Before editing: package/repo scope; primary/secondary skills; Contract Gate.
+
+Before side effects: authorization; exact root/submodule targets; unrelated dirty
+work safely excluded.
+
+Before completion: validations actually run; relevant validations not run;
+remaining dirty/submodule state; contract drift/durable artifact needs.
+
+## Execution
+
+Prefer focused package commands before broad root checks. For metadata-only work,
+use `--ignore-scripts` when native postinstall behavior is unnecessary. Load
+`.agents/references/repository-model.md` when package/submodule boundaries or
+workspace-wide commands matter.
 
 ## Durable Decisions
 
-- Use ADRs in `docs/adr/` for durable decisions.
-  Refer to `docs/adr/README.md` and keep it in sync with the folder content.
-- Edit or add ADRs when changing global policies.
-  Package READMEs, or transient notes are not sufficient for durable project policies.
+Use `docs/adr/` for durable cross-package policy and keep `docs/adr/README.md`
+synchronized. Do not substitute README or agent prose for an ADR when changing a
+global project policy.

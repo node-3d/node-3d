@@ -1,25 +1,29 @@
 ---
 name: deps
-description: Work on Node3D deps-* packages that bundle third-party binaries, headers, and thin entrypoints. Use for dependency package layout, platform archives, bundled library motivation, getPaths/bin/include contracts, licensing notes, install behavior, and creating or updating packages such as deps-opengl, deps-freeimage, deps-bullet, deps-labsound, deps-qt-*, deps-qmlui, and deps-uiohook.
+description: Work on Node3D deps-* packages, third-party binaries/headers, getPaths/bin/include contracts, redistribution, provenance, and binary layout consumers.
 ---
 
 # Dependency Packages
 
-Use this skill for `deps-*` packages. These packages exist to make native Node3D packages installable and buildable by carrying third-party binaries, headers, and small JS/type entrypoints.
+## Owns
+
+`deps-*` package layout and third-party binary/header contracts.
 
 ## Workflow
 
-1. Treat `deps-*` packages as a different family from TypeScript runtime packages and native addon packages.
-2. Preserve the thin entrypoint contract: expose paths and load-time environment setup needed by dependent addons.
-3. Keep third-party license and binary/header provenance visible in package docs.
-4. Create a `deps-*` package only when Node3D is allowed to redistribute the
-   required binaries or headers. If an SDK is private or license-restricted,
-   follow ADR 0014 instead of hiding it in a dependency package.
-5. Do not force Rslib or `ts/` conventions onto a deps package unless the package has a concrete runtime reason.
-6. When changing binary layout, audit consumers that call `getPaths()`, `require(...)`, GYP variables, or platform bin/include paths.
+1. Confirm the third-party input may be redistributed; otherwise follow ADR 0014.
+2. Preserve the thin dependency-package role rather than forcing runtime/native
+   addon source conventions onto it.
+3. Keep license and provenance visible.
+4. When exported paths or binary layout change, audit all consumers of imports,
+   `bin`/`include`, `getPaths()`, and GYP variables.
+5. Validate both package contents and at least the affected consumer path when the
+   contract changes.
 
-## References
+## Load References
 
-- Read [deps-package-model.md](references/deps-package-model.md) for package purpose, layout, and consumer contracts.
-- Read [third-party-bundling.md](references/third-party-bundling.md) for library acquisition, platform archives, and licensing concerns.
-- Read [ADR 0014](../../../docs/adr/0014-private-third-party-build-inputs.md) before handling private or license-restricted SDK inputs.
+Load `.agents/references/dependency-packages.md` for package shape and consumer
+audit details.
+
+Use `$publishing` when pack/release metadata is modified; use `$native-addons`
+when consumer binding/build behavior is also changed.
