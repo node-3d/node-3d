@@ -17,8 +17,13 @@ Native addon source/binding contracts and package-native plumbing.
 3. Validate external inputs, lengths, pointer/handle semantics, ownership, and
    destroyed-object async paths.
 4. Preserve standalone build/install behavior; do not introduce root-only paths.
-5. Run the focused native/build/type/test checks that match the changed layer.
-6. If public native behavior changes, ensure Contract Gate is YES and synchronize
+5. For standalone native consumer validation, install with normal `npm ci` so
+   dependency `postinstall` hooks provide their binary artifacts. Reserve
+   `--ignore-scripts` for metadata-only work that will not build, load, or run
+   native code. Never invoke a dependency installer from the consumer directory:
+   its lifecycle working directory is part of its binary-path contract.
+6. Run the focused native/build/type/test checks that match the changed layer.
+7. If public native behavior changes, ensure Contract Gate is YES and synchronize
    wrapper tests/docs/examples as needed.
 
 ## Load References

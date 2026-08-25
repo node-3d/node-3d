@@ -20,7 +20,9 @@ commit, push, tag, release, or registry operations.
    both.
 3. Inspect metadata, exports/files, scripts, dependencies, engines, lockfiles,
    and native `install.js` when present.
-4. Run narrow validation first; build before `npm pack --dry-run`.
+4. Run narrow validation first; build before `npm pack --dry-run`. For native
+   package or consumer validation, use normal `npm ci` so postinstall-managed
+   binary artifacts are present; `--ignore-scripts` is metadata-only.
 5. Keep npm package versions decoupled from native binary tags unless native
    artifacts actually changed.
 6. For package content changes, package commit state precedes the root submodule

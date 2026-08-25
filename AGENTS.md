@@ -101,10 +101,10 @@ remaining dirty/submodule state; contract drift/durable artifact needs.
 
 ## Execution
 
-Prefer focused package commands before broad root checks. For metadata-only work,
-use `--ignore-scripts` when native postinstall behavior is unnecessary. Load
-`.agents/references/repository-model.md` when package/submodule boundaries or
-workspace-wide commands matter.
+Prefer focused package commands before broad root checks. Use normal `npm ci`
+for native consumer validation; reserve `--ignore-scripts` for metadata-only
+work. Load `.agents/references/repository-model.md` when package/submodule
+boundaries or workspace-wide commands matter.
 
 ## Durable Decisions
 

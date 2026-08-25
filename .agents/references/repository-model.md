@@ -48,7 +48,11 @@ future ADR supersedes `docs/adr/0016-repository-only-examples.md`.
 Use focused package commands before broad root commands.
 
 For metadata-only installs where native postinstall work is unnecessary, prefer
-`--ignore-scripts`.
+`--ignore-scripts`. Do not reuse that installation for native consumer
+validation: package `postinstall` hooks install the binaries needed to build,
+load, and run native addons. Use normal `npm ci` for that validation, and let
+npm run each dependency installer from its own package directory rather than
+calling an installed dependency's `install.js` from the consumer directory.
 
 Standalone package lockfiles and the root workspace lockfile are separate
 artifacts; update only the scopes actually affected by the task.
