@@ -16,7 +16,10 @@ and dependency resolution less predictable.
 
 ## Decision
 
-Use scoped package names under `@node-3d/*` for active packages.
+Use scoped package names under `@node-3d/*` for every publishable package.
+All packages under `packages/` are public npm packages by design. The root
+superproject and repository-only example manifests are not publishable packages
+and remain `private`.
 
 Package repository names should match the package name without the scope. For
 example, `@node-3d/core` lives in `node-3d/core`, and `@node-3d/deps-opengl`
@@ -28,7 +31,7 @@ Package metadata should point users back to the ecosystem:
 - `bugs` points to the root `node-3d` issue tracker.
 - `homepage` points to the root `node-3d` README.
 - `repository` points to the package-specific repository.
-- `publishConfig.access` is `public` for scoped public packages.
+- `publishConfig.access` is `public`.
 
 Deprecated old package names should point users to the new scoped names with
 `npm deprecate <old-name> "<message>"` after the replacement package is
@@ -43,3 +46,6 @@ match the unscoped package suffix.
 
 Maintainers must keep package manifests aligned across the root workspace and
 standalone package repositories.
+
+Publish instructions use bare `npm publish`; public access belongs in package
+metadata, never in a redundant `--access public` command-line flag.

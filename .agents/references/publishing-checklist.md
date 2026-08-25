@@ -20,11 +20,16 @@ TS runtime packages normally expose `dist/index.js` and `dist/index.d.ts`.
 Dependency packages may intentionally expose root `index.js`/`index.d.ts`.
 
 Preserve existing Node3D metadata conventions unless the task intentionally
-changes them: public scoped packages use `publishConfig.access: public`; package
+changes them: every publishable `packages/*` package uses
+`publishConfig.access: public`; package
 repositories point to their standalone repository while bugs/homepage point to
 the root project; internal runtime dependencies use `~` ranges, development
 dependencies are pinned, and emitted-code packages keep `tslib` as a direct
 dependency at the project-approved version.
+
+Recommend bare `npm publish`. Public access is a manifest invariant, not a
+`--access public` CLI flag. The root superproject and repository-only example
+manifests are intentionally private and are not publish targets.
 
 ## Package Contents
 

@@ -27,7 +27,10 @@ commit, push, tag, release, or registry operations.
    pointer state.
 7. Before declaring publish-ready, verify requested package/root state is clean,
    coherent, and synchronized with remotes where required by the task.
-8. Give authenticated npm commands to the user; do not run them.
+8. Every publishable `packages/*` package is public by project policy. Require
+   `publishConfig.access: public` in its manifest and recommend bare
+   `npm publish`; never add `--access public` or offer private-package paths.
+   Give authenticated npm commands to the user; do not run them.
 
 ## Load References
 
