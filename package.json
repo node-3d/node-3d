@@ -8,6 +8,7 @@
 		"packages/addon-tools",
 		"packages/deps-bullet",
 		"packages/deps-freeimage",
+		"packages/deps-gns",
 		"packages/deps-labsound",
 		"packages/deps-opengl",
 		"packages/deps-qmlui",

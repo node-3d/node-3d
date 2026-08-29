@@ -85,3 +85,9 @@
 [submodule "packages/uv-loop"]
 	path = packages/uv-loop
 	url = https://github.com/node-3d/uv-loop.git
+[submodule "packages/deps-gns"]
+	path = packages/deps-gns
+	url = https://github.com/node-3d/deps-gns.git
+[submodule "packages/gabenet"]
+	path = packages/gabenet
+	url = https://github.com/node-3d/gabenet.git
