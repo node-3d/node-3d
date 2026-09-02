@@ -38,6 +38,13 @@ may create its own namespace object, and `bindings.cpp` mounts those objects on
 the module export. This keeps the mount table visible without dumping all method
 implementations into one file.
 
+Bindings should also remain thin at the JavaScript boundary. Use the applicable
+`addon-tools` argument and return macros for ordinary arity and type conversion.
+Add hand-written validation only when it enforces an upstream API constraint,
+memory or ownership safety, or a deliberate documented Node3D contract. Do not
+duplicate checks already performed by the macros or add speculative wrappers,
+state, conversion layers, or policy that the exposed API does not require.
+
 For third-party APIs with established interface names, namespace and file names
 should follow the upstream API shape unless there is a clear JavaScript
 ergonomics reason not to. For example, Steamworks bindings group methods under
@@ -52,6 +59,9 @@ actual responsibility.
 
 Large addons can grow without turning the module entrypoint into a catch-all
 source file.
+
+Bindings stay direct and reviewable: each extra validation or abstraction has a
+specific native/API reason instead of obscuring the underlying library contract.
 
 Constants remain close to export binding code, avoiding fake implementation
 files for values that are directly exported.

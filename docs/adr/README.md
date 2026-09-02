@@ -25,3 +25,4 @@ existing decision.
 - [0014 - Private third-party build inputs](0014-private-third-party-build-inputs.md)
 - [0015 - Native addon C++ binding organization](0015-native-addon-cpp-binding-organization.md)
 - [0016 - Repository-only examples](0016-repository-only-examples.md)
+- [0017 - Native addon synchronous event proxies](0017-native-addon-synchronous-event-proxies.md)

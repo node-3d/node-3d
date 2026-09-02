@@ -26,6 +26,16 @@ Native addon source/binding contracts and package-native plumbing.
 7. If public native behavior changes, ensure Contract Gate is YES and synchronize
    wrapper tests/docs/examples as needed.
 
+## Binding Boundary Policy
+
+Follow `docs/adr/0015-native-addon-cpp-binding-organization.md` for every
+non-trivial native addon. `bindings.cpp` is the mount table only; place API
+wrappers, callback bridges, state, and resource behavior in thematically named
+files. Prefer the matching `addon-tools` argument and return macro for ordinary
+JS arity/type conversion. Add custom checks only for an upstream constraint,
+memory/ownership safety, or an explicitly documented Node3D contract; do not
+duplicate macro checks or add speculative abstraction at the binding boundary.
+
 ## Load References
 
 Load `.agents/references/native-addons.md` for package shape, binding organization,
