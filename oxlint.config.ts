@@ -5,14 +5,15 @@ import sharedConfig from '@node-3d/addon-tools/oxlint';
 const config: OxlintConfig = {
 	...sharedConfig,
 	ignorePatterns: [
-		...(sharedConfig.ignorePatterns ?? []),
+		...sharedConfig.ignorePatterns,
 		'packages/core/examples/palette/utils/DRACOLoader.ts',
-		'packages/@node-3d/plugin-qml/examples/qt-calqlatr/calqlatr/content/calculator.js',
-		'packages/@node-3d/qml-themedui/ThemedUi/default-theme.js',
-		'packages/@node-3d/qml-themedui/examples/qml/themes/themes.js',
+		'packages/plugin-qml/examples/qt-calqlatr/calqlatr/content/calculator.js',
+		'packages/qml-themedui/ThemedUi/default-theme.js',
+		'packages/qml-themedui/examples/qml/themes/themes.js',
 		'packages/@node-3d/webaudio/examples/pending/*.js',
 	],
 	options: {
+		...sharedConfig.options,
 		denyWarnings: true,
 		reportUnusedDisableDirectives: 'error',
 	},

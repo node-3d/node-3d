@@ -26,3 +26,4 @@ existing decision.
 - [0015 - Native addon C++ binding organization](0015-native-addon-cpp-binding-organization.md)
 - [0016 - Repository-only examples](0016-repository-only-examples.md)
 - [0017 - Native addon synchronous event proxies](0017-native-addon-synchronous-event-proxies.md)
+- [0018 - Node.js LTS support policy](0018-nodejs-lts-support-policy.md)

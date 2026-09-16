@@ -21,21 +21,21 @@ For Node-major-sensitive native binaries, use release tags shaped as:
 <package-version>-<node-major>/<platform>.gz
 ```
 
-For `@node-3d/uv-loop` version `0.1.0`, this produces:
+For `@node-3d/uv-loop`, a current release produces:
 
 ```text
-0.1.0-20/windows.gz
-0.1.0-22/windows.gz
-0.1.0-24/windows.gz
-0.1.0-26/windows.gz
+<package-version>-22/windows.gz
+<package-version>-24/windows.gz
+<package-version>-26/windows.gz
 ```
 
 and the same tag pattern for each supported platform archive.
 
-Build Node.js LTS/even major lines. Odd Node.js majors inside the supported
-range fall back to the previous even major. Node.js versions below the minimum
-supported binary major use the minimum line. Node.js versions above the maximum
-supported binary major use the maximum line.
+Build Node.js LTS/even major lines according to the project support policy in
+[ADR 0018](0018-nodejs-lts-support-policy.md). Odd Node.js majors inside the
+engine range fall back to the previous even major. Node.js versions below the
+minimum supported binary major use the minimum line. Node.js versions above the
+maximum supported binary major use the maximum line.
 
 Document supported platform and Node-major binary limits in the root README
 and package READMEs that use this policy.

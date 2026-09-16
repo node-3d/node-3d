@@ -71,5 +71,8 @@
 				"Bypass"
 			]
 		}
-	}
+	},
+	"oxc.enable.oxlint": true,
+	"oxc.requireConfig": true,
+	"oxc.lint.run": "onType"
 }
