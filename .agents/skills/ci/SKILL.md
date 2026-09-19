@@ -24,6 +24,21 @@ CI workflow behavior and what automated validation claims to prove.
    checkout. Use plain `npm ci` for native binary build workflows unless a
    documented reason requires `--ignore-scripts`.
 
+## Native Addon Baseline
+
+Every package classified as a native addon in
+`.agents/references/repository-model.md` must validate, on pushes and pull
+requests:
+
+- TypeScript with the package type-check command;
+- JavaScript/TypeScript with `oxlint`;
+- C++ with `cpplint` and the shared `CPPLINT.cfg` from `@node-3d/addon-tools`;
+- its package-owned unit tests.
+
+These validators may share workflows, but a package-specific platform or
+hardware constraint is not an omission. Any exception must be narrow and
+documented in the package workflow or an ADR.
+
 ## Load References
 
 Load `.agents/references/ci-platform-limits.md` for GPU, OpenGL, native binary,
