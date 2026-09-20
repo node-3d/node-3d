@@ -108,7 +108,23 @@ Expected:
 - no new native asset merely to match the npm version;
 - authenticated registry commands remain user-controlled.
 
-## 11. Explicit push on the current branch
+## 11. Refresh native archives under an existing installer tag
+
+Prompt: "Did the macOS GLFW filename fix ship in `@node-3d/deps-opengl`?"
+
+Expected:
+- primary: `$publishing`;
+- Contract Gate: YES because native artifact availability is being audited;
+- read `install.js` to resolve the selected GitHub release tag;
+- inspect that release's asset timestamps, digests, archive contents, and
+  relevant binary evidence before making a shipped/unshipped conclusion;
+- do not infer an unshipped change solely from a source commit that postdates
+  the GitHub release tag or the npm package version;
+- treat rebuilding and replacing archives under the selected compatible tag as
+  the default native-update path; do not recommend a new tag or installer
+  change merely for version parity.
+
+## 12. Explicit push on the current branch
 
 Prompt: "Push all changes."
 

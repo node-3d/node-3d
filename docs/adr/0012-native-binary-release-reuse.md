@@ -22,7 +22,10 @@ to the npm package version.
 
 For JavaScript-only or metadata-only npm releases, keep `install.js` pinned to
 the latest existing binary release tag whose native payload is still valid for
-that package. Advance the binary release tag only when one of these changes:
+that package. For compatible refreshed native artifacts, ADR 0019 establishes
+the preferred path: replace the archives under that existing installer tag.
+The following changes require a compatibility assessment; they do not alone
+require a distinct binary release tag:
 
 * native C++ sources,
 * `binding.gyp`, `common.gypi`, or native compiler/linker configuration,

@@ -106,6 +106,13 @@ for native consumer validation; reserve `--ignore-scripts` for metadata-only
 work. Load `.agents/references/repository-model.md` when package/submodule
 boundaries or workspace-wide commands matter.
 
+## Native Binary Asset Policy
+
+For native-release work or audits, use `$publishing`, then follow ADR 0019 and
+the publishing checklist. Treat an `install.js` tag as the archive selector:
+inspect its release assets before inferring shipped state or recommending a new
+tag.
+
 ## Durable Decisions
 
 Use `docs/adr/` for durable cross-package policy and keep `docs/adr/README.md`

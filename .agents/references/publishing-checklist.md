@@ -58,9 +58,18 @@ release conclusion.
 npm versions and GitHub native binary tags are intentionally decoupled.
 
 Do not create a new binary release solely because the npm version changed.
-Advance the binary tag only when native source/build inputs, bundled native
-dependencies, ABI/platform baseline, or archive/install layout requires new
-artifacts.
+For an installer that already targets a compatible GitHub release tag, the
+normal native-update path is to rebuild and replace that tag's platform
+archives. The tag is a stable installer selector, not an immutable-artifact
+promise. Avoid advancing the tag or changing `install.js` unless a new
+incompatible artifact line, rollback/retirement boundary, or an explicitly
+requested release strategy requires it.
+
+When auditing whether native work has shipped, resolve the tag from
+`install.js` and inspect the actual GitHub release assets: `updated_at`,
+digests, archive contents, and relevant binary evidence. Do not infer that a
+native-source commit is unshipped merely because it postdates the tag's release
+creation time or the npm package version.
 
 JS/docs/lock/metadata-only releases should keep `install.js` pinned to the latest
 compatible existing binary tag.
