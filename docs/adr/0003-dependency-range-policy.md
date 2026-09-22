@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted.
+Superseded by [ADR 0021](0021-internal-and-external-dependency-ranges.md).
 
 ## Context
 

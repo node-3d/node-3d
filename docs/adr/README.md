@@ -11,7 +11,7 @@ existing decision.
 
 - [0001 - Package naming policy](0001-package-naming-policy.md)
 - [0002 - Package publish order](0002-package-publish-order.md)
-- [0003 - Dependency range policy](0003-dependency-range-policy.md)
+- [0003 - Dependency range policy (superseded)](0003-dependency-range-policy.md)
 - [0004 - Native addon lifecycle policy](0004-native-addon-lifecycle-policy.md)
 - [0005 - macOS headless OpenGL CI strategy](0005-macos-headless-opengl-ci.md)
 - [0006 - Windows ARM OpenGL and OpenCL compatibility](0006-windows-arm-opengl-opencl.md)
@@ -29,3 +29,4 @@ existing decision.
 - [0018 - Node.js LTS support policy](0018-nodejs-lts-support-policy.md)
 - [0019 - Stable binary release asset refresh](0019-stable-binary-asset-refresh.md)
 - [0020 - Native addon CI validation baseline](0020-native-addon-ci-validation-baseline.md)
+- [0021 - Internal and external dependency ranges](0021-internal-and-external-dependency-ranges.md)

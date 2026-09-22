@@ -21,11 +21,13 @@ Dependency packages may intentionally expose root `index.js`/`index.d.ts`.
 
 Preserve existing Node3D metadata conventions unless the task intentionally
 changes them: every publishable `packages/*` package uses
-`publishConfig.access: public`; package
-repositories point to their standalone repository while bugs/homepage point to
-the root project; internal runtime dependencies use `~` ranges, development
-dependencies are pinned, and emitted-code packages keep `tslib` as a direct
-dependency at the project-approved version.
+`publishConfig.access: public`; package repositories point to their standalone
+repository while bugs/homepage point to the root project; internal
+`@node-3d/*` dependencies use `~` ranges in every installed dependency section;
+external installed dependencies are pinned exactly; peer dependency ranges
+express consumer compatibility; and emitted-code packages keep `tslib` as a
+direct dependency at the project-approved version. See
+`docs/adr/0021-internal-and-external-dependency-ranges.md`.
 
 Recommend bare `npm publish`. Public access is a manifest invariant, not a
 `--access public` CLI flag. The root superproject and repository-only example
