@@ -33,6 +33,26 @@ Recommend bare `npm publish`. Public access is a manifest invariant, not a
 `--access public` CLI flag. The root superproject and repository-only example
 manifests are intentionally private and are not publish targets.
 
+## Registry Availability Verification
+
+When a release depends on a freshly published npm package, do not treat a
+plain npm resolution failure or a cached `npm view` result as evidence that the
+version is unpublished. npm may serve a stale package document even when its
+configured registry is `https://registry.npmjs.org/`.
+
+If the user reports that a package is published, treat the npmjs.com package
+page as authoritative. Confirm the exact version with an online registry read
+before blocking the release:
+
+```powershell
+npm.cmd view @node-3d/package@version version --registry=https://registry.npmjs.org/ --prefer-online --fetch-retries=0
+```
+
+Use `--prefer-online` on follow-up `npm install --package-lock-only` commands
+that must resolve that fresh version. Report a publication mismatch only after
+this online verification fails; never contradict a user-reported npmjs.com
+publication based solely on a cached CLI response.
+
 ## Package Contents
 
 Build before inspecting a TS package tarball, then run `npm pack --dry-run`.
