@@ -60,3 +60,10 @@ For non-trivial C++ surfaces, follow
 the module mount table and place implementation in responsibility-specific files.
 
 Standalone builds must not depend on root-only GYP paths.
+
+On ELF platforms, provide redistributable shared-library locations through GYP
+`library_dirs` (linker `-L`) and link them by logical `-l` name. Passing an
+absolute or slash-containing `.so` filename can embed a build-machine path in
+`DT_NEEDED` when the vendor library lacks `DT_SONAME`. Pair colocated libraries
+with an `$ORIGIN` runpath and prove relocation through a packed-package consumer
+install on a fresh runner.

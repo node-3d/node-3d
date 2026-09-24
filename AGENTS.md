@@ -106,6 +106,14 @@ for native consumer validation; reserve `--ignore-scripts` for metadata-only
 work. Load `.agents/references/repository-model.md` when package/submodule
 boundaries or workspace-wide commands matter.
 
+Release validation for a publishable package must exercise its packed npm
+tarball from an isolated consumer project without workspace links or access to
+the source/build tree. Run lifecycle scripts normally, load the public entry,
+and add the narrowest package-specific smoke behavior needed. For packages that
+download native release assets, run this gate on fresh platform runners after
+the candidate archives are available as workflow artifacts. Create or update
+the GitHub release only after the consumer gate passes, then publish npm.
+
 ## Native Binary Asset Policy
 
 For native-release work or audits, use `$publishing`, then follow ADR 0019 and

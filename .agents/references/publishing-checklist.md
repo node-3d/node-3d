@@ -75,6 +75,21 @@ validate a real packed-tarball consumer when that consumer contract changed.
 After building a TS package, confirm its public entry can import before making a
 release conclusion.
 
+## Packed Consumer Gate
+
+Before npm publication, install the actual `npm pack` tarball into an empty
+project with normal lifecycle scripts and registry dependency resolution. The
+consumer environment must not have workspace links or access to the source or
+build tree. Load the public entry and run the narrowest package-specific smoke
+behavior needed.
+
+For native packages whose installers fetch GitHub release assets, build and
+transfer every candidate platform archive as a workflow artifact, then run the
+tarball install against those exact archives on fresh platform runners. Create
+or update the GitHub release only after all consumer lanes pass. A passing
+repository test suite or `npm pack --dry-run` does not replace this release
+gate.
+
 ## Native Binary Tags
 
 npm versions and GitHub native binary tags are intentionally decoupled.

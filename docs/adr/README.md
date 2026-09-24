@@ -30,3 +30,5 @@ existing decision.
 - [0019 - Stable binary release asset refresh](0019-stable-binary-asset-refresh.md)
 - [0020 - Native addon CI validation baseline](0020-native-addon-ci-validation-baseline.md)
 - [0021 - Internal and external dependency ranges](0021-internal-and-external-dependency-ranges.md)
+- [0022 - Relocatable native runtime dependencies](0022-relocatable-native-runtime-dependencies.md)
+- [0023 - Packed consumer installation validation](0023-packed-consumer-installation-validation.md)

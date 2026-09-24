@@ -39,6 +39,16 @@ These validators may share workflows, but a package-specific platform or
 hardware constraint is not an omission. Any exception must be narrow and
 documented in the package workflow or an ADR.
 
+## Packed Consumer Gate
+
+Release workflows must validate the actual npm tarball in an empty consumer
+project, without workspace linking or source/build-tree fallback. Install with
+lifecycle scripts enabled, load the public entry, and add only meaningful
+package-specific smoke behavior. Native packages that download release assets
+must pass their exact candidate archives to fresh downstream jobs as workflow
+artifacts. Create or update the GitHub release only after every consumer lane
+passes; passing repository tests is not a substitute.
+
 ## Load References
 
 Load `.agents/references/ci-platform-limits.md` for GPU, OpenGL, native binary,

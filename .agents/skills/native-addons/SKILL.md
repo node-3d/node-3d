@@ -26,6 +26,12 @@ Native addon source/binding contracts and package-native plumbing.
 7. If public native behavior changes, ensure Contract Gate is YES and synchronize
    wrapper tests/docs/examples as needed.
 
+On ELF platforms, link redistributable shared libraries through linker search
+directories and logical `-l` names. Do not pass a slash-containing build or SDK
+path for a runtime `.so` dependency unless that dependency has a verified
+portable `DT_SONAME`. Keep colocated runtime libraries discoverable through
+`$ORIGIN` and validate the packed package from an isolated consumer job.
+
 ## Binding Boundary Policy
 
 Follow `docs/adr/0015-native-addon-cpp-binding-organization.md` for every
