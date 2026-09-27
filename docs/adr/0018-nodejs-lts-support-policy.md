@@ -11,9 +11,10 @@ examples and runtime code also work on Node.js 22.18.0. That unnecessarily
 excludes established projects on the still-supported older LTS line.
 
 The project needs a single policy for package engines, CI coverage, and
-Node-major-sensitive native binary release lines. Supporting an upstream
-end-of-life runtime would create a security and maintenance commitment that
-Node3D cannot sustain.
+Node-major-sensitive native binary release lines. It also needs a consistent
+development runtime and ambient Node.js type surface across the root and every
+package. Supporting an upstream end-of-life runtime would create a security and
+maintenance commitment that Node3D cannot sustain.
 
 ## Decision
 
@@ -29,6 +30,17 @@ Node3D supports LTS lines only:
 - do not support odd-numbered, non-LTS releases, even if a semver engine range
   permits installation;
 - do not support upstream end-of-life Node.js releases.
+
+The root development environment and all package development dependencies track
+the upstream **Active LTS** Node.js major. Every `@types/node` development
+dependency uses the latest release for that same major, pinned exactly under
+[ADR 0021](0021-internal-and-external-dependency-ranges.md). When upstream moves
+Active LTS to a new even-numbered major, Node3D updates the development runtime,
+`@types/node`, and applicable CI defaults as one coordinated change. This does
+not by itself raise the published package engine baseline or end support for an
+older upstream-supported LTS line.
+
+The current development and ambient-type major is Node.js 24.
 
 Core and `uv-loop` provide the cross-version runtime CI anchors for the
 currently supported and next-LTS Node 22, Node 24, and Node 26 lines. Other
@@ -47,3 +59,6 @@ Node/npm engine baseline. Package patch releases carry this metadata change.
 The normal recommended runtime remains the current LTS release. Consumers on
 Node 22 can adopt Node3D without a Node 24 migration, while consumers on Node
 20 must upgrade their unsupported runtime first.
+
+Repository builds and editor type checking consistently use the Active LTS API
+surface instead of accidentally adopting types from the newer Current release.
