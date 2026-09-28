@@ -24,8 +24,8 @@ Package-family emphasis:
 ## Examples
 
 - Import Node3D packages by package name, never via `../ts` or `../dist`.
-- Prefer TypeScript-first examples where the supported Node.js runtime executes
-  them directly.
+- Write examples in TypeScript and execute them directly with the supported
+  Node.js runtime. Do not introduce `.js`, `.mjs`, or `.cjs` example files.
 - Put Node3D-authored examples/diagnostics under package-owned example areas and
   adapted vendor samples under clearly named vendor areas.
 - Demonstrate meaningful consumer behavior, not internal implementation access.

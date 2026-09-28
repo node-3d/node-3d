@@ -39,12 +39,12 @@ For example, see
     cd my-project
     npm init -y
     npm install @node-3d/core three
-    touch index.mjs
+    touch index.ts
     ```
 
 1. Paste the code and see if it works:
 
-    ```js
+    ```ts
     import * as THREE from 'three';
 
     import { Screen, addThreeHelpers, init } from '@node-3d/core';
@@ -176,7 +176,7 @@ Future vendor examples should use their own directory, such as
 
     For example:
 
-    ```js
+    ```ts
     import * as THREE from 'three';
     import { gl, init, addThreeHelpers } from '@node-3d/core';
     import { init as initQml } from '@node-3d/plugin-qml';

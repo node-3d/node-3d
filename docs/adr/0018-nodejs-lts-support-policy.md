@@ -42,6 +42,16 @@ older upstream-supported LTS line.
 
 The current development and ambient-type major is Node.js 24.
 
+All repository-authored files executed by Node.js use TypeScript. This includes
+package sources, tests, examples, consumer fixtures, build utilities, and CI
+helper scripts. Do not add authored `.js`, `.mjs`, or `.cjs` files.
+
+The sole authored JavaScript exception is a package-root `install.js` used by
+the npm `postinstall` lifecycle. npm must be able to execute that file directly
+from the installed package before any package-specific TypeScript build or
+bundle exists. Node3D does not maintain parallel authored JavaScript entry
+points or helper files for TypeScript sources.
+
 Core and `uv-loop` provide the cross-version runtime CI anchors for the
 currently supported and next-LTS Node 22, Node 24, and Node 26 lines. Other
 packages inherit that runtime baseline unless a package has a
@@ -62,3 +72,7 @@ Node 22 can adopt Node3D without a Node 24 migration, while consumers on Node
 
 Repository builds and editor type checking consistently use the Active LTS API
 surface instead of accidentally adopting types from the newer Current release.
+
+Tests, examples, fixtures, and maintenance scripts execute their `.ts` files
+directly on the supported Node.js runtime, avoiding parallel JavaScript module
+conventions and unnecessary per-package script bundling.

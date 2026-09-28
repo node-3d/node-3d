@@ -26,6 +26,25 @@ Every publishable Node3D package must have a release gate that:
 6. runs the narrowest additional consumer smoke behavior needed to prove the
    package's install/runtime contract.
 
+The smoke behavior follows the package family rather than an ad hoc test for
+each repository:
+
+- `addon-tools` builds and loads a consumer-owned addon using the packed
+  package's public helpers and headers;
+- dependency packages build and load a consumer-owned addon that includes the
+  dependency's public compilation surface, links the candidate library, and
+  calls one safe symbol so required runtime libraries are also loaded;
+- native addon packages load their public entry point and exercise the least
+  invasive operation that proves the native module initialized;
+- `core` initializes the browser-like runtime at its lowest meaningful level;
+  and
+- plugin packages initialize `core`, apply the plugin through its public
+  contract, and verify the capability the plugin adds.
+
+These are minimum family contracts. A package may add a narrower
+package-specific assertion when its public role is not proven by the family
+baseline, but the consumer gate is not a second unit-test suite.
+
 Pure JavaScript packages may run this gate in ordinary pull-request CI. Native
 packages whose installers download GitHub release assets pass the candidate
 archives to fresh platform jobs through workflow artifacts. Their install
@@ -33,6 +52,12 @@ scripts may expose a package-scoped CI override for the candidate archive base
 URL so normal lifecycle behavior is retained without relying on a public
 release. The GitHub release is created or updated only after every consumer lane
 passes, and npm publication follows separately.
+
+When an ordinary push or pull-request workflow already builds the same native
+candidate, it must run the consumer gate in a separate fresh job as well. The
+dispatch release workflow repeats that producer-to-consumer boundary for the
+exact artifacts it may release; success in one workflow does not stand in for
+the other workflow's candidate.
 
 Repository unit tests, `npm pack --dry-run`, binary metadata checks, and the
 consumer gate prove different layers. None substitutes for the others.

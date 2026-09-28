@@ -31,7 +31,8 @@ Every package classified as a native addon in
 requests:
 
 - TypeScript with the package type-check command;
-- JavaScript/TypeScript with `oxlint`;
+- TypeScript with `oxlint` (plus the package-root `install.js` lifecycle
+  exception defined by ADR 0018);
 - C++ with `cpplint` and the shared `CPPLINT.cfg` from `@node-3d/addon-tools`;
 - its package-owned unit tests.
 
