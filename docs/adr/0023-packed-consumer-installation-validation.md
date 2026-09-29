@@ -59,6 +59,11 @@ dispatch release workflow repeats that producer-to-consumer boundary for the
 exact artifacts it may release; success in one workflow does not stand in for
 the other workflow's candidate.
 
+A repository consumer fixture may contain its own `tsconfig.json` to resolve the
+package self-import against local source for static validation. That config is
+repository-only: consumer preparation removes it after copying the fixture so
+the isolated test can resolve only the installed npm candidate.
+
 Repository unit tests, `npm pack --dry-run`, binary metadata checks, and the
 consumer gate prove different layers. None substitutes for the others.
 
