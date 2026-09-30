@@ -50,8 +50,10 @@ packages whose installers download GitHub release assets pass the candidate
 archives to fresh platform jobs through workflow artifacts. Their install
 scripts may expose a package-scoped CI override for the candidate archive base
 URL so normal lifecycle behavior is retained without relying on a public
-release. The GitHub release is created or updated only after every consumer lane
-passes, and npm publication follows separately.
+release. When the workflow supplies such an override, the installer must consume
+it; silently falling back to an already-published release does not validate the
+candidate. The GitHub release is created or updated only after every consumer
+lane passes, and npm publication follows separately.
 
 When an ordinary push or pull-request workflow already builds the same native
 candidate, it must run the consumer gate in a separate fresh job as well. The
@@ -66,6 +68,10 @@ the isolated test can resolve only the installed npm candidate.
 
 Repository unit tests, `npm pack --dry-run`, binary metadata checks, and the
 consumer gate prove different layers. None substitutes for the others.
+
+Consumer build commands must preserve compiler, linker, and build-system
+diagnostics in CI. They must not use quiet or silent modes that reduce a failed
+build to an exit code without its underlying diagnostic.
 
 ## Consequences
 
