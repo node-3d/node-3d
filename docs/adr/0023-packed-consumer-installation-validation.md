@@ -45,6 +45,14 @@ These are minimum family contracts. A package may add a narrower
 package-specific assertion when its public role is not proven by the family
 baseline, but the consumer gate is not a second unit-test suite.
 
+Dependency fixtures must take their platform libraries, required system
+libraries, compile definitions, and ABI settings from the existing production
+addon consumers. A fixture may omit workspace-only fallback paths, but it must
+not replace the production link surface with a smaller path that can pass while
+the real addon cannot link. When a dependency package supplies multiple primary
+libraries used by production addons, the fixture covers each of those libraries
+with the narrowest safe load or symbol probe.
+
 Pure JavaScript packages may run this gate in ordinary pull-request CI. Native
 packages whose installers download GitHub release assets pass the candidate
 archives to fresh platform jobs through workflow artifacts. Their install
