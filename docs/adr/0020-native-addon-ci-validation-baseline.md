@@ -27,8 +27,19 @@ graphics, hardware, or platform matrices. A package may deviate only for a
 specific documented constraint, with the exception kept narrow in its workflow
 or an ADR.
 
+Every native-addon repository that invokes `node-gyp` must declare and pin it
+in its own `devDependencies`. The root toolchain manifest carries the same pin,
+but packages remain independently installable and must not rely on npm's private
+bundled copy or on workspace hoisting. Native build commands must preserve
+compiler, linker, and build-system diagnostics rather than using quiet or silent
+modes.
+
 ## Consequences
 
 Native-addon CI has a common minimum contract while retaining specialized
 runtime coverage. Future CI reviews can compare the four baseline validators
 directly instead of inferring intent from neighboring repositories.
+
+The selected `node-gyp` version is explicit and reproducible across root and
+standalone package installs, while failed native builds retain actionable
+diagnostics.

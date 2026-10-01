@@ -73,6 +73,11 @@ Consumer build commands must preserve compiler, linker, and build-system
 diagnostics in CI. They must not use quiet or silent modes that reduce a failed
 build to an exit code without its underlying diagnostic.
 
+Consumer fixtures that compile native code must declare and pin `node-gyp`
+themselves rather than relying on npm's private bundled copy. This keeps the
+fixture toolchain explicit and allows new runner toolchains to be supported
+without waiting for a Node.js/npm distribution update.
+
 ## Consequences
 
 Release workflows gain an explicit producer-to-consumer boundary. Missing pack
