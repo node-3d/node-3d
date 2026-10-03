@@ -17,7 +17,10 @@ Inspect relevant `package.json` fields:
 - `publishConfig`.
 
 TS runtime packages normally expose `dist/index.js` and `dist/index.d.ts`.
-Dependency packages may intentionally expose root `index.js`/`index.d.ts`.
+Dependency packages may intentionally expose a minimal root
+`index.js`/`index.d.ts` pair under ADR 0018 rather than adding a bundler solely
+for a thin path/metadata entrypoint. Tests and build utilities do not share that
+JavaScript exception.
 
 Preserve existing Node3D metadata conventions unless the task intentionally
 changes them: every publishable `packages/*` package uses

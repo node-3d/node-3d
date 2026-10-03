@@ -23,8 +23,8 @@ wins over conflicting skills/references.
 - Do not edit/commit generated output as source: `dist/`, `.rslib/`, tarballs,
   native build folders, generated `.clang-format`.
 - Author Node-executed source, tests, examples, fixtures, and helper scripts in
-  TypeScript only. The sole authored JavaScript exception is package-root
-  `install.js`; see ADR 0018.
+  TypeScript only. Authored JavaScript is limited to package-root `install.js`
+  and a minimal package-root `index.js` entrypoint in `deps-*`; see ADR 0018.
 - Examples are repository-only: exclude package `examples/` from npm `files`,
   `dist/`, tarballs, and runtime dependencies.
 - Report validation exactly; build/type checks do not prove native runtime,

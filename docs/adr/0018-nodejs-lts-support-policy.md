@@ -42,15 +42,29 @@ older upstream-supported LTS line.
 
 The current development and ambient-type major is Node.js 24.
 
-All repository-authored files executed by Node.js use TypeScript. This includes
+Repository-authored files executed by Node.js use TypeScript. This includes
 package sources, tests, examples, consumer fixtures, build utilities, and CI
-helper scripts. Do not add authored `.js`, `.mjs`, or `.cjs` files.
+helper scripts. Do not add authored `.js`, `.mjs`, or `.cjs` files except for
+the two narrow published-package entrypoints below:
 
-The sole authored JavaScript exception is a package-root `install.js` used by
-the npm `postinstall` lifecycle. npm must be able to execute that file directly
-from the installed package before any package-specific TypeScript build or
-bundle exists. Node3D does not maintain parallel authored JavaScript entry
-points or helper files for TypeScript sources.
+- A package-root `install.js` used by the npm `postinstall` lifecycle. npm must
+  be able to execute that file directly from the installed package before any
+  package-specific TypeScript build or bundle exists.
+- A package-root `index.js` in a `deps-*` package when it is the package's
+  minimal published runtime entrypoint. Node.js cannot use an untranspiled
+  TypeScript file directly as an installed npm package entrypoint, while these
+  dependency packages only need a thin `getPaths()`-style export. Introducing
+  a TypeScript build and bundler for that deliberately small role has no
+  practical benefit.
+
+The dependency-package `index.js` exception is limited to a trivial path or
+metadata adapter. If an entrypoint becomes substantially more complex, reassess
+it as TypeScript source with generated publish output instead of expanding the
+authored JavaScript exception. Tests, fixtures, build utilities, and maintenance
+scripts in dependency packages remain TypeScript: they execute directly from
+the repository and are not published package entrypoints, so the npm entrypoint
+constraint does not apply. Node3D does not maintain parallel authored
+JavaScript helper files for TypeScript sources.
 
 Core and `uv-loop` provide the cross-version runtime CI anchors for the
 currently supported and next-LTS Node 22, Node 24, and Node 26 lines. Other
@@ -75,4 +89,6 @@ surface instead of accidentally adopting types from the newer Current release.
 
 Tests, examples, fixtures, and maintenance scripts execute their `.ts` files
 directly on the supported Node.js runtime, avoiding parallel JavaScript module
-conventions and unnecessary per-package script bundling.
+conventions and unnecessary per-package script bundling. Minimal published
+`deps-*` entrypoints remain direct `index.js` files until their complexity
+justifies a TypeScript build step.

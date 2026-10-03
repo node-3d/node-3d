@@ -11,13 +11,17 @@ Do not use this model for private or license-restricted SDK inputs; follow
 
 Typical dependency packages may intentionally use:
 
-- `index.js` / `index.d.ts`;
+- a minimal package-root `index.js` entrypoint plus `index.d.ts`, under the
+  narrow ADR 0018 exception for thin path/metadata exports;
 - platform-specific `bin-*` folders;
 - include/header directories;
 - thin `bin`/`include`/`getPaths()` style exports.
 
 Do not force Rslib, `ts/`, or native-addon `dist/` conventions onto a deps
-package without a concrete runtime reason.
+package merely to transpile a trivial entrypoint. If `index.js` grows beyond a
+thin adapter, reassess it as TypeScript source with generated publish output.
+Dependency-package tests, fixtures, build utilities, and maintenance scripts
+remain TypeScript.
 
 When binary/path layout changes, inspect consumers for imports/requires,
 `.bin`, `.include`, `getPaths(...)`, and `binding.gyp` variables.
