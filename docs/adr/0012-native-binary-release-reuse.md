@@ -55,9 +55,12 @@ Release review must check the binary tag in `install.js` independently from the
 package version. A package version bump alone is not sufficient reason to run a
 native binary workflow.
 
-Agents must not attempt OTP-blocked npm operations such as publish, unpublish,
-login, owner/access changes, or dist-tag changes. They should validate release
-state and return the exact `npm` commands for a user to run manually in an
-authenticated terminal. The commands should not include `--otp`; npm handles
-browser-based confirmation interactively for the user. npm publish output is
-sufficient confirmation unless the user asks for an additional registry check.
+Agents must not attempt authenticated npm operations locally, including publish,
+unpublish, login, owner/access changes, or dist-tag changes. The manually
+dispatched package workflows established by ADR 0002 publish through npm trusted
+publishing with GitHub Actions OIDC after their consumer gate passes. For an
+interactive fallback, agents should validate release state and return the exact
+`npm` commands for a user to run in an authenticated terminal. Those commands
+should not include `--otp`; npm handles browser-based confirmation
+interactively. npm publish output is sufficient confirmation unless the user
+asks for an additional registry check.

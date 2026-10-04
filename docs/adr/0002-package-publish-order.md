@@ -21,13 +21,22 @@ Packages must be available in the registry before dependents that reference
 them are published. Release validation should not rely on the monorepo to
 resolve dependencies that registry consumers need.
 
-Publishing remains local and agent-assisted. Agents prepare and validate package
-state, inspect `npm pack --dry-run`, and leave the final interactive
-`npm publish` command for the human operator because npm OTP prompts are
-terminal-interactive.
+Each standalone package repository maintains a manually dispatched
+`.github/workflows/publish.yml`. The workflow packs the package, installs the
+same tarball in an isolated consumer project with lifecycle scripts enabled,
+and publishes that tarball only after the consumer gate passes. npm trusted
+publishing authenticates the GitHub Actions job through OIDC, without a
+long-lived npm token or a browser keychain. Configure `publish.yml` as an
+allowed direct publisher for each package on npmjs.com before dispatching it.
 
-Dedicated package publish GitHub Actions are not maintained under the current
-release policy.
+Native binary releases remain separate from npm publication. The binary
+release and its consumer gates must succeed before dispatching the npm publish
+workflow for a package whose installer downloads those assets. The npm version
+does not by itself require a new binary release (ADR 0012).
+
+Agents may prepare and validate release state, but must not run authenticated
+npm operations locally. A human operator chooses when to dispatch a package's
+publish workflow and completes any npm-side trusted publisher setup.
 
 ## Consequences
 
@@ -35,7 +44,8 @@ Publishing in dependency order reduces failed consumer installs caused by
 missing packages.
 
 Release work requires explicit sequencing across package repositories rather
-than a single monorepo publish command.
+than a single monorepo publish command. Each package's workflow is registered
+separately as an npm trusted publisher.
 
 After publishing, verify registry state with `npm view` before moving on to
 dependent packages.
