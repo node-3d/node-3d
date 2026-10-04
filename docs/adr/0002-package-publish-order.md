@@ -22,11 +22,12 @@ them are published. Release validation should not rely on the monorepo to
 resolve dependencies that registry consumers need.
 
 Each standalone package repository maintains a manually dispatched
-`.github/workflows/publish.yml`. The workflow packs the package, installs the
-same tarball in an isolated consumer project with lifecycle scripts enabled,
-and publishes that tarball only after the consumer gate passes. npm trusted
-publishing authenticates the GitHub Actions job through OIDC, without a
-long-lived npm token or a browser keychain. Configure `publish.yml` as an
+`.github/workflows/publish.yml`. The workflow is a delivery step: it installs
+build dependencies when the package has a `prepack` build, then runs
+`npm publish`. It does not run tests or a consumer installation. Consumer
+validation belongs to CI acceptance before publication (ADR 0023). npm
+trusted publishing authenticates the GitHub Actions job through OIDC, without
+a long-lived npm token or a browser keychain. Configure `publish.yml` as an
 allowed direct publisher for each package on npmjs.com before dispatching it.
 
 Native binary releases remain separate from npm publication. The binary

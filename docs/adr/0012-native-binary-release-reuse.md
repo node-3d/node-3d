@@ -58,7 +58,7 @@ native binary workflow.
 Agents must not attempt authenticated npm operations locally, including publish,
 unpublish, login, owner/access changes, or dist-tag changes. The manually
 dispatched package workflows established by ADR 0002 publish through npm trusted
-publishing with GitHub Actions OIDC after their consumer gate passes. For an
+publishing with GitHub Actions OIDC after separate CI acceptance. For an
 interactive fallback, agents should validate release state and return the exact
 `npm` commands for a user to run in an authenticated terminal. Those commands
 should not include `--otp`; npm handles browser-based confirmation

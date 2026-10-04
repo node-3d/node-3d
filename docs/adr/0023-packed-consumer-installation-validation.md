@@ -14,7 +14,8 @@ native binary only loads on its build runner.
 
 ## Decision
 
-Every publishable Node3D package must have a release gate that:
+Packed consumer validation belongs to CI acceptance, before an npm publish
+attempt. As coverage is added across the publishable packages, the CI gate:
 
 1. builds and creates the actual npm tarball with `npm pack`;
 2. transfers only that tarball and the exact candidate artifacts produced by
@@ -65,9 +66,12 @@ lane passes, and npm publication follows separately.
 
 When an ordinary push or pull-request workflow already builds the same native
 candidate, it must run the consumer gate in a separate fresh job as well. The
-dispatch release workflow repeats that producer-to-consumer boundary for the
-exact artifacts it may release; success in one workflow does not stand in for
-the other workflow's candidate.
+dispatch native binary release workflow repeats that producer-to-consumer
+boundary for the exact artifacts it may release; success in one workflow does
+not stand in for the other workflow's candidate.
+
+The npm `publish.yml` workflow only delivers the package. It does not run the
+consumer gate or repeat repository tests.
 
 A repository consumer fixture may contain its own `tsconfig.json` to resolve the
 package self-import against local source for static validation. That config is
@@ -88,13 +92,14 @@ without waiting for a Node.js/npm distribution update.
 
 ## Consequences
 
-Release workflows gain an explicit producer-to-consumer boundary. Missing pack
-files, lifecycle failures, registry-only dependency failures, non-relocatable
-native dependencies, public-entry load failures, and platform archive mistakes
+CI acceptance and native binary release workflows gain an explicit
+producer-to-consumer boundary. Missing pack files, lifecycle failures,
+registry-only dependency failures, non-relocatable native dependencies,
+public-entry load failures, and platform archive mistakes
 are detected from the same perspective as an external npm installation.
 
 A failed consumer gate leaves no newly published GitHub release or npm package.
 
-The gate may be introduced package-by-package, but new packages must include it
-from their first release workflow and existing packages must add it when their
-release workflow is next changed.
+The gate may be introduced package-by-package. New packages must include it in
+CI from the outset; existing packages add it as their CI consumer coverage is
+implemented.

@@ -80,11 +80,12 @@ release conclusion.
 
 ## Packed Consumer Gate
 
-Before npm publication, install the actual `npm pack` tarball into an empty
-project with normal lifecycle scripts and registry dependency resolution. The
-consumer environment must not have workspace links or access to the source or
+As part of CI acceptance before npm publication, install the actual `npm pack`
+tarball into an empty project with normal lifecycle scripts and registry
+dependency resolution. The consumer environment must not have workspace links
+or access to the source or
 build tree. Load the public entry and run the narrowest package-specific smoke
-behavior needed.
+behavior needed. The npm `publish.yml` workflow does not repeat this gate.
 
 For native packages whose installers fetch GitHub release assets, build and
 transfer every candidate platform archive as a workflow artifact, then run the
