@@ -32,9 +32,12 @@ each repository:
 
 - `addon-tools` builds and loads a consumer-owned addon using the packed
   package's public helpers and headers;
-- dependency packages build and load a consumer-owned addon that includes the
-  dependency's public compilation surface, links the candidate library, and
-  calls one safe symbol so required runtime libraries are also loaded;
+- dependency packages with a public compilation and link surface build and load
+  a consumer-owned addon that includes that surface, links the candidate
+  library, and calls one safe symbol so required runtime libraries are also
+  loaded; runtime-only dependency packages instead build a consumer-owned
+  loader probe that opens the candidate runtime and verifies its packaged
+  dependency chain;
 - native addon packages load their public entry point and exercise the least
   invasive operation that proves the native module initialized;
 - `core` initializes the browser-like runtime at its lowest meaningful level;
@@ -53,6 +56,13 @@ not replace the production link surface with a smaller path that can pass while
 the real addon cannot link. When a dependency package supplies multiple primary
 libraries used by production addons, the fixture covers each of those libraries
 with the narrowest safe load or symbol probe.
+
+The link-surface requirement applies only when the dependency package
+intentionally publishes link artifacts. Runtime-only packages, including the Qt
+runtime packages, must not add import or static libraries that are absent from
+their package contract merely to satisfy the fixture. Their compiled loader
+probe must open the direct runtime library and verify the packaged base-runtime
+dependencies on which it relies.
 
 Pure JavaScript packages may run this gate in ordinary pull-request CI. Native
 packages whose installers download GitHub release assets pass the candidate
