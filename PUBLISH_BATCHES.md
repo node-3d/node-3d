@@ -15,6 +15,17 @@ Dependency range policy is defined by
 
 ## How to use the batches
 
+- Treat the package rows under each batch heading as the authoritative and
+  exhaustive scope for that batch. Before preparing, validating, or publishing
+  a batch, read this file from the current root checkout and state the exact
+  package names from those rows. Do not infer the batch from memory, dependency
+  intuition, CI readiness, or packages that happen to have pending releases.
+- Compare the stated package names and count with the table again immediately
+  before dispatching publish workflows. A package listed in a later batch stays
+  in that later batch even if it is already prepared and its CI is green.
+- Run `npm run packages:graph` before beginning the batch. If the current graph
+  disagrees with the table, stop and update this document before preparing or
+  publishing anything; do not silently substitute a recomputed batch.
 - Complete Batch 0 first, then work through the numbered batches in order.
 - Packages within one batch have no dependencies on each other and may be
   prepared, validated, and published in parallel.
@@ -29,8 +40,10 @@ Dependency range policy is defined by
 - A root-workspace build is useful but is not a registry availability check.
   Each release candidate still needs its package-specific validation, dry-run
   pack inspection, and isolated packed-consumer gate.
-- The human operator runs the authenticated `npm publish` command. Agents do
-  not run npm operations that require authentication.
+- When npm trusted publishing is configured, publication uses the package's
+  manually dispatched GitHub `publish.yml` workflow after explicit user
+  authorization. Otherwise, the human operator runs `npm publish`. Agents do
+  not run local npm operations that require authentication.
 - Record package commits before updating the root superproject's submodule
   pointers. Update the root lockfile only when it is in scope for the wave.
 
