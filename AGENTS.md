@@ -46,8 +46,11 @@ Inspection and task-required edits are allowed.
 - Publishing prep does not authorize unrelated commits, tags,
   GitHub releases/assets, or changes outside the release scope.
 - Tags/releases require explicit authorization.
-- Never run npm operations that require authentication. Validate and
-  give the intended command to the user instead.
+- Never run local npm operations that require authentication. npm publication
+  uses the package's manually dispatched `.github/workflows/publish.yml` with
+  npm trusted publishing, and still requires explicit user authorization. A
+  missing workflow or trusted-publisher connection blocks publication; do not
+  fall back to a local authenticated `npm publish`.
 
 Before any commit/push/tag/release action, re-check authorization and name the
 repositories affected.

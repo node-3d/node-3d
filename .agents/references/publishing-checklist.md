@@ -32,9 +32,13 @@ express consumer compatibility; and emitted-code packages keep `tslib` as a
 direct dependency at the project-approved version. See
 `docs/adr/0021-internal-and-external-dependency-ranges.md`.
 
-Recommend bare `npm publish`. Public access is a manifest invariant, not a
-`--access public` CLI flag. The root superproject and repository-only example
-manifests are intentionally private and are not publish targets.
+The package's manually dispatched `.github/workflows/publish.yml` is the only
+supported npm publication path and uses npm trusted publishing. Its internal
+command is bare `npm publish`; public access is a manifest invariant, not a
+`--access public` CLI flag. Do not run or recommend a local authenticated
+publication fallback. A missing workflow or trusted-publisher connection blocks
+publication. The root superproject and repository-only example manifests are
+intentionally private and are not publish targets.
 
 ## Registry Availability Verification
 
@@ -136,4 +140,5 @@ Before declaring state publish-ready, verify the relevant standalone package and
 root superproject are clean and synchronized with their remotes if those remotes
 are part of the requested preparation.
 
-Authenticated npm operations remain user-controlled per root `AGENTS.md`.
+Authenticated local npm operations remain prohibited per root `AGENTS.md`.
+Dispatch the trusted-publishing workflow only after explicit user authorization.

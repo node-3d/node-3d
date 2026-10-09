@@ -40,10 +40,10 @@ Dependency range policy is defined by
 - A root-workspace build is useful but is not a registry availability check.
   Each release candidate still needs its package-specific validation, dry-run
   pack inspection, and isolated packed-consumer gate.
-- When npm trusted publishing is configured, publication uses the package's
-  manually dispatched GitHub `publish.yml` workflow after explicit user
-  authorization. Otherwise, the human operator runs `npm publish`. Agents do
-  not run local npm operations that require authentication.
+- Publication uses the package's manually dispatched GitHub `publish.yml`
+  workflow with npm trusted publishing after explicit user authorization. A
+  missing workflow or npm-side trusted-publisher connection blocks publication;
+  do not fall back to a local authenticated `npm publish`.
 - Record package commits before updating the root superproject's submodule
   pointers. Update the root lockfile only when it is in scope for the wave.
 

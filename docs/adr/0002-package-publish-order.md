@@ -29,6 +29,9 @@ validation belongs to CI acceptance before publication (ADR 0023). npm
 trusted publishing authenticates the GitHub Actions job through OIDC, without
 a long-lived npm token or a browser keychain. Configure `publish.yml` as an
 allowed direct publisher for each package on npmjs.com before dispatching it.
+This is the only supported npm publication path. A missing workflow or
+npm-side trusted-publisher connection blocks publication; maintainers and
+agents must not fall back to an authenticated local `npm publish`.
 
 Native binary releases remain separate from npm publication. The binary
 release and its consumer gates must succeed before dispatching the npm publish
@@ -36,8 +39,9 @@ workflow for a package whose installer downloads those assets. The npm version
 does not by itself require a new binary release (ADR 0012).
 
 Agents may prepare and validate release state, but must not run authenticated
-npm operations locally. A human operator chooses when to dispatch a package's
-publish workflow and completes any npm-side trusted publisher setup.
+npm operations locally. A human operator completes the npm-side trusted
+publisher setup and explicitly authorizes each publish dispatch; an agent may
+dispatch the package workflow only with that authorization.
 
 ## Consequences
 

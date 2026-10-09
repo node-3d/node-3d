@@ -30,9 +30,12 @@ commit, push, tag, release, or registry operations.
 7. Before declaring publish-ready, verify requested package/root state is clean,
    coherent, and synchronized with remotes where required by the task.
 8. Every publishable `packages/*` package is public by project policy. Require
-   `publishConfig.access: public` in its manifest and recommend bare
-   `npm publish`; never add `--access public` or offer private-package paths.
-   Give authenticated npm commands to the user; do not run them.
+   `publishConfig.access: public` in its manifest. After explicit user
+   authorization, publish only by manually dispatching the package's
+   `.github/workflows/publish.yml` trusted-publishing workflow. Never run or
+   recommend a local authenticated `npm publish`, add `--access public`, or
+   offer private-package paths. A missing workflow or trusted-publisher
+   connection is a publication blocker.
 
 ## Load References
 

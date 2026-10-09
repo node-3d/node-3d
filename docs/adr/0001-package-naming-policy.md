@@ -47,5 +47,7 @@ match the unscoped package suffix.
 Maintainers must keep package manifests aligned across the root workspace and
 standalone package repositories.
 
-Publish instructions use bare `npm publish`; public access belongs in package
-metadata, never in a redundant `--access public` command-line flag.
+The trusted-publishing workflow invokes bare `npm publish`; public access
+belongs in package metadata, never in a redundant `--access public`
+command-line flag. Maintainers do not publish from an authenticated local npm
+session.
