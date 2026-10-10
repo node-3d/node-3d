@@ -210,6 +210,10 @@ Future vendor examples should use their own directory, such as
 
 Native addon release archives are built for Windows x64/ARM64, Linux
 x64/ARM64, and macOS x64/ARM64 where the package supports those platforms.
+The [platform support matrix](docs/platform-support.md) records the published
+binary tags, Windows Visual C++ runtime requirement, Linux glibc floors, and
+package-specific exceptions. In particular, the Linux ARM64 Qt/QML stack
+requires glibc 2.38; the other current Linux addon chains require at most 2.34.
 
 Most addons rely on Node-API for ABI compatibility across Node.js versions.
 Addons that call Node's embedded libuv directly can require Node-major-specific
