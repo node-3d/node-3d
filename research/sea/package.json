@@ -1,0 +1,21 @@
+{
+  "name": "@node-3d/research-sea",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0",
+    "npm": ">=10.9.0"
+  },
+  "scripts": {
+    "build": "node scripts/build.ts"
+  },
+  "dependencies": {
+    "@node-3d/core": "6.4.1",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "postject": "1.0.0-alpha.6"
+  }
+}

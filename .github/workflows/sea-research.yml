@@ -1,0 +1,49 @@
+name: SEA research artifact
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'research/sea/**'
+      - '.github/workflows/sea-research.yml'
+  pull_request:
+    paths:
+      - 'research/sea/**'
+      - '.github/workflows/sea-research.yml'
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: research/sea
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: research/sea/package-lock.json
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - name: Archive complete game directory
+        run: tar -czf Node3D-SEA-${{ runner.os }}.tar.gz -C dist .
+      - name: Load packaged Node3D without a display
+        shell: pwsh
+        run: |
+          if ($IsWindows) {
+            & ./dist/Node3D-SEA.exe --smoke
+          } else {
+            & ./dist/Node3D-SEA --smoke
+          }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: node3d-sea-${{ matrix.os }}
+          path: research/sea/Node3D-SEA-${{ runner.os }}.tar.gz
+          if-no-files-found: warn
