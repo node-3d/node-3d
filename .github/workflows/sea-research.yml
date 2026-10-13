@@ -32,15 +32,15 @@ jobs:
       - run: npm run build
       - name: Archive complete game directory
         run: tar -czf Node3D-SEA-${{ runner.os }}.tar.gz -C dist .
-      - name: Load packaged Node3D without a display
-        shell: pwsh
-        run: |
-          if ($IsWindows) {
-            & ./dist/Node3D-SEA.exe --smoke
-          } else {
-            & ./dist/Node3D-SEA --smoke
-          }
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Load packaged Node3D on Windows
+        if: runner.os == 'Windows'
+        run: ./dist/Node3D-SEA.exe --smoke
+      - name: Prepare a Linux display
+        if: runner.os == 'Linux'
+        run: command -v xvfb-run || (sudo apt-get update && sudo apt-get install -y xvfb)
+      - name: Load packaged Node3D on Linux
+        if: runner.os == 'Linux'
+        run: xvfb-run -a ./dist/Node3D-SEA --smoke
       - uses: actions/upload-artifact@v4
         if: always()
         with:

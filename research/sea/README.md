@@ -20,7 +20,8 @@ alone is insufficient. On Windows this research build is unsigned and may open
 a console window.
 
 Run the executable with `--smoke` to load Node3D's public entry and native
-dependencies without creating a window. For example:
+dependencies without creating a game window. GLFW still requires a display
+context on Linux, so CI runs the smoke check under Xvfb. For example:
 
 ```console
 dist/Node3D-SEA.exe --smoke
