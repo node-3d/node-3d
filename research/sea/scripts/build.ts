@@ -1,8 +1,9 @@
 import { execFileSync } from 'node:child_process';
 import { copyFile, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { stripTypeScriptTypes } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { build } from 'esbuild';
+import { createRsbuild } from '@rsbuild/core';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -24,31 +25,26 @@ await rm(temp, { recursive: true, force: true });
 await mkdir(app, { recursive: true });
 await mkdir(temp, { recursive: true });
 
-await build({
-	entryPoints: [path.join(root, 'src', 'main.ts')],
-	outfile: path.join(app, 'main.js'),
-	platform: 'node',
-	format: 'esm',
-	bundle: false,
-	target: 'node24',
+const rsbuild = await createRsbuild({
+	cwd: root,
+	config: {
+		source: { entry: { main: './src/main.ts' } },
+		output: {
+			target: 'node',
+			module: true,
+			autoExternal: true,
+			cleanDistPath: false,
+			distPath: { root: app, js: './' },
+			filename: { js: '[name].js' },
+		},
+	},
 });
-await build({
-	entryPoints: [path.join(root, 'src', 'entry.ts')],
-	outfile: path.join(app, 'entry.cjs'),
-	platform: 'node',
-	format: 'cjs',
-	bundle: false,
-	target: 'node24',
-});
+await rsbuild.build();
+const entrySource = await readFile(path.join(root, 'src', 'entry.ts'), 'utf8');
+await writeFile(path.join(app, 'entry.cjs'), stripTypeScriptTypes(entrySource));
 const seaMain = path.join(temp, 'sea-main.cjs');
-await build({
-	entryPoints: [path.join(root, 'src', 'sea-main.ts')],
-	outfile: seaMain,
-	platform: 'node',
-	format: 'cjs',
-	bundle: true,
-	target: 'node24',
-});
+const seaSource = await readFile(path.join(root, 'src', 'sea-main.ts'), 'utf8');
+await writeFile(seaMain, stripTypeScriptTypes(seaSource));
 
 const manifest = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8')) as Record<string, unknown>;
 delete manifest.devDependencies;

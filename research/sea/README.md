@@ -5,6 +5,9 @@ OS/architecture with Node.js 24. It creates a single executable application
 that opens a small Node3D/Three.js window. The executable
 contains a bootstrap; `dist/app` contains the generated game entry, production
 `node_modules`, and native addon/library directories in their installed layout.
+Rsbuild bundles the application TypeScript into `app/main.js` and may emit
+additional JavaScript chunks there. Production packages such as `@node-3d/core`
+and `three` remain external and are loaded from `app/node_modules` at runtime.
 
 From this directory, using Node.js 24 and npm 10.9 or newer:
 
@@ -36,5 +39,7 @@ from the downloaded archive. These checks prove rendering on the CI runners, not
 integration, or every player's graphics driver.
 
 The embedded SEA entry uses `createRequire()` to load `app/entry.cjs` from disk.
-That file imports `app/main.js` using normal ESM loading. This keeps Node3D's
-package-relative `.node` paths and native dependency directories intact.
+That file imports the Rsbuild output `app/main.js` using normal ESM loading.
+The small CommonJS bootstrap and bridge are stripped from their TypeScript
+sources with Node.js during packaging. This keeps Node3D's package-relative
+`.node` paths and native dependency directories intact.
