@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@node-3d/core": "6.4.1",
+    "@node-3d/glfw": "7.4.1",
     "three": "0.186.1"
   },
   "devDependencies": {

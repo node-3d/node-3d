@@ -19,20 +19,21 @@ Escape to exit. Copy or archive the **whole** `dist` directory; the executable
 alone is insufficient. On Windows this research build is unsigned and may open
 a console window.
 
-Run the executable with `--smoke` to load Node3D's public entry and native
-dependencies without creating a game window. GLFW still requires a display
-context on Linux, so CI runs the smoke check under Xvfb. For example:
+Run the executable with `--render-check` to initialize the game, draw its cube,
+read framebuffer pixels, and exit. This uses a hidden window or headless context;
+Linux needs a display server such as Xvfb. For example:
 
 ```console
-dist/Node3D-SEA.exe --smoke
+dist/Node3D-SEA.exe --render-check
 ```
 
-The GitHub Actions workflow builds Windows and Linux tarballs. Separate consumer
-jobs download each artifact into a fresh runner without checking out the source
-or installing Node/npm dependencies, then run `--smoke` from outside the extracted
-directory. This proves the archived executable can load its staged Node3D
-dependencies. It does not prove rendering, sound, Steam integration, or operation
-on a clean player's machine; run the downloaded executable there.
+The GitHub Actions workflow builds archives for Windows, Linux, and macOS on
+x64 and ARM64. Separate consumer jobs download each artifact into a fresh runner
+and run `--render-check` from outside the extracted directory, using the same
+headless graphics setup as Core CI. macOS consumers check out Core only for its
+headless GL setup script; the executable and packages load from the downloaded
+archive. These checks prove rendering on the CI runners, not sound, Steam
+integration, or every player's graphics driver.
 
 The embedded SEA entry uses `createRequire()` to load `app/entry.cjs` from disk.
 That file imports `app/main.js` using normal ESM loading. This keeps Node3D's

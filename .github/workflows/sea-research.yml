@@ -16,7 +16,25 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-24.04]
+        include:
+          - target: windows-x64
+            os: windows-2022
+            arch: x64
+          - target: windows-arm64
+            os: windows-11-arm
+            arch: arm64
+          - target: linux-x64
+            os: ubuntu-22.04
+            arch: x64
+          - target: linux-arm64
+            os: ubuntu-22.04-arm
+            arch: arm64
+          - target: darwin-x64
+            os: macos-26-intel
+            arch: x64
+          - target: darwin-arm64
+            os: macos-26
+            arch: arm64
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -25,52 +43,97 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '24.13.0'
+          architecture: ${{ matrix.arch }}
           cache: npm
           cache-dependency-path: research/sea/package-lock.json
       - run: npm ci --ignore-scripts
       - run: npm run build
       - name: Archive complete game directory
-        run: tar -czf Node3D-SEA-${{ runner.os }}.tar.gz -C dist .
+        run: tar -czf Node3D-SEA-${{ matrix.target }}.tar.gz -C dist .
       - uses: actions/upload-artifact@v4
         with:
-          name: node3d-sea-${{ matrix.os }}
-          path: research/sea/Node3D-SEA-${{ runner.os }}.tar.gz
+          name: node3d-sea-${{ matrix.target }}
+          path: research/sea/Node3D-SEA-${{ matrix.target }}.tar.gz
           if-no-files-found: error
 
   consumer:
-    name: SEA consumer (${{ matrix.os }})
+    name: SEA render consumer (${{ matrix.target }})
     needs: build
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-24.04]
+        include:
+          - target: windows-x64
+            os: windows-2022
+            arch: x64
+          - target: windows-arm64
+            os: windows-11-arm
+            arch: arm64
+          - target: linux-x64
+            os: ubuntu-22.04
+            arch: x64
+          - target: linux-arm64
+            os: ubuntu-22.04-arm
+            arch: arm64
+          - target: darwin-x64
+            os: macos-26-intel
+            arch: x64
+          - target: darwin-arm64
+            os: macos-26
+            arch: arm64
     runs-on: ${{ matrix.os }}
     steps:
       - name: Download SEA candidate
         uses: actions/download-artifact@v4
         with:
-          name: node3d-sea-${{ matrix.os }}
+          name: node3d-sea-${{ matrix.target }}
           path: ${{ runner.temp }}/node3d-sea-candidate
       - name: Extract SEA candidate outside the checkout
         shell: pwsh
         run: |
           $destination = Join-Path $env:RUNNER_TEMP 'node3d-sea-consumer'
           New-Item -ItemType Directory -Path $destination | Out-Null
-          $archive = Join-Path $env:RUNNER_TEMP 'node3d-sea-candidate/Node3D-SEA-${{ runner.os }}.tar.gz'
+          $archive = Join-Path $env:RUNNER_TEMP 'node3d-sea-candidate/Node3D-SEA-${{ matrix.target }}.tar.gz'
           tar -xzf $archive -C $destination
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: ssciwr/setup-mesa-dist-win@v3
+        if: matrix.target == 'windows-x64'
+      - name: Install OpenGL Compatibility Pack - Windows ARM
+        if: matrix.target == 'windows-arm64'
+        shell: pwsh
+        run: |
+          $url = "https://github.com/microsoft/OpenCLOn12/releases/download/v1.2404.1.0/Universal_D3DMappingLayers_1.2404.1.0_arm64.appx"
+          $file = Join-Path $env:RUNNER_TEMP 'd3d-mapping-layers-arm64.appx'
+          Invoke-WebRequest -Uri $url -OutFile $file
+          Add-AppxPackage -Path $file
       - name: Prepare a Linux display
         if: runner.os == 'Linux'
         run: command -v xvfb-run || (sudo apt-get update && sudo apt-get install -y xvfb)
-      - name: Load archived Node3D on Windows
+      - name: Get Core macOS headless GL setup
+        if: runner.os == 'macOS'
+        uses: actions/checkout@v4
+        with:
+          repository: node-3d/core
+          ref: 67e41dc0b7bf2a270d56b8afbebe93e4ef99768b
+          path: .ci-core
+          persist-credentials: false
+      - name: Prepare macOS headless GL
+        if: runner.os == 'macOS'
+        working-directory: ${{ runner.temp }}/node3d-sea-consumer/app
+        run: bash "$GITHUB_WORKSPACE/.ci-core/.github/scripts/setup-macos-gl.sh" ${{ matrix.arch }}
+      - name: Render archived Node3D on Windows
         if: runner.os == 'Windows'
         shell: pwsh
         working-directory: ${{ runner.temp }}
         run: |
-          & ./node3d-sea-consumer/Node3D-SEA.exe --smoke
+          & ./node3d-sea-consumer/Node3D-SEA.exe --render-check
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Load archived Node3D on Linux
+      - name: Render archived Node3D on Linux
         if: runner.os == 'Linux'
         working-directory: ${{ runner.temp }}
-        run: xvfb-run -a ./node3d-sea-consumer/Node3D-SEA --smoke
+        run: xvfb-run -a ./node3d-sea-consumer/Node3D-SEA --render-check
+      - name: Render archived Node3D on macOS
+        if: runner.os == 'macOS'
+        working-directory: ${{ runner.temp }}
+        run: ./node3d-sea-consumer/Node3D-SEA --render-check
