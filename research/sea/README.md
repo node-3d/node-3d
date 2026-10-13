@@ -30,9 +30,9 @@ dist/Node3D-SEA.exe --render-check
 The GitHub Actions workflow builds archives for Windows, Linux, and macOS on
 x64 and ARM64. Separate consumer jobs download each artifact into a fresh runner
 and run `--render-check` from outside the extracted directory, using the same
-headless graphics setup as Core CI. macOS consumers check out Core only for its
-headless GL setup script; the executable and packages load from the downloaded
-archive. These checks prove rendering on the CI runners, not sound, Steam
+headless graphics setup as Core CI. macOS consumers check out this repository
+only for the copied headless GL setup script; the executable and packages load
+from the downloaded archive. These checks prove rendering on the CI runners, not sound, Steam
 integration, or every player's graphics driver.
 
 The embedded SEA entry uses `createRequire()` to load `app/entry.cjs` from disk.
