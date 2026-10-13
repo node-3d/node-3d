@@ -32,18 +32,45 @@ jobs:
       - run: npm run build
       - name: Archive complete game directory
         run: tar -czf Node3D-SEA-${{ runner.os }}.tar.gz -C dist .
-      - name: Load packaged Node3D on Windows
-        if: runner.os == 'Windows'
-        run: ./dist/Node3D-SEA.exe --smoke
-      - name: Prepare a Linux display
-        if: runner.os == 'Linux'
-        run: command -v xvfb-run || (sudo apt-get update && sudo apt-get install -y xvfb)
-      - name: Load packaged Node3D on Linux
-        if: runner.os == 'Linux'
-        run: xvfb-run -a ./dist/Node3D-SEA --smoke
       - uses: actions/upload-artifact@v4
-        if: always()
         with:
           name: node3d-sea-${{ matrix.os }}
           path: research/sea/Node3D-SEA-${{ runner.os }}.tar.gz
-          if-no-files-found: warn
+          if-no-files-found: error
+
+  consumer:
+    name: SEA consumer (${{ matrix.os }})
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Download SEA candidate
+        uses: actions/download-artifact@v4
+        with:
+          name: node3d-sea-${{ matrix.os }}
+          path: ${{ runner.temp }}/node3d-sea-candidate
+      - name: Extract SEA candidate outside the checkout
+        shell: pwsh
+        run: |
+          $destination = Join-Path $env:RUNNER_TEMP 'node3d-sea-consumer'
+          New-Item -ItemType Directory -Path $destination | Out-Null
+          $archive = Join-Path $env:RUNNER_TEMP 'node3d-sea-candidate/Node3D-SEA-${{ runner.os }}.tar.gz'
+          tar -xzf $archive -C $destination
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Prepare a Linux display
+        if: runner.os == 'Linux'
+        run: command -v xvfb-run || (sudo apt-get update && sudo apt-get install -y xvfb)
+      - name: Load archived Node3D on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        working-directory: ${{ runner.temp }}
+        run: |
+          & ./node3d-sea-consumer/Node3D-SEA.exe --smoke
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Load archived Node3D on Linux
+        if: runner.os == 'Linux'
+        working-directory: ${{ runner.temp }}
+        run: xvfb-run -a ./node3d-sea-consumer/Node3D-SEA --smoke

@@ -27,10 +27,12 @@ context on Linux, so CI runs the smoke check under Xvfb. For example:
 dist/Node3D-SEA.exe --smoke
 ```
 
-The GitHub Actions workflow uploads Windows and Linux tarballs as downloadable
-artifacts. CI also runs `--smoke`, proving the built executable can load Node3D
-on its build runner. It does not prove rendering, sound, Steam integration, or
-operation on a clean player's machine; run the downloaded executable there.
+The GitHub Actions workflow builds Windows and Linux tarballs. Separate consumer
+jobs download each artifact into a fresh runner without checking out the source
+or installing Node/npm dependencies, then run `--smoke` from outside the extracted
+directory. This proves the archived executable can load its staged Node3D
+dependencies. It does not prove rendering, sound, Steam integration, or operation
+on a clean player's machine; run the downloaded executable there.
 
 The embedded SEA entry uses `createRequire()` to load `app/entry.cjs` from disk.
 That file imports `app/main.js` using normal ESM loading. This keeps Node3D's
