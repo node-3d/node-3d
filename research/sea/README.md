@@ -5,9 +5,10 @@ OS/architecture with Node.js 24. It creates a single executable application
 that opens a small Node3D/Three.js window. The executable
 contains a bootstrap; `dist/app` contains the generated game entry, production
 `node_modules`, and native addon/library directories in their installed layout.
-Rsbuild bundles the application TypeScript into `app/main.js` and may emit
-additional JavaScript chunks there. Production packages such as `@node-3d/core`
-and `three` remain external and are loaded from `app/node_modules` at runtime.
+Rsbuild bundles and minifies the application TypeScript into `app/main.js` and
+may emit additional JavaScript chunks there. Production packages such as
+`@node-3d/core` and `three` remain external and are loaded from
+`app/node_modules` at runtime.
 
 From this directory, using Node.js 24 and npm 10.9 or newer:
 

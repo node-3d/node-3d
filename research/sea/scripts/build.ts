@@ -33,6 +33,7 @@ const rsbuild = await createRsbuild({
 			target: 'node',
 			module: true,
 			autoExternal: true,
+			minify: true,
 			cleanDistPath: false,
 			distPath: { root: app, js: './' },
 			filename: { js: '[name].js' },
