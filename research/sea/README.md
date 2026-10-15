@@ -44,3 +44,38 @@ That file imports the Rsbuild output `app/main.js` using normal ESM loading.
 The small CommonJS bootstrap and bridge are stripped from their TypeScript
 sources with Node.js during packaging. This keeps Node3D's package-relative
 `.node` paths and native dependency directories intact.
+
+## Bytecode packaging research
+
+The original [`vercel/pkg`](https://github.com/vercel/pkg) is archived. Its
+maintained fork, [`@yao-pkg/pkg`](https://yao-pkg.github.io/pkg/), has two
+relevant modes:
+
+| Mode | JavaScript delivery | Node.js binary |
+| --- | --- | --- |
+| This experiment | Minified `app/main.js` and chunks remain on disk | Stock Node.js 24 with a SEA bootstrap |
+| `pkg` Standard | V8 bytecode without the original JavaScript source | Patched Node.js with a virtual filesystem |
+| `pkg` Enhanced SEA | Source embedded in the executable | Stock Node.js with a virtual filesystem |
+
+See the fork's [mode comparison](https://yao-pkg.github.io/pkg/guide/sea-vs-standard)
+and [bytecode guide](https://yao-pkg.github.io/pkg/guide/bytecode). Bytecode
+raises the effort of recovering application logic; it is not encryption.
+Native `.node` addons still need real files, so `pkg` extracts them to a cache
+before loading them. Node3D's addon paths and dependent libraries would need
+their own packaging and render validation with `pkg`; this experiment has not
+tested that path. See the [native addon guide](https://yao-pkg.github.io/pkg/guide/native-addons).
+
+Stock Node.js SEA's `useCodeCache: true` is not a source-free bytecode option:
+it embeds a V8 code cache alongside the source of the SEA main script. On the
+Node.js 24 version used here, it also does not support `import()` in that script.
+Our SEA main script is only a bootstrap; enabling its code cache would not
+transform the on-disk `app/main.js`. See [Node.js 24 code cache support](https://nodejs.org/download/release/v24.13.0/docs/api/single-executable-applications.html#v8-code-cache-support).
+
+`useSnapshot: true` is a different stock SEA mechanism. It runs setup code at
+build time and serializes a V8 startup state with a function to run after
+deserialization. It may be worth a separate experiment for application logic,
+but it is not `pkg`'s per-module bytecode format, and this game's native
+initialization and module loading have not been tested with it. See
+[Node.js 24 snapshot support](https://nodejs.org/download/release/v24.13.0/docs/api/single-executable-applications.html#startup-snapshot-support).
+A dedicated source-free bytecode API in Node.js remains an
+[open proposal](https://github.com/nodejs/node/issues/62670).
